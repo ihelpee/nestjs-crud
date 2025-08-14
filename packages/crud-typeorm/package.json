@@ -14,10 +14,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/nest4it/nestjs-crud"
+    "url": "https://github.com/ihelpee/nestjs-crud"
   },
   "bugs": {
-    "url": "https://github.com/nest4it/nestjs-crud/issues"
+    "url": "https://github.com/ihelpee/nestjs-crud/issues"
   },
   "keywords": [
     "typescript",

@@ -101,7 +101,9 @@ export class CrudRoutesFactory {
     // merge routes config
     const routes = isObjectFull(this.options.routes) ? this.options.routes : {};
     this.options.routes = deepmerge(CrudConfigService.config.routes, routes, {
-      arrayMerge: (target, source, opts) => source,
+      arrayMerge: (target, source, opts) => [
+        ...new Set([...(target || []), ...(source || [])]),
+      ],
     });
 
     // merge operators config
@@ -316,11 +318,23 @@ export class CrudRoutesFactory {
         this.setBaseRouteMeta(route.name);
       }
 
+      // if (route.withParams && primaryParams.length > 0) {
+      //   route.path =
+      //     route.path !== '/'
+      //       ? `${primaryParams.map((param) => `/:${param}`).join('')}${route.path}`
+      //       : primaryParams.map((param) => `/:${param}`).join('');
+      // }
+
       if (route.withParams && primaryParams.length > 0) {
         route.path =
           route.path !== '/'
             ? `${primaryParams.map((param) => `/:${param}`).join('')}${route.path}`
             : primaryParams.map((param) => `/:${param}`).join('');
+      }
+
+      // fix nest 11 route pattern
+      if (route.path.includes('/*') && !route.path.includes('*path')) {
+        route.path = route.path.replace('/*', '/*path');
       }
     });
   }
