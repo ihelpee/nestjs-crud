@@ -136,3 +136,10 @@ export function validateUUID(str: string, name: string) {
     throw new RequestQueryException(`Invalid param ${name}. UUID string expected`);
   }
 }
+
+export function validateULID(str: string, name: string) {
+  const ulid = /^([a-z]+_)?[0-9a-hjkmnp-tv-z]{26}$/i;
+  if (!ulid.test(str)) {
+    throw new RequestQueryException(`Invalid param ${name}. ULID string expected`);
+  }
+}

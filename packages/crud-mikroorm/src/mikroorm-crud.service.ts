@@ -349,7 +349,6 @@ export class MikroOrmCrudService<
         return { [field]: { $overlap: value } };
       default:
         throw new Error(`Operator(${operator}) is not supported!`);
-        return {};
     }
   }
 

@@ -28,11 +28,11 @@ import {
   isUndefined,
   objKeys,
 } from '@ihelpee/crud-util';
-import { plainToClass } from 'class-transformer';
+import { plainToClass, plainToInstance } from 'class-transformer';
 import {
   Brackets,
   ColumnType,
-  ConnectionOptions,
+  DataSourceOptions,
   DeepPartial,
   EntityMetadata,
   ObjectLiteral,
@@ -52,17 +52,17 @@ interface IAllowedRelation {
 }
 
 export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
-  protected dbName: ConnectionOptions['type'];
+  protected dbName: DataSourceOptions['type'];
   protected entityColumns: string[];
   protected entityPrimaryColumns: string[];
   protected entityHasDeleteColumn: boolean = false;
   protected entityColumnsHash: ObjectLiteral = {};
   protected entityRelationsHash: Map<string, IAllowedRelation> = new Map();
   protected sqlInjectionRegEx: RegExp[] = [
-    /(%27)|(\')|(--)|(%23)|(#)/gi,
-    /((%3D)|(=))[^\n]*((%27)|(\')|(--)|(%3B)|(;))/gi,
-    /w*((%27)|(\'))((%6F)|o|(%4F))((%72)|r|(%52))/gi,
-    /((%27)|(\'))union/gi,
+    /(%27)|(')|(--)|(%23)|(#)/gi,
+    /((%3D)|(=))[^\n]*((%27)|(')|(--)|(%3B)|(;))/gi,
+    /w*((%27)|('))((%6F)|o|(%4F))((%72)|r|(%52))/gi,
+    /((%27)|('))union/gi,
   ];
 
   constructor(protected repo: Repository<T>) {
@@ -190,7 +190,7 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
       ? { ...found, ...dto, ...paramsFilters, ...req.parsed.authPersist }
       : { ...found, ...dto, ...req.parsed.authPersist };
     const updated = await this.repo.save(
-      plainToClass(
+      plainToInstance(
         this.entityType,
         toSave,
         req.parsed.classTransformOptions,
@@ -211,7 +211,6 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
   /**
    * Recover one
    * @param req
-   * @param dto
    */
   public async recoverOne(req: CrudRequest): Promise<T> {
     // disable cache while recovering
@@ -240,7 +239,7 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
           ...req.parsed.authPersist,
         };
     const replaced = await this.repo.save(
-      plainToClass(
+      plainToInstance(
         this.entityType,
         toSave,
         req.parsed.classTransformOptions,

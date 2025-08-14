@@ -34,7 +34,7 @@ describe('#crud', () => {
     });
 
     afterAll(async () => {
-      app.close();
+      await app.close();
     });
 
     describe('#recoverOneBase', () => {
@@ -72,7 +72,7 @@ describe('#crud', () => {
     });
 
     afterAll(async () => {
-      app.close();
+      await app.close();
     });
 
     describe('#recoverOneBase', () => {

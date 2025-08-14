@@ -96,7 +96,7 @@ describe('#crud', () => {
     });
 
     afterAll(async () => {
-      app.close();
+      await app.close();
     });
 
     it('should use global config', async () => {

@@ -37,7 +37,7 @@ describe('#crud', () => {
     });
 
     afterAll(async () => {
-      app.close();
+      await app.close();
     });
 
     describe('#getManyBase excluded', () => {
@@ -75,7 +75,7 @@ describe('#crud', () => {
     });
 
     afterAll(async () => {
-      app.close();
+      await app.close();
     });
 
     describe('#getManyBase only', () => {

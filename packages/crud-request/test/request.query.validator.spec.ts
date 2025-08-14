@@ -1,4 +1,8 @@
-import { validateComparisonOperator, validateUUID } from '../src/request-query.validator';
+import {
+  validateComparisonOperator,
+  validateULID,
+  validateUUID,
+} from '../src/request-query.validator';
 
 describe('#request-query', () => {
   describe('#validator', () => {
@@ -15,6 +19,18 @@ describe('#request-query', () => {
       });
       it('should pass, 2', () => {
         expect(validateUUID(uuidV4, '')).toBeUndefined();
+      });
+    });
+
+    describe('#validateULID', () => {
+      const ulid = '01ARZ3NDEKTSV4RRFFQ69G5FAV';
+      const invalid = 'invalid-ulid';
+
+      it('should throw an error', () => {
+        expect(validateULID.bind(validateULID, invalid)).toThrow();
+      });
+      it('should pass, 1', () => {
+        expect(validateULID(ulid, '')).toBeUndefined();
       });
     });
 

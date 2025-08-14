@@ -27,6 +27,7 @@ import {
   validateNumeric,
   validateParamOption,
   validateSort,
+  validateULID,
   validateUUID,
 } from './request-query.validator';
 import {
@@ -445,6 +446,9 @@ export class RequestQueryParser implements ParsedRequestParams {
         break;
       case 'uuid':
         validateUUID(value, name);
+        break;
+      case 'ulid':
+        validateULID(value, name);
         break;
       default:
         break;

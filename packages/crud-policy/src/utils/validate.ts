@@ -24,16 +24,12 @@ export const validatePolicyWildcard = (
     return true;
   }
 
-  if (
-    isReadAction(action) &&
+  return isReadAction(action) &&
     (userPolicies.includes(managePolicy) ||
       userPolicies.includes(writePolicy) ||
-      userPolicies.includes(readPolicy))
-  ) {
-    return true;
-  }
+      userPolicies.includes(readPolicy));
 
-  return false;
+
 };
 
 export const validatePolicies = (
@@ -61,10 +57,8 @@ export const validatePolicies = (
     }
 
     // check on exact userbound policy
-    if (entityId && validatePolicyWildcard(userPolicies, name, action, entityId)) {
-      return true;
-    }
+    return entityId && validatePolicyWildcard(userPolicies, name, action, entityId);
 
-    return false;
+
   });
 };

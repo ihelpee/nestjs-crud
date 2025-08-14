@@ -34,7 +34,7 @@
   ],
   "author": {
     "name": "ihelpee",
-    "email": "hello@ihelpee.nl"
+    "email": "a@ihelpee.com"
   },
   "scripts": {
     "build": "npx tsc -b"

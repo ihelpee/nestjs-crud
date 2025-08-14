@@ -90,7 +90,7 @@ describe('#crud', () => {
     });
 
     afterAll(async () => {
-      app.close();
+      await app.close();
     });
 
     it('should return options in ParsedRequest', async () => {

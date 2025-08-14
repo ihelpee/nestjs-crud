@@ -24,7 +24,7 @@
   <a href="https://renovatebot.com/">
     <img src="https://img.shields.io/badge/renovate-enabled-brightgreen.svg" alt="Renovate" />
   </a>
-  <a href="http://makeapullrequest.com">
+  <a href="https://makeapullrequest.com">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs welcome" />
   </a>
 </div>

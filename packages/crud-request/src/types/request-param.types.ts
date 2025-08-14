@@ -1,1 +1,1 @@
-export type ParamOptionType = 'number' | 'string' | 'uuid';
+export type ParamOptionType = 'number' | 'string' | 'uuid' | 'ulid';

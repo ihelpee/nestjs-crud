@@ -34,7 +34,7 @@
   ],
   "author": {
     "name": "ihelpee",
-    "email": "hello@ihelpee.nl"
+    "email": "a@ihelpee.com"
   },
   "dependencies": {
     "@ihelpee/crud": "^2.0.4"
