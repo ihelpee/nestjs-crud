@@ -36,5 +36,6 @@
   },
   "scripts": {
     "build": "npx tsc -b"
-  }
+  },
+  "gitHead": "fc5f01a8facd35d47b91f5164849303c7bf498c2"
 }
