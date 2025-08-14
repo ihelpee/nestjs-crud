@@ -1,7 +1,7 @@
 {
   "name": "@ihelpee/crud-policy",
   "description": "NestJs CRUD for RESTful APIs - policy",
-  "version": "1.0.11",
+  "version": "2.0.2",
   "license": "MIT",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -37,7 +37,7 @@
     "email": "hello@ihelpee.nl"
   },
   "dependencies": {
-    "@ihelpee/crud": "^1.0.11"
+    "@ihelpee/crud": "^2.0.2"
   },
   "scripts": {
     "build": "npx tsc -b"
