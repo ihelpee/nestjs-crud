@@ -2,9 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { EntityCaseNamingStrategy, MikroORM } from '@mikro-orm/core';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
-import { Crud, CrudRequest } from '@n4it/crud';
-import { Controller, Get, INestApplication, Param, Query } from '@nestjs/common';
-import { RequestQueryBuilder } from '@n4it/crud-request';
+import { Crud } from '@ihelpee/crud';
+import { Controller, INestApplication } from '@nestjs/common';
 import { UsersService } from './__fixture__/users.service';
 import { User } from './__fixture__/user.entity';
 
@@ -33,7 +32,7 @@ describe('UsersService', () => {
       imports: [
         MikroOrmModule.forRoot({
           entities: [User], // Your entity
-          dbName: 'nestjsx_crud', // Replace with your local database name
+          dbName: 'ihelpee_crud', // Replace with your local database name
           user: 'root', // Replace with your PostgreSQL username
           password: 'root', // Replace with your PostgreSQL password
           port: 5432, // Default PostgreSQL port
@@ -62,31 +61,37 @@ describe('UsersService', () => {
   });
 
   it('should return user name after createOne', async () => {
-    const user = await service.createOne({
-      parsed: {
-        fields: [],
-        paramsFilter: [],
-        authPersist: {},
-        classTransformOptions: {},
-        search: {},
-        filter: [],
-        or: [],
-        join: [],
-        sort: [],
-        limit: 0,
-        offset: 0,
-        page: 1,
-        cache: 0,
-        includeDeleted: 0,
+    const user = await service.createOne(
+      {
+        parsed: {
+          fields: [],
+          paramsFilter: [],
+          authPersist: {},
+          classTransformOptions: {},
+          search: {},
+          filter: [],
+          or: [],
+          join: [],
+          sort: [],
+          limit: 0,
+          offset: 0,
+          page: 1,
+          cache: 0,
+          includeDeleted: 0,
+        },
+        options: undefined,
       },
-      options: undefined
-    }, {
-      nameFirst: "alex",
-      nameLast: "raileanu"
-    });
+      {
+        nameFirst: 'alex',
+        nameLast: 'gotardi',
+      },
+    );
 
-    expect(user.nameFirst).toEqual("alex");
-    expect(user.nameLast).toEqual("raileanu");
+    expect(user).toEqual({
+      id: expect.any(Number),
+      nameFirst: 'alex',
+      nameLast: 'gotardi',
+    });
   });
 
   it('should return the id of the first user after findAll', async () => {

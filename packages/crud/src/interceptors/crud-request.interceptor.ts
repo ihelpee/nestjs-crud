@@ -10,8 +10,8 @@ import {
   RequestQueryParser,
   SCondition,
   QueryFilter,
-} from '@n4it/crud-request';
-import { isNil, isFunction, isArrayFull, hasLength } from '@n4it/crud-util';
+} from '@ihelpee/crud-request';
+import { isNil, isFunction, isArrayFull, hasLength } from '@ihelpee/crud-util';
 import { ClassTransformOptions } from 'class-transformer';
 
 import { CrudActions, PARSED_CRUD_REQUEST_KEY } from '../constants';

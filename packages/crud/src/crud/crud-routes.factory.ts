@@ -10,7 +10,7 @@ import {
   isObjectFull,
   isUndefined,
   objKeys,
-} from '@n4it/crud-util';
+} from '@ihelpee/crud-util';
 import * as deepmerge from 'deepmerge';
 
 import { CrudRequestInterceptor, CrudResponseInterceptor } from '../interceptors';

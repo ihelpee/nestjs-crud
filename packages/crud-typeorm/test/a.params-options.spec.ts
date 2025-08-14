@@ -11,7 +11,7 @@ import { Project } from '../../../integration/crud-typeorm/projects';
 import { User } from '../../../integration/crud-typeorm/users';
 import { UserProfile } from '../../../integration/crud-typeorm/users-profiles';
 import { HttpExceptionFilter } from '../../../integration/shared/https-exception.filter';
-import { Crud } from '@n4it/crud';
+import { Crud } from '@ihelpee/crud';
 import { UsersService } from './__fixture__/users.service';
 
 jest.setTimeout(60000);

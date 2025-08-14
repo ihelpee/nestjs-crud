@@ -1,4 +1,4 @@
-import type { BaseRouteName } from '@n4it/crud';
+import type { BaseRouteName } from '@ihelpee/crud';
 import type { PolicyActions } from '../constants';
 
 export type Policy = {

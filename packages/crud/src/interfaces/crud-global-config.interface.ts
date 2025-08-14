@@ -1,4 +1,4 @@
-import { RequestQueryBuilderOptions } from '@n4it/crud-request';
+import { RequestQueryBuilderOptions } from '@ihelpee/crud-request';
 
 import { AuthGlobalOptions } from './auth-options.interface';
 import { OperatorsOptions } from './operators-options.interface';

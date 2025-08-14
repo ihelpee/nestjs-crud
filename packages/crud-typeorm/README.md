@@ -1,12 +1,12 @@
 <div align="center">
-  <h1>CRUD (@n4it/crud)</h1>
+  <h1>CRUD (@ihelpee/crud)</h1>
 </div>
 <div align="center">
   <strong>for RESTful APIs built with NestJs</strong>
 </div>
 <br/>
 <div align="center">
-  <img src="https://gravatar.com/avatar/c27e8ebbf92f687180aa0f13dab9a0b1?size=256" alt="Logo n4it" style="border-radius:100%"/>
+  <img src="https://gravatar.com/avatar/c27e8ebbf92f687180aa0f13dab9a0b1?size=256" alt="Logo ihelpee" style="border-radius:100%"/>
 </div>
 
 <br />
@@ -15,11 +15,11 @@
   <a href="https://github.com/nest4it/nestjs-crud/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/nest4it/nestjs-crud.svg" alt="License" />
   </a>
-  <a href="https://www.npmjs.com/package/@n4it/crud">
-    <img src="https://img.shields.io/npm/v/@n4it/crud.svg" alt="npm version" />
+  <a href="https://www.npmjs.com/package/@ihelpee/crud">
+    <img src="https://img.shields.io/npm/v/@ihelpee/crud.svg" alt="npm version" />
   </a>
-  <a href="https://www.npmjs.com/org/n4it">
-    <img src="https://img.shields.io/npm/dm/@n4it/crud.svg" alt="npm downloads" />
+  <a href="https://www.npmjs.com/org/ihelpee">
+    <img src="https://img.shields.io/npm/dm/@ihelpee/crud.svg" alt="npm downloads" />
   </a>
   <a href="https://renovatebot.com/">
     <img src="https://img.shields.io/badge/renovate-enabled-brightgreen.svg" alt="Renovate" />
@@ -32,7 +32,7 @@
 <div align="center">
   <sub>Built by
   <a href="https://twitter.com/MichaelYali">@MichaelYali</a> and
-  <a href="https://n4it.nl">n4it</a> and
+  <a href="https://ihelpee.nl">ihelpee</a> and
   <a href="https://github.com/nest4it/nestjs-crud/graphs/contributors">
     Contributors
   </a>
@@ -40,7 +40,7 @@
 
 <br />
 
-We believe that everyone who's working with NestJs and building some RESTful services and especially some CRUD functionality will find `@n4it/crud` microframework very useful.
+We believe that everyone who's working with NestJs and building some RESTful services and especially some CRUD functionality will find `@ihelpee/crud` microframework very useful.
 
 ## Features
 
@@ -67,14 +67,14 @@ We believe that everyone who's working with NestJs and building some RESTful ser
 ## Install
 
 ```shell
-npm i @n4it/crud class-transformer class-validator
+npm i @ihelpee/crud class-transformer class-validator
 ```
 
 ## Packages
 
-- [**@n4it/crud**](https://www.npmjs.com/package/@n4it/crud) - core package which provides `@Crud()` decorator for endpoints generation, global configuration, validation, helper decorators ([docs](https://gid-oss.github.io/dataui-nestjs-crud/controllers/#description))
-- [**@n4it/crud-request**](https://www.npmjs.com/package/@n4it/crud-request) - request builder/parser package which provides `RequestQueryBuilder` class for a frontend usage and `RequestQueryParser` that is being used internally for handling and validating query/path params on a backend side ([docs](https://gid-oss.github.io/dataui-nestjs-crud/requests/#frontend-usage))
-- [**@n4it/crud-typeorm**](https://www.npmjs.com/package/@n4it/crud-typeorm) - TypeORM package which provides base `TypeOrmCrudService` with methods for CRUD database operations ([docs](https://gid-oss.github.io/dataui-nestjs-crud/service-typeorm/))
+- [**@ihelpee/crud**](https://www.npmjs.com/package/@ihelpee/crud) - core package which provides `@Crud()` decorator for endpoints generation, global configuration, validation, helper decorators ([docs](https://gid-oss.github.io/dataui-nestjs-crud/controllers/#description))
+- [**@ihelpee/crud-request**](https://www.npmjs.com/package/@ihelpee/crud-request) - request builder/parser package which provides `RequestQueryBuilder` class for a frontend usage and `RequestQueryParser` that is being used internally for handling and validating query/path params on a backend side ([docs](https://gid-oss.github.io/dataui-nestjs-crud/requests/#frontend-usage))
+- [**@ihelpee/crud-typeorm**](https://www.npmjs.com/package/@ihelpee/crud-typeorm) - TypeORM package which provides base `TypeOrmCrudService` with methods for CRUD database operations ([docs](https://gid-oss.github.io/dataui-nestjs-crud/service-typeorm/))
 
 ## Documentation
 
@@ -97,7 +97,7 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 #### Organizations
 
-Currently this project is sponsored and maintained by N4IT. Get in touch if you want to become a sponsor.
+Currently this project is sponsored and maintained by ihelpee. Get in touch if you want to become a sponsor.
 
 ## License
 

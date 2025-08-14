@@ -1,4 +1,4 @@
-import { CrudValidationGroups } from '@n4it/crud';
+import { CrudValidationGroups } from '@ihelpee/crud';
 import {
   Entity,
   Column,

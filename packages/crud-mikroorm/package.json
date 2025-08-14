@@ -1,5 +1,5 @@
 {
-  "name": "@n4it/crud-mikroorm",
+  "name": "@ihelpee/crud-mikroorm",
   "description": "NestJs CRUD for RESTful APIs - MikroORM",
   "version": "1.0.11",
   "license": "GPL-3.0",
@@ -33,18 +33,18 @@
     "frameworks"
   ],
   "author": {
-    "name": "n4it",
-    "email": "hello@n4it.nl"
+    "name": "ihelpee",
+    "email": "hello@ihelpee.nl"
   },
   "scripts": {
     "build": "npx tsc -b",
     "start": "nest start --watch --entryFile local/main.js"
   },
   "devDependencies": {
-    "@n4it/crud": "^1.0.11"
+    "@ihelpee/crud": "^1.0.11"
   },
   "dependencies": {
-    "@mikro-orm/core": "^6.4.3",
-    "@mikro-orm/nestjs": "^6.0.2"
+    "@mikro-orm/core": "6.4.3",
+    "@mikro-orm/nestjs": "6.0.2"
   }
 }

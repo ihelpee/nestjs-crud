@@ -18,7 +18,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CrudValidationGroups } from '@n4it/crud';
+import { CrudValidationGroups } from '@ihelpee/crud';
 
 import { BaseEntity } from '../base-entity';
 import { UserProfile } from '../users-profiles/user-profile.entity';
@@ -62,7 +62,7 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   profileId?: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   companyId?: number;
 
   @DeleteDateColumn({ nullable: true })

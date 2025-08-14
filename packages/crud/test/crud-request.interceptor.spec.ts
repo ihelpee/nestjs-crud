@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { APP_GUARD, NestApplication } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
-import { RequestQueryBuilder } from '@n4it/crud-request';
+import { RequestQueryBuilder } from '@ihelpee/crud-request';
 import * as supertest from 'supertest';
 import { Crud, ParsedRequest, CrudAuth, Override } from '../src/decorators';
 import { CrudRequestInterceptor } from '../src/interceptors';
@@ -79,7 +79,7 @@ describe('#crud', () => {
     @Get('other2/:id/twoParams/:someParam')
     async twoParams(
       @ParsedRequest() req: CrudRequest,
-      @Param('someParam', ParseIntPipe) p: number,
+      // @Param('someParam', ParseIntPipe) p: number,
     ) {
       return { filter: req.parsed.paramsFilter };
     }
@@ -93,7 +93,7 @@ describe('#crud', () => {
   })
   @CrudAuth({
     property: 'user',
-    filter: (user) => ({ user: 'test', buz: 1 }),
+    filter: () => ({ user: 'test', buz: 1 }),
     persist: () => ({ bar: false }),
   })
   @Controller('test3')
@@ -270,7 +270,7 @@ describe('#crud', () => {
     });
 
     it('should parse multiple primary key', async () => {
-      const res = await $.get('/test5/123/456').expect(200);
+      await $.get('/test5/123/456').expect(200);
     });
 
     it('should work like before', async () => {

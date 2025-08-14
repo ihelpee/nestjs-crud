@@ -1,5 +1,5 @@
 {
-  "name": "@n4it/crud-util",
+  "name": "@ihelpee/crud-util",
   "description": "NestJs CRUD for RESTful APIs - util",
   "version": "1.0.11",
   "license": "MIT",
@@ -31,8 +31,8 @@
     "crud-generator"
   ],
   "author": {
-    "name": "n4it",
-    "email": "hello@n4it.nl"
+    "name": "ihelpee",
+    "email": "hello@ihelpee.nl"
   },
   "scripts": {
     "build": "npx tsc -b"

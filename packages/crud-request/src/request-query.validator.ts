@@ -8,7 +8,7 @@ import {
   isStringFull,
   isUndefined,
   objKeys,
-} from '@n4it/crud-util';
+} from '@ihelpee/crud-util';
 
 import { RequestQueryException } from './exceptions';
 import { CustomOperators, ParamOption, ParamsOptions } from './interfaces';

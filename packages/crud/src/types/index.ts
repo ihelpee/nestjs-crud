@@ -1,7 +1,7 @@
 import {
   QueryFilter,
   SCondition,
-} from '@n4it/crud-request/lib/types/request-query.types';
+} from '@ihelpee/crud-request/lib/types/request-query.types';
 import { getRouteSchema } from '../constants';
 
 export type BaseRoute = ReturnType<typeof getRouteSchema>[number];

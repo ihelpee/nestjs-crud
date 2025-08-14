@@ -4,19 +4,40 @@ import {
   CrudService,
   GetManyDefaultResponse,
   QueryOptions,
-} from '@n4it/crud';
+} from '@ihelpee/crud';
 
-import { DeepPartial, EntityClass, EntityData, EntityManager, EntityMetadata, EntityRepository, FilterQuery, ValidationError, wrap } from '@mikro-orm/core';
-import { hasLength, isArrayFull, isNil, isObject, isUndefined, ObjectLiteral, objKeys } from '@n4it/crud-util';
+import {
+  DeepPartial,
+  EntityClass,
+  EntityData,
+  EntityManager,
+  EntityMetadata,
+  EntityRepository,
+  FilterQuery,
+  ValidationError,
+  wrap,
+} from '@mikro-orm/core';
+import {
+  hasLength,
+  isArrayFull,
+  isNil,
+  isObject,
+  isUndefined,
+  ObjectLiteral,
+  objKeys,
+} from '@ihelpee/crud-util';
 import { ClassConstructor, plainToClass } from 'class-transformer';
 
-export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = EntityData<T>> extends CrudService<T, EntityData<T>> {
+export class MikroOrmCrudService<
+  T extends object,
+  DTO extends EntityData<T> = EntityData<T>,
+> extends CrudService<T, EntityData<T>> {
   protected entityColumns: string[];
   protected entityPrimaryColumns: string[];
   protected entityName: string;
   protected entityColumnsHash: ObjectLiteral = {};
   protected entityHasDeletedColumn: boolean = false;
-  protected deletedAtColumnName: string = "";
+  protected deletedAtColumnName: string = '';
   protected dbName: string;
   protected entity: EntityClass<any>;
   protected em: EntityManager;
@@ -48,7 +69,6 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
   public get find() {
     return this.repository.find.bind(this.repository);
   }
- 
 
   public get count() {
     return this.repository.count.bind(this.repository);
@@ -90,17 +110,17 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
   validateFields(fields: string[]) {
     for (const field of fields) {
       if (this.entityColumnsHash[field] !== field) {
-        this.throwBadRequestException(`Invalid field: ${field}`)
+        this.throwBadRequestException(`Invalid field: ${field}`);
       }
     }
   }
 
   validateFilterFields(filter) {
-    Object.keys(filter).forEach(field => {
+    Object.keys(filter).forEach((field) => {
       if (this.entityColumnsHash[field] !== field) {
-        this.throwBadRequestException(`Invalid field: ${field}`)
+        this.throwBadRequestException(`Invalid field: ${field}`);
       }
-    })
+    });
   }
 
   async getMany(req: CrudRequest): Promise<GetManyDefaultResponse<T> | T[]> {
@@ -113,14 +133,14 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
     this.validateFilterFields(filter);
     let queryOptions = this.transformOptionsToMikro(options);
 
-    const populate = parsed.join.map(option => option.field);
+    const populate = parsed.join.map((option) => option.field);
 
     if (populate) {
       this.validateFields(parsed.fields);
       queryOptions = {
         ...queryOptions,
         populate: populate as any,
-      }
+      };
     }
 
     if (parsed.fields.length > 0) {
@@ -129,13 +149,13 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
       queryOptions = {
         ...queryOptions,
         fields: parsed.fields as any,
-      }
+      };
     }
 
     if (this.entityHasDeletedColumn) {
       filter = {
         ...filter,
-        [this.deletedAtColumnName]: null, 
+        [this.deletedAtColumnName]: null,
       } as any;
     }
 
@@ -175,8 +195,7 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
         this.throwBadRequestException(error.message);
       }
 
-      throw console.error();
-      ;
+      throw error;
     }
 
     if (returnShallow) {
@@ -195,7 +214,10 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
     }
   }
 
-  async createMany(req: CrudRequest, dtoList: CreateManyDto<DeepPartial<T>>): Promise<T[]> {
+  async createMany(
+    req: CrudRequest,
+    dtoList: CreateManyDto<DeepPartial<T>>,
+  ): Promise<T[]> {
     this.validateSqlInjectionFields(req);
     if (!isObject(dtoList) || !isArrayFull(dtoList.bulk)) {
       this.throwBadRequestException(`Empty data. Nothing to save.`);
@@ -240,15 +262,19 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
       ? { ...dto, ...paramsFilters, ...req.parsed.authPersist }
       : { ...paramsFilters, ...dto, ...req.parsed.authPersist };
 
-      // Remove undefined fields from the object
+    // Remove undefined fields from the object
     const filteredToUpdate = Object.fromEntries(
-      Object.entries(toUpdate).filter(([_, value]) => value !== undefined)
+      Object.entries(toUpdate).filter(([_, value]) => value !== undefined),
     );
 
     // Prepare entity for saving (this can be skipped if the DTO is already an entity)
-    const entityToUpdate = plainToClass(this.entity as ClassConstructor<T>, filteredToUpdate, req.parsed.classTransformOptions);
+    const entityToUpdate = plainToClass(
+      this.entity as ClassConstructor<T>,
+      filteredToUpdate,
+      req.parsed.classTransformOptions,
+    );
 
-    wrap(found).assign(filteredToUpdate as Partial<EntityData<T>>, { merge: true});
+    wrap(found).assign(filteredToUpdate as Partial<EntityData<T>>, { merge: true });
 
     await this.em.flush();
 
@@ -272,60 +298,60 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
 
   protected applyCondition(field: string, operator: string, value: string) {
     switch (operator) {
-      case "$eq":
+      case '$eq':
         return { [field]: value }; // Equals
-      case "$ne":
+      case '$ne':
         return { [field]: { $ne: value } }; // Not equals
-      case "$lt":
+      case '$lt':
         return { [field]: { $lt: value } }; // Less than
-      case "$lte":
+      case '$lte':
         return { [field]: { $lte: value } }; // Less than or equal
-      case "$gt":
+      case '$gt':
         return { [field]: { $gt: value } }; // Greater than
-      case "$gte":
+      case '$gte':
         return { [field]: { $gte: value } }; // Greater than or equal
-      case "$starts":
+      case '$starts':
         return { [field]: { $like: `${value}%` } }; // Starts with
-      case "$ends":
+      case '$ends':
         return { [field]: { $like: `%${value}` } }; // Ends with
-      case "$cont":
+      case '$cont':
         return { [field]: { $like: `%${value}%` } }; // Contains
-      case "$excl":
+      case '$excl':
         return { [field]: { $notLike: `%${value}%` } }; // Not contains
-      case "$in":
+      case '$in':
         return { [field]: { $in: value } }; // In array
-      case "$notin":
+      case '$notin':
         return { [field]: { $nin: value } }; // Not in array
-      case "$isnull":
+      case '$isnull':
         return { [field]: { $eq: null } }; // Is null
-      case "$notnull":
+      case '$notnull':
         return { [field]: { $ne: null } }; // Is not null
-      case "$between":
+      case '$between':
         if (Array.isArray(value) && value.length === 2) {
           return { [field]: { $gte: value[0], $lte: value[1] } }; // Range
         }
         break;
-      case "$eqL":
+      case '$eqL':
         return { [`LOWER(${field})`]: value.toLowerCase() }; // Case insensitive equals
-      case "$neL":
+      case '$neL':
         return { [`LOWER(${field})`]: { $ne: value.toLowerCase() } }; // Case insensitive not equals
-      case "$startsL":
+      case '$startsL':
         return { [`LOWER(${field})`]: { $like: `${value.toLowerCase()}%` } }; // Case insensitive starts with
-      case "$endsL":
+      case '$endsL':
         return { [`LOWER(${field})`]: { $like: `%${value.toLowerCase()}` } }; // Case insensitive ends with
-      case "$contL":
+      case '$contL':
         return { [`LOWER(${field})`]: { $like: `%${value.toLowerCase()}%` } }; // Case insensitive contains
-      case "$exclL":
+      case '$exclL':
         return { [`LOWER(${field})`]: { $notLike: `%${value.toLowerCase()}%` } }; // Case insensitive not contains
-      case "$contArr":
+      case '$contArr':
         return { [field]: { $contains: value } };
-      case "$intersectsArr":
+      case '$intersectsArr':
         return { [field]: { $overlap: value } };
       default:
-        throw new Error(`Operator(${operator}) is not supported!`)
+        throw new Error(`Operator(${operator}) is not supported!`);
         return {};
     }
-  };
+  }
 
   protected transformParsedToMikro(parsed) {
     const whereConditions: any = {};
@@ -350,14 +376,17 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
     // Handle or condition ($or)
     if (parsed.search && parsed.search?.$or?.length > 0) {
       whereConditions.$or = parsed.search.$or.map((condition) => {
-        const response = this.applyCondition(condition.field, condition.operator, condition.value)
+        const response = this.applyCondition(
+          condition.field,
+          condition.operator,
+          condition.value,
+        );
         return response;
       });
     }
 
     return whereConditions;
   }
-
 
   protected transformOptionsToMikro(options) {
     const mikroOptions: any = {};
@@ -372,7 +401,7 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
     if (options.query && options.query.sort) {
       mikroOptions.orderBy = options.query.sort.map((sortField) => {
         return {
-          [sortField.field]: sortField.direction || 'ASC'
+          [sortField.field]: sortField.direction || 'ASC',
         };
       });
     }
@@ -385,17 +414,18 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
       mikroOptions.routes = options.routes;
     }
 
-    if (options.routes && options.routes.createOneBase && options.routes.createOneBase.returnShallow !== undefined) {
+    if (
+      options.routes &&
+      options.routes.createOneBase &&
+      options.routes.createOneBase.returnShallow !== undefined
+    ) {
       mikroOptions.returnShallow = options.routes.createOneBase.returnShallow;
     }
 
     return mikroOptions;
   }
 
-  protected async getOneOrFail(
-    req: CrudRequest,
-    withDeleted = false,
-  ): Promise<T> {
+  protected async getOneOrFail(req: CrudRequest, withDeleted = false): Promise<T> {
     const { parsed, options } = req;
 
     let filter: FilterQuery<T> = this.transformParsedToMikro(parsed);
@@ -403,9 +433,9 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
     if (parsed.fields?.length > 0) {
       queryOptions = {
         ...queryOptions,
-        fields: parsed.fields as any
-      }
-    };
+        fields: parsed.fields as any,
+      };
+    }
 
     if (!withDeleted && this.entityHasDeletedColumn) {
       filter = {
@@ -444,7 +474,11 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
       : { ...(found || {}), ...paramsFilters, ...dto, ...req.parsed.authPersist };
 
     // Prepare entity for saving (this can be skipped if the DTO is already an entity)
-    const entityToSave = plainToClass(this.entity as ClassConstructor<T>, toSave, req.parsed.classTransformOptions);
+    const entityToSave = plainToClass(
+      this.entity as ClassConstructor<T>,
+      toSave,
+      req.parsed.classTransformOptions,
+    );
 
     wrap(found).assign(entityToSave as Partial<EntityData<T>>);
 
@@ -480,7 +514,11 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
 
     const found = await this.getOneOrFail(req, returnDeleted);
     const toReturn = returnDeleted
-      ? plainToClass(this.entity as ClassConstructor<T>, { ...found }, req.parsed.classTransformOptions)
+      ? plainToClass(
+          this.entity as ClassConstructor<T>,
+          { ...found },
+          req.parsed.classTransformOptions,
+        )
       : undefined;
 
     if (req.options.query.softDelete === true && this.entityHasDeletedColumn) {
@@ -522,7 +560,10 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
 
     return filters;
   }
-  protected getEntityColumns(entityMetadata: EntityMetadata): { columns: string[]; primaryColumns: string[] } {
+  protected getEntityColumns(entityMetadata: EntityMetadata): {
+    columns: string[];
+    primaryColumns: string[];
+  } {
     const columns = Object.keys(entityMetadata.properties); // all properties (columns) of the entity
     const primaryColumns = entityMetadata.primaryKeys; // primary key columns are directly stored as strings
 
@@ -534,19 +575,19 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
       (!options.allow || !options.allow.length)
       ? columns
       : columns.filter(
-        (column) =>
-          (options.exclude && options.exclude.length
-            ? !options.exclude.some((col) => col === column)
-            : true) &&
-          (options.allow && options.allow.length
-            ? options.allow.some((col) => col === column)
-            : true),
-      );
+          (column) =>
+            (options.exclude && options.exclude.length
+              ? !options.exclude.some((col) => col === column)
+              : true) &&
+            (options.allow && options.allow.length
+              ? options.allow.some((col) => col === column)
+              : true),
+        );
   }
 
   protected prepareEntityBeforeSave(
     dto: DeepPartial<T>,
-    parsed: CrudRequest['parsed']
+    parsed: CrudRequest['parsed'],
   ): T | undefined {
     if (!parsed) {
       return dto;
@@ -575,11 +616,14 @@ export class MikroOrmCrudService<T extends object, DTO extends EntityData<T> = E
     }
 
     // Transform plain DTO into an entity if it's not an instance of the entity type
-    const entityInstance = plainToClass(this.entity as ClassConstructor<T>, { ...dto, ...parsed.authPersist }, parsed.classTransformOptions);
+    const entityInstance = plainToClass(
+      this.entity as ClassConstructor<T>,
+      { ...dto, ...parsed.authPersist },
+      parsed.classTransformOptions,
+    );
 
     return entityInstance;
   }
-
 
   protected checkSqlInjection(field: string) {
     if (this.sqlInjectionRegEx.length) {

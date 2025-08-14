@@ -1,7 +1,7 @@
 import { RouteParamtypes } from '@nestjs/common/enums/route-paramtypes.enum';
 import * as CONSTANTS from '@nestjs/common/constants';
 import { ArgumentsHost } from '@nestjs/common';
-import { isFunction } from '@n4it/crud-util';
+import { isFunction } from '@ihelpee/crud-util';
 
 import { MergedCrudOptions, AuthOptions } from '../interfaces';
 import {

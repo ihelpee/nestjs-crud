@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { Crud } from '@n4it/crud';
+import { Crud } from '@ihelpee/crud';
 
 import { Project } from './project.entity';
 import { ProjectsService } from './projects.service';

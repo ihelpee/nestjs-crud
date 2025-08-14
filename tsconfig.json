@@ -15,16 +15,16 @@
     "composite": true,
     "baseUrl": "./packages",
     "paths": {
-      "@n4it/crud": ["crud/src"],
-      "@n4it/crud-typeorm": ["crud-typeorm/src"],
-      "@n4it/crud-request": ["crud-request/src"],
-      "@n4it/crud-util": ["crud-util/src"],
-      "@n4it/crud-policy": ["crud-policy/src"],
-      "@n4it/crud/*": ["crud/src/*"],
-      "@n4it/crud-typeorm/*": ["crud-typeorm/src/*"],
-      "@n4it/crud-request/*": ["crud-request/src/*"],
-      "@n4it/crud-util/*": ["crud-util/src/*"],
-      "@n4it/crud-policy/*": ["crud-policy/src/*"]
+      "@ihelpee/crud": ["crud/src"],
+      "@ihelpee/crud-typeorm": ["crud-typeorm/src"],
+      "@ihelpee/crud-request": ["crud-request/src"],
+      "@ihelpee/crud-util": ["crud-util/src"],
+      "@ihelpee/crud-policy": ["crud-policy/src"],
+      "@ihelpee/crud/*": ["crud/src/*"],
+      "@ihelpee/crud-typeorm/*": ["crud-typeorm/src/*"],
+      "@ihelpee/crud-request/*": ["crud-request/src/*"],
+      "@ihelpee/crud-util/*": ["crud-util/src/*"],
+      "@ihelpee/crud-policy/*": ["crud-policy/src/*"]
     }
   }
 }

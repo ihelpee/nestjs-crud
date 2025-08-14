@@ -10,7 +10,7 @@ import {
   isStringFull,
   ObjectLiteral,
   objKeys,
-} from '@n4it/crud-util';
+} from '@ihelpee/crud-util';
 import { ClassTransformOptions } from 'class-transformer';
 
 import { RequestQueryException } from './exceptions';

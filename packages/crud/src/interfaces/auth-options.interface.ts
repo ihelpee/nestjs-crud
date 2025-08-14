@@ -1,5 +1,5 @@
-import type { SCondition } from '@n4it/crud-request/lib/types/request-query.types';
-import type { ObjectLiteral } from '@n4it/crud-util';
+import type { SCondition } from '@ihelpee/crud-request/lib/types/request-query.types';
+import type { ObjectLiteral } from '@ihelpee/crud-util';
 import type { ClassTransformOptions } from 'class-transformer';
 
 export interface AuthGlobalOptions {

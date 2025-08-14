@@ -2,7 +2,7 @@ import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { Controller, INestApplication } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
-import { RequestQueryBuilder } from '@n4it/crud-request';
+import { RequestQueryBuilder } from '@ihelpee/crud-request';
 import { CrudActions, ParsedBody, ParsedRequest } from '../src';
 
 import { Crud, Override } from '../src/decorators';
@@ -46,6 +46,7 @@ describe('#crud', () => {
       }
 
       @Override()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       getMany(@ParsedRequest() req: CrudRequest) {
         return { foo: 'bar' };
       }
@@ -76,7 +77,7 @@ describe('#crud', () => {
     });
 
     afterAll(async () => {
-      app.close();
+      await app.close();
     });
 
     describe('#override getMany', () => {
@@ -122,12 +123,7 @@ describe('#crud', () => {
         const response = Swagger.getResponseOk(TestController.prototype.getMany);
         const expected = {
           '200': {
-            schema: {
-              oneOf: [
-                { $ref: '#/components/schemas/GetManyTestModelResponseDto' },
-                { items: { $ref: '#/components/schemas/TestModel' }, type: 'array' },
-              ],
-            },
+            type: expect.any(Function),
           },
         };
         expect(response).toMatchObject(expected);

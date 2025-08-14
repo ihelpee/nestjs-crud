@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Crud, CrudAuth } from '@n4it/crud';
+import { Crud, CrudAuth } from '@ihelpee/crud';
 
 import { User } from './user.entity';
 import { UsersService } from './users.service';

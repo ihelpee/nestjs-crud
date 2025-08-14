@@ -1,5 +1,5 @@
 {
-  "name": "@n4it/crud-typeorm",
+  "name": "@ihelpee/crud-typeorm",
   "description": "NestJs CRUD for RESTful APIs - TypeORM",
   "version": "1.0.11",
   "license": "GPL-3.0",
@@ -33,13 +33,13 @@
     "frameworks"
   ],
   "author": {
-    "name": "n4it",
-    "email": "hello@n4it.nl"
+    "name": "ihelpee",
+    "email": "hello@ihelpee.nl"
   },
   "scripts": {
     "build": "npx tsc -b"
   },
   "devDependencies": {
-    "@n4it/crud": "^1.0.11"
+    "@ihelpee/crud": "^1.0.11"
   }
 }

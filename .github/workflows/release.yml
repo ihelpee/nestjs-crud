@@ -22,16 +22,16 @@ jobs:
         env:
           POSTGRES_USER: root
           POSTGRES_PASSWORD: root
-          POSTGRES_DB: nestjsx_crud
+          POSTGRES_DB: ihelpee_crud
         ports:
           - 5432:5432
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_DATABASE: nestjsx_crud
-          MYSQL_USER: nestjsx_crud
-          MYSQL_PASSWORD: nestjsx_crud
-          MYSQL_ROOT_PASSWORD: nestjsx_crud
+          MYSQL_DATABASE: ihelpee_crud
+          MYSQL_USER: ihelpee_crud
+          MYSQL_PASSWORD: ihelpee_crud
+          MYSQL_ROOT_PASSWORD: ihelpee_crud
         ports:
           - 3306:3306
     steps:

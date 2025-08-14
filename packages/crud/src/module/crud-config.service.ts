@@ -1,5 +1,5 @@
-import { RequestQueryBuilder } from '@n4it/crud-request';
-import { isObjectFull } from '@n4it/crud-util';
+import { RequestQueryBuilder } from '@ihelpee/crud-request';
+import { isObjectFull } from '@ihelpee/crud-util';
 import * as deepmerge from 'deepmerge';
 
 import { CrudGlobalConfig } from '../interfaces';
@@ -49,7 +49,7 @@ export class CrudConfigService {
     CrudConfigService.config = deepmerge(
       CrudConfigService.config,
       { auth, query, routes, operators, params, serialize },
-      { arrayMerge: (a, b, c) => b },
+      { arrayMerge: (a, b, c) => [...new Set([...(a || []), ...(b || [])])] },
     );
   }
 }

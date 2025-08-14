@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { isPg, postgresConfig, mySqlConfig } from '../../../database';
 import { User } from '../../../integration/crud-typeorm/users';
 import { HttpExceptionFilter } from '../../../integration/shared/https-exception.filter';
-import { Crud } from '@n4it/crud';
+import { Crud } from '@ihelpee/crud';
 import { UsersService } from '../../../integration/crud-typeorm/users/users.service';
 import { CrudGuard } from '../src';
 

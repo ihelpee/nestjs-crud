@@ -2,7 +2,7 @@ import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
 import { POLICY_NAME_METADATA, PolicyActions } from '../constants';
 import type { PolicyGuardOpts, Policy } from '../types';
 import { createPolicyGuard } from '../guards/utils';
-import { BaseRouteName } from '@n4it/crud';
+import { BaseRouteName } from '@ihelpee/crud';
 
 export const Policies = (...policies: Policy[]) =>
   SetMetadata(POLICY_NAME_METADATA, policies);

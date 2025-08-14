@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { EntityManager } from '@mikro-orm/core';
-import { MikroOrmCrudService } from '../../src/mikroorm-crud.service';
+import { MikroOrmCrudService } from '../../src';
 import { User } from './user.entity';
 
 @Injectable()

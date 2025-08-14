@@ -1,25 +1,22 @@
-version: '3.8'
-
 services:
   postgres:
-    image: postgres:14
+    image: postgres:15
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: nestjsx_crud
+      POSTGRES_DB: ihelpee_crud
 
   mysql:
-    platform: linux/x86_64
     image: mysql:8.0
     ports:
       - 3306:3306
     environment:
-      MYSQL_DATABASE: nestjsx_crud
-      MYSQL_USER: nestjsx_crud
-      MYSQL_PASSWORD: nestjsx_crud
-      MYSQL_ROOT_PASSWORD: nestjsx_crud
+      MYSQL_DATABASE: ihelpee_crud
+      MYSQL_USER: ihelpee_crud
+      MYSQL_PASSWORD: ihelpee_crud
+      MYSQL_ROOT_PASSWORD: ihelpee_crud
     ulimits:
       nproc: 65535
       nofile:

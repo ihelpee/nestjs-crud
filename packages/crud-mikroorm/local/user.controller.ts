@@ -1,8 +1,8 @@
-import { Controller } from "@nestjs/common";
-import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
-import { UsersService } from "./users.service";
-import { Crud, CrudController } from "@n4it/crud";
-import { Users } from "./user-mikroorm.entity";
+import { Controller } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { UsersService } from './users.service';
+import { Crud, CrudController } from '@ihelpee/crud';
+import { Users } from './user-mikroorm.entity';
 
 @ApiTags('users')
 @Crud({
@@ -19,7 +19,10 @@ import { Users } from "./user-mikroorm.entity";
       decorators: [
         // Define any additional decorators here for createOne route
         ApiOperation({ summary: 'Create a user' }),
-        ApiResponse({ status: 201, description: 'The user has been successfully created' }),
+        ApiResponse({
+          status: 201,
+          description: 'The user has been successfully created',
+        }),
       ],
     },
     getOneBase: {

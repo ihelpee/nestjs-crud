@@ -1,4 +1,4 @@
-import { RequestQueryBuilder } from '@n4it/crud-request';
+import { RequestQueryBuilder } from '@ihelpee/crud-request';
 import { CrudGlobalConfig } from '../src/interfaces';
 import { CrudConfigService } from '../src/module/crud-config.service';
 

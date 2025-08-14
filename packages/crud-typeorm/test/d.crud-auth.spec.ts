@@ -9,7 +9,7 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Crud, CrudAuth } from '@n4it/crud';
+import { Crud, CrudAuth } from '@ihelpee/crud';
 import * as request from 'supertest';
 import { isPg, postgresConfig, mySqlConfig } from '../../../database';
 import { User } from '../../../integration/crud-typeorm/users';

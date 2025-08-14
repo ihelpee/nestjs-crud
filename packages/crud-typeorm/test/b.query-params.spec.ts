@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import { APP_FILTER } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RequestQueryBuilder } from '@n4it/crud-request';
+import { RequestQueryBuilder } from '@ihelpee/crud-request';
 import * as request from 'supertest';
 
 import { Company } from '../../../integration/crud-typeorm/companies';
@@ -13,7 +13,7 @@ import { Project } from '../../../integration/crud-typeorm/projects';
 import { User } from '../../../integration/crud-typeorm/users';
 import { UserProfile } from '../../../integration/crud-typeorm/users-profiles';
 import { HttpExceptionFilter } from '../../../integration/shared/https-exception.filter';
-import { Crud } from '@n4it/crud';
+import { Crud } from '@ihelpee/crud';
 import { CompaniesService } from './__fixture__/companies.service';
 import { NotesService } from './__fixture__/notes.service';
 import { ProjectsService } from './__fixture__/projects.service';

@@ -1,4 +1,4 @@
-import { ObjectLiteral } from '@n4it/crud-util';
+import { ObjectLiteral } from '@ihelpee/crud-util';
 import { ClassTransformOptions } from 'class-transformer';
 import { QueryFields, QueryFilter, QueryJoin, QuerySort, SCondition } from '../types';
 

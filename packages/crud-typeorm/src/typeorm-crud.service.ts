@@ -8,7 +8,7 @@ import {
   JoinOption,
   JoinOptions,
   QueryOptions,
-} from '@n4it/crud';
+} from '@ihelpee/crud';
 import type {
   ComparisonOperator,
   ParsedRequestParams,
@@ -17,7 +17,7 @@ import type {
   QuerySort,
   SCondition,
   SConditionKey,
-} from '@n4it/crud-request';
+} from '@ihelpee/crud-request';
 import {
   ClassType,
   hasLength,
@@ -27,7 +27,7 @@ import {
   isObject,
   isUndefined,
   objKeys,
-} from '@n4it/crud-util';
+} from '@ihelpee/crud-util';
 import { plainToClass } from 'class-transformer';
 import {
   Brackets,
