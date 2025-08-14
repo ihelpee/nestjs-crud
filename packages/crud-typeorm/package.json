@@ -1,7 +1,7 @@
 {
   "name": "@ihelpee/crud-typeorm",
   "description": "NestJs CRUD for RESTful APIs - TypeORM",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "license": "GPL-3.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -40,7 +40,7 @@
     "build": "npx tsc -b"
   },
   "devDependencies": {
-    "@ihelpee/crud": "^2.0.3"
+    "@ihelpee/crud": "^2.0.4"
   },
   "gitHead": "fc5f01a8facd35d47b91f5164849303c7bf498c2"
 }
