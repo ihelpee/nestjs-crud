@@ -1,19 +1,34 @@
-name: Build and Commit Documentation
+name: Build and Deploy Documentation
 
 on:
   push:
     branches:
       - master
 
+# Permite que o workflow escreva no repositório e deploy no Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Permite apenas um deploy simultâneo
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build-docs:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Required for pushing changes
+          fetch-depth: 0
 
       - name: Install Pandoc
         run: sudo apt-get install -y pandoc
@@ -21,17 +36,95 @@ jobs:
       - name: Create docs/build directory
         run: mkdir -p docs/build
 
-      - name: Generate HTML documentation with Table of Contents
+      - name: Generate HTML documentation with enhanced styling
         run: |
           pandoc README.md $(ls docs/*.md | sort) \
             --toc --toc-depth=3 \
-            -o docs/build/documentation.html
+            --standalone \
+            --css=https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css \
+            --metadata title="Project Documentation" \
+            --template=<(cat << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>$title$</title>
+            <link rel="stylesheet" href="$css$">
+            <style>
+              body { 
+                max-width: 980px; 
+                margin: 0 auto; 
+                padding: 20px;
+                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+              }
+              .markdown-body { box-sizing: border-box; }
+              h1 { border-bottom: 1px solid #eaecef; padding-bottom: 10px; }
+              #TOC { 
+                background: #f6f8fa; 
+                border: 1px solid #d0d7de; 
+                border-radius: 6px; 
+                padding: 20px; 
+                margin-bottom: 30px;
+              }
+              #TOC ul { margin: 0; }
+              #TOC > ul { padding-left: 0; }
+              #TOC a { text-decoration: none; color: #0969da; }
+              #TOC a:hover { text-decoration: underline; }
+            </style>
+          </head>
+          <body class="markdown-body">
+            $if(toc)$
+            <div id="TOC">
+              <h2>Índice</h2>
+              $toc$
+            </div>
+            $endif$
+            $body$
+            <hr style="margin-top: 50px;">
+            <footer style="text-align: center; color: #656d76; font-size: 12px;">
+              <p>Documentação gerada automaticamente em $(date)</p>
+            </footer>
+          </body>
+          </html>
+          EOF
+          ) \
+            -o docs/build/index.html
 
-      - name: Commit generated documentation
+      - name: Create additional GitHub Pages files
+        run: |
+          # Criar arquivo de configuração do Jekyll (desabilita processamento)
+          echo "" > docs/build/.nojekyll
+          
+          # Criar arquivo README para o GitHub Pages
+          cat > docs/build/README.md << 'EOF'
+          # Project Documentation
+          
+          Esta é a documentação gerada automaticamente do projeto.
+          
+          ## Acesso
+          - [Documentação Completa](./index.html)
+          
+          ## Como funciona
+          Esta documentação é gerada automaticamente pelo GitHub Actions sempre que há um push na branch master.
+          EOF
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs/build'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Commit generated documentation (backup)
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/build/documentation.html
-          git commit -m "Update generated documentation" || echo "No changes to commit"
-          git push
-      
+          git add docs/build/
+          git commit -m "📚 Update generated documentation [skip ci]" || echo "No changes to commit"
+          git push || echo "Push failed, but deployment succeeded"
