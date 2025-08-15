@@ -10,6 +10,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  actions: read
 
 # Permite apenas um deploy simultâneo
 concurrency:
