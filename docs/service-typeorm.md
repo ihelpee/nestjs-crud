@@ -15,7 +15,7 @@ yarn add @ihelpee/crud-typeorm @nestjs/typeorm typeorm
 
 ## Usage
 
-Assume you have some TypeORM **enitity**:
+Assume you have some TypeORM **entity**:
 
 ```typescript
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';

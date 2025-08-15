@@ -22,12 +22,6 @@ jobs:
       - name: Create docs/build directory
         run: mkdir -p docs/build
 
-      - name: Generate PDF documentation with Table of Contents
-        run: |
-          pandoc README.md $(ls docs/*.md | sort) \
-            --toc --toc-depth=3 \
-            -o docs/build/documentation.pdf
-
       - name: Generate HTML documentation with Table of Contents
         run: |
           pandoc README.md $(ls docs/*.md | sort) \
@@ -37,7 +31,4 @@ jobs:
       - name: Commit generated documentation
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/build/documentation.pdf docs/build/documentation.html
-          git commit -m "Update generated documentation" || echo "No changes to commit"
-          git push
+          g
