@@ -29,15 +29,6 @@
   </a>
 </div>
 
-<div align="center">
-  <sub>Built by
-  <a href="https://twitter.com/MichaelYali">@MichaelYali</a> and
-  <a href="https://ihelpee.nl">ihelpee</a> and
-  <a href="https://github.com/ihelpee/nestjs-crud/graphs/contributors">
-    Contributors
-  </a>
-</div>
-
 <br />
 
 We believe that everyone who's working with NestJs and building some RESTful services and especially some CRUD functionality will find `@ihelpee/crud` microframework very useful.
@@ -69,6 +60,9 @@ We believe that everyone who's working with NestJs and building some RESTful ser
 ```shell
 npm i @ihelpee/crud class-transformer class-validator
 ```
+```shell
+yarn add @ihelpee/crud class-transformer class-validator
+```
 
 ## Packages
 
@@ -78,10 +72,10 @@ npm i @ihelpee/crud class-transformer class-validator
 
 ## Documentation
 
-- [General Information](https://gid-oss.github.io/dataui-nestjs-crud/)
-- [CRUD Controllers](https://gid-oss.github.io/dataui-nestjs-crud/controllers/#description)
-- [CRUD ORM Services](https://gid-oss.github.io/dataui-nestjs-crud/services/)
-- [Handling Requests](https://gid-oss.github.io/dataui-nestjs-crud/requests/#description)
+- [General Information](docs)
+- [CRUD Controllers](docs/controllers)
+- [CRUD ORM Services](docs/services)
+- [Handling Requests](docs/requests)
 
 ## Support
 
