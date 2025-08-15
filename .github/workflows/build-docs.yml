@@ -22,11 +22,17 @@ jobs:
       - name: Create docs/build directory
         run: mkdir -p docs/build
 
-      - name: Generate PDF documentation
-        run: pandoc README.md docs/*.md -o docs/build/documentation.pdf
+      - name: Generate PDF documentation with Table of Contents
+        run: |
+          pandoc README.md $(ls docs/*.md | sort) \
+            --toc --toc-depth=3 \
+            -o docs/build/documentation.pdf
 
-      - name: Generate HTML documentation
-        run: pandoc README.md docs/*.md -o docs/build/documentation.html
+      - name: Generate HTML documentation with Table of Contents
+        run: |
+          pandoc README.md $(ls docs/*.md | sort) \
+            --toc --toc-depth=3 \
+            -o docs/build/documentation.html
 
       - name: Commit generated documentation
         run: |
