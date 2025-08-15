@@ -29,38 +29,54 @@ jobs:
         run: |
           # Verificar se existem arquivos markdown
           if [ ! -f "README.md" ] && [ -z "$(find docs -name "*.md" 2>/dev/null)" ]; then
-            echo "Nenhum arquivo markdown encontrado!"
+            echo "⚠️ Nenhum arquivo markdown encontrado!"
             exit 1
           fi
           
-          # Gerar HTML simples com CSS incorporado
+          # Gerar HTML com metadados específicos do projeto
           pandoc README.md $(find docs -name "*.md" 2>/dev/null | sort) \
             --toc --toc-depth=3 \
             --standalone \
-            --metadata title="Documentação do Projeto" \
+            --metadata title="NestJS CRUD Library - Documentação" \
+            --metadata author="ihelpee" \
+            --metadata description="Biblioteca CRUD para NestJS com TypeORM" \
             --css=https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css \
             -o docs/build/index.html
           
-          # Adicionar estilos customizados
+          # Adicionar estilos customizados para projeto NestJS
           sed -i '/<\/head>/i\
           <style>\
-          body { max-width: 980px; margin: 0 auto; padding: 20px; }\
+          body { max-width: 1200px; margin: 0 auto; padding: 20px; }\
           .markdown-body { box-sizing: border-box; }\
-          h1 { border-bottom: 1px solid #eaecef; padding-bottom: 10px; }\
-          #TOC { background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px; padding: 20px; margin-bottom: 30px; }\
+          h1 { border-bottom: 2px solid #e1306c; padding-bottom: 15px; color: #e1306c; }\
+          h2 { color: #e1306c; }\
+          #TOC { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }\
+          #TOC h2 { color: white; margin-top: 0; }\
           #TOC ul { margin: 0; }\
           #TOC > ul { padding-left: 0; }\
-          #TOC a { text-decoration: none; color: #0969da; }\
-          #TOC a:hover { text-decoration: underline; }\
+          #TOC a { text-decoration: none; color: #fff; font-weight: 500; }\
+          #TOC a:hover { text-decoration: underline; background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 3px; }\
+          .nestjs-badge { display: inline-block; background: #e1306c; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 10px; }\
+          code { background: #f6f8fa; padding: 2px 4px; border-radius: 3px; }\
+          pre { background: #f6f8fa; padding: 15px; border-radius: 6px; border-left: 4px solid #e1306c; }\
           </style>' docs/build/index.html
           
           # Adicionar classe do GitHub Markdown
           sed -i 's/<body>/<body class="markdown-body">/' docs/build/index.html
           
-          # Adicionar título ao TOC se existir
+          # Customizar TOC para projeto NestJS
           if grep -q '<div id="TOC">' docs/build/index.html; then
-            sed -i 's/<div id="TOC">/<div id="TOC"><h2>📖 Índice<\/h2>/' docs/build/index.html
+            sed -i 's/<div id="TOC">/<div id="TOC"><h2>🚀 Documentação NestJS CRUD<\/h2>/' docs/build/index.html
           fi
+          
+          # Adicionar badge do NestJS no início
+          sed -i '/<body class="markdown-body">/a\
+          <div style="text-align: center; margin-bottom: 30px;">\
+          <span class="nestjs-badge">NestJS</span>\
+          <span class="nestjs-badge">TypeScript</span>\
+          <span class="nestjs-badge">CRUD</span>\
+          <span class="nestjs-badge">TypeORM</span>\
+          </div>' docs/build/index.html
 
       - name: Create additional GitHub Pages files
         run: |
@@ -69,15 +85,27 @@ jobs:
           
           # Criar arquivo README para o GitHub Pages
           cat > docs/build/README.md << 'EOF'
-          # Project Documentation
+          # NestJS CRUD Library Documentation
           
-          Esta é a documentação gerada automaticamente do projeto.
+          📚 **Documentação gerada automaticamente do projeto nestjs-crud**
           
-          ## Acesso
-          - [Documentação Completa](./index.html)
+          ## 🚀 Acesso Rápido
+          - [**📖 Documentação Completa**](./index.html)
           
-          ## Como funciona
-          Esta documentação é gerada automaticamente pelo GitHub Actions sempre que há um push na branch master.
+          ## 🔧 Sobre o Projeto
+          Esta é uma biblioteca CRUD para NestJS que facilita a criação de APIs RESTful com TypeORM.
+          
+          ## ⚡ Como funciona
+          Esta documentação é gerada automaticamente pelo GitHub Actions sempre que há mudanças no código-fonte da biblioteca.
+          
+          ## 🌟 Tecnologias
+          - **NestJS** - Framework Node.js progressivo
+          - **TypeScript** - JavaScript tipado  
+          - **TypeORM** - ORM para TypeScript
+          - **CRUD** - Create, Read, Update, Delete
+          
+          ---
+          *Última atualização: $(date +'%d/%m/%Y às %H:%M')*
           EOF
 
       - name: Deploy to GitHub Pages
