@@ -12,8 +12,8 @@
 <br />
 
 <div align="center">
-  <a href="https://github.com/nest4it/nestjs-crud/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/nest4it/nestjs-crud.svg" alt="License" />
+  <a href="https://github.com/ihelpee/nestjs-crud/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/ihelpee/nestjs-crud.svg" alt="License" />
   </a>
   <a href="https://www.npmjs.com/package/@ihelpee/crud">
     <img src="https://img.shields.io/npm/v/@ihelpee/crud.svg" alt="npm version" />
@@ -33,7 +33,7 @@
   <sub>Built by
   <a href="https://twitter.com/MichaelYali">@MichaelYali</a> and
   <a href="https://ihelpee.nl">ihelpee</a> and
-  <a href="https://github.com/nest4it/nestjs-crud/graphs/contributors">
+  <a href="https://github.com/ihelpee/nestjs-crud/graphs/contributors">
     Contributors
   </a>
 </div>

@@ -15,7 +15,7 @@ Before proceeding, ensure you have the following installed:
 If you don't have the project, start by cloning the repository:
 
 ```bash
-git clone https://github.com/nest4it/nestjs-crud
+git clone https://github.com/ihelpee/nestjs-crud
 cd packages/crud-mikroorm
 
 

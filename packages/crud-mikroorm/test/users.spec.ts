@@ -33,8 +33,8 @@ describe('UsersService', () => {
         MikroOrmModule.forRoot({
           entities: [User], // Your entity
           dbName: 'ihelpee_crud', // Replace with your local database name
-          user: 'root', // Replace with your PostgreSQL username
-          password: 'root', // Replace with your PostgreSQL password
+          user: 'ihelpee_crud', // Replace with your PostgreSQL username
+          password: 'ihelpee_crud', // Replace with your PostgreSQL password
           port: 5432, // Default PostgreSQL port
           host: 'localhost', // Assuming your database is local
           debug: true, // Optional: Enable SQL query logging
@@ -49,6 +49,7 @@ describe('UsersService', () => {
     }).compile();
 
     orm = module.get<MikroORM>(MikroORM);
+    await orm.getSchemaGenerator().createSchema();
     app = module.createNestApplication();
     service = app.get<UsersService>(UsersService);
 
@@ -57,6 +58,7 @@ describe('UsersService', () => {
   });
 
   afterAll(async () => {
+    await orm.getSchemaGenerator().dropSchema();
     await orm.close(true);
   });
 

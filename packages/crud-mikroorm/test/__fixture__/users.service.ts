@@ -7,6 +7,7 @@ import { User } from './user.entity';
 @Injectable()
 export class UsersService extends MikroOrmCrudService<User> {
   constructor(private readonly entityManager: EntityManager) {
-    super(entityManager.getRepository(User));
+    const repo = entityManager.getRepository(User);
+    super(repo);
   }
 }

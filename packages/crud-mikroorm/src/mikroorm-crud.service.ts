@@ -43,10 +43,10 @@ export class MikroOrmCrudService<
   protected em: EntityManager;
 
   protected sqlInjectionRegEx: RegExp[] = [
-    /(%27)|(\')|(--)|(%23)|(#)/gi,
-    /((%3D)|(=))[^\n]*((%27)|(\')|(--)|(%3B)|(;))/gi,
-    /w*((%27)|(\'))((%6F)|o|(%4F))((%72)|r|(%52))/gi,
-    /((%27)|(\'))union/gi,
+    /(%27)|(')|(--)|(%23)|(#)/gi,
+    /((%3D)|(=))[^\n]*((%27)|(')|(--)|(%3B)|(;))/gi,
+    /w*((%27)|('))((%6F)|o|(%4F))((%72)|r|(%52))/gi,
+    /((%27)|('))union/gi,
   ];
   constructor(private readonly repository: EntityRepository<T>) {
     super();
@@ -264,7 +264,7 @@ export class MikroOrmCrudService<
 
     // Remove undefined fields from the object
     const filteredToUpdate = Object.fromEntries(
-      Object.entries(toUpdate).filter(([_, value]) => value !== undefined),
+      Object.entries(toUpdate).filter(([, value]) => value !== undefined),
     );
 
     // Prepare entity for saving (this can be skipped if the DTO is already an entity)

@@ -20,4 +20,5 @@ lerna-debug.log
 # dist
 packages/**/lib
 packages/**/tsconfig.tsbuildinfo
-.env
+.env!
+/ihelpee_crud.sqlite3

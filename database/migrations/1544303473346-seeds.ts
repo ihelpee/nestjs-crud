@@ -9,5 +9,5 @@ export class Seeds1544303473346 implements MigrationInterface {
     });
   }
 
-  public async down(_: QueryRunner): Promise<any> {}
+  public async down(): Promise<any> {}
 }

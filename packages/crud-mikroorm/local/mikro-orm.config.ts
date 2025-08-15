@@ -4,8 +4,8 @@ import { Users } from './user-mikroorm.entity';
 const config = {
   entities: [Users],
   dbName: 'ihelpee_crud',
-  user: 'root',
-  password: 'root',
+  user: 'ihelpee_crud',
+  password: 'ihelpee_crud',
   port: 5432,
   host: 'localhost',
   debug: true,
