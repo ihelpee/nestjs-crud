@@ -38,60 +38,32 @@ jobs:
 
       - name: Generate HTML documentation with styling
         run: |
-          # Criar template simples
-          cat > docs/build/template.html << 'EOF'
-          <!DOCTYPE html>
-          <html lang="pt-BR">
-          <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>$if(title-prefix)$title-prefix$ – $endif$pagetitle$</title>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css">
-            <style>
-              body { 
-                max-width: 980px; 
-                margin: 0 auto; 
-                padding: 20px;
-                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-              }
-              .markdown-body { box-sizing: border-box; }
-              h1 { border-bottom: 1px solid #eaecef; padding-bottom: 10px; }
-              #TOC { 
-                background: #f6f8fa; 
-                border: 1px solid #d0d7de; 
-                border-radius: 6px; 
-                padding: 20px; 
-                margin-bottom: 30px;
-              }
-              #TOC ul { margin: 0; }
-              #TOC > ul { padding-left: 0; }
-              #TOC a { text-decoration: none; color: #0969da; }
-              #TOC a:hover { text-decoration: underline; }
-            </style>
-          </head>
-          <body class="markdown-body">
-            $if(toc)$
-            <div id="TOC">
-              <h2>📖 Índice</h2>
-              $toc$
-            </div>
-            $endif$
-            $body$
-            <hr style="margin-top: 50px;">
-            <footer style="text-align: center; color: #656d76; font-size: 12px;">
-              <p>📚 Documentação gerada automaticamente • $(date +'%d/%m/%Y às %H:%M')</p>
-            </footer>
-          </body>
-          </html>
-          EOF
-          
-          # Gerar documentação
+          # Gerar HTML simples com CSS incorporado
           pandoc README.md $(find docs -name "*.md" | sort) \
             --toc --toc-depth=3 \
             --standalone \
-            --template=docs/build/template.html \
             --metadata title="Documentação do Projeto" \
+            --css=https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css \
             -o docs/build/index.html
+          
+          # Adicionar estilos customizados
+          sed -i '/<\/head>/i\
+          <style>\
+          body { max-width: 980px; margin: 0 auto; padding: 20px; }\
+          .markdown-body { box-sizing: border-box; }\
+          h1 { border-bottom: 1px solid #eaecef; padding-bottom: 10px; }\
+          #TOC { background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px; padding: 20px; margin-bottom: 30px; }\
+          #TOC ul { margin: 0; }\
+          #TOC > ul { padding-left: 0; }\
+          #TOC a { text-decoration: none; color: #0969da; }\
+          #TOC a:hover { text-decoration: underline; }\
+          </style>' docs/build/index.html
+          
+          # Adicionar classe do GitHub Markdown
+          sed -i 's/<body>/<body class="markdown-body">/' docs/build/index.html
+          
+          # Adicionar título ao TOC
+          sed -i 's/<div id="TOC">/<div id="TOC"><h2>📖 Índice<\/h2>/' docs/build/index.html
 
       - name: Create additional GitHub Pages files
         run: |
