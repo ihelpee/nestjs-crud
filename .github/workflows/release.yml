@@ -4,6 +4,15 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'packages/**'
+      - 'yarn.lock'
+      - '*.js'
+      - '*.ts'
+      - '*.yml'
+      - '*.json'
+      - '!docs/**'
+      - '!README.md'
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
