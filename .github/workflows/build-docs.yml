@@ -36,21 +36,17 @@ jobs:
       - name: Create docs/build directory
         run: mkdir -p docs/build
 
-      - name: Generate HTML documentation with enhanced styling
+      - name: Generate HTML documentation with styling
         run: |
-          pandoc README.md $(ls docs/*.md | sort) \
-            --toc --toc-depth=3 \
-            --standalone \
-            --css=https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css \
-            --metadata title="Project Documentation" \
-            --template=<(cat << 'EOF'
+          # Criar template simples
+          cat > docs/build/template.html << 'EOF'
           <!DOCTYPE html>
-          <html lang="en">
+          <html lang="pt-BR">
           <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>$title$</title>
-            <link rel="stylesheet" href="$css$">
+            <title>$if(title-prefix)$title-prefix$ – $endif$pagetitle$</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css">
             <style>
               body { 
                 max-width: 980px; 
@@ -76,19 +72,25 @@ jobs:
           <body class="markdown-body">
             $if(toc)$
             <div id="TOC">
-              <h2>Índice</h2>
+              <h2>📖 Índice</h2>
               $toc$
             </div>
             $endif$
             $body$
             <hr style="margin-top: 50px;">
             <footer style="text-align: center; color: #656d76; font-size: 12px;">
-              <p>Documentação gerada automaticamente em $(date)</p>
+              <p>📚 Documentação gerada automaticamente • $(date +'%d/%m/%Y às %H:%M')</p>
             </footer>
           </body>
           </html>
           EOF
-          ) \
+          
+          # Gerar documentação
+          pandoc README.md $(find docs -name "*.md" | sort) \
+            --toc --toc-depth=3 \
+            --standalone \
+            --template=docs/build/template.html \
+            --metadata title="Documentação do Projeto" \
             -o docs/build/index.html
 
       - name: Create additional GitHub Pages files
