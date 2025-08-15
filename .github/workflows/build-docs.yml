@@ -5,25 +5,13 @@ on:
     branches:
       - master
 
-# Permite que o workflow escreva no repositório e deploy no Pages
+# Permissões simplificadas
 permissions:
   contents: write
-  pages: write
-  id-token: write
-  actions: read
-
-# Permite apenas um deploy simultâneo
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout repository
@@ -32,15 +20,21 @@ jobs:
           fetch-depth: 0
 
       - name: Install Pandoc
-        run: sudo apt-get install -y pandoc
+        run: sudo apt-get update && sudo apt-get install -y pandoc
 
       - name: Create docs/build directory
         run: mkdir -p docs/build
 
       - name: Generate HTML documentation with styling
         run: |
+          # Verificar se existem arquivos markdown
+          if [ ! -f "README.md" ] && [ -z "$(find docs -name "*.md" 2>/dev/null)" ]; then
+            echo "Nenhum arquivo markdown encontrado!"
+            exit 1
+          fi
+          
           # Gerar HTML simples com CSS incorporado
-          pandoc README.md $(find docs -name "*.md" | sort) \
+          pandoc README.md $(find docs -name "*.md" 2>/dev/null | sort) \
             --toc --toc-depth=3 \
             --standalone \
             --metadata title="Documentação do Projeto" \
@@ -63,8 +57,10 @@ jobs:
           # Adicionar classe do GitHub Markdown
           sed -i 's/<body>/<body class="markdown-body">/' docs/build/index.html
           
-          # Adicionar título ao TOC
-          sed -i 's/<div id="TOC">/<div id="TOC"><h2>📖 Índice<\/h2>/' docs/build/index.html
+          # Adicionar título ao TOC se existir
+          if grep -q '<div id="TOC">' docs/build/index.html; then
+            sed -i 's/<div id="TOC">/<div id="TOC"><h2>📖 Índice<\/h2>/' docs/build/index.html
+          fi
 
       - name: Create additional GitHub Pages files
         run: |
@@ -84,19 +80,13 @@ jobs:
           Esta documentação é gerada automaticamente pelo GitHub Actions sempre que há um push na branch master.
           EOF
 
-      - name: Setup GitHub Pages
-        uses: actions/configure-pages@v4
-        with:
-          enablement: true
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'docs/build'
-
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build
+          publish_branch: gh-pages
+          force_orphan: true
 
       - name: Commit generated documentation (backup)
         run: |
