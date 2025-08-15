@@ -4,7 +4,9 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Documentação do Projeto</title>
+  <meta name="author" content="ihelpee" />
+  <meta name="description" content="Biblioteca CRUD para NestJS com TypeORM" />
+  <title>NestJS CRUD Library - Documentação</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -88,19 +90,31 @@
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css" />
 <style>
-body { max-width: 980px; margin: 0 auto; padding: 20px; }
+body { max-width: 1200px; margin: 0 auto; padding: 20px; }
 .markdown-body { box-sizing: border-box; }
-h1 { border-bottom: 1px solid #eaecef; padding-bottom: 10px; }
-#TOC { background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px; padding: 20px; margin-bottom: 30px; }
+h1 { border-bottom: 2px solid #e1306c; padding-bottom: 15px; color: #e1306c; }
+h2 { color: #e1306c; }
+#TOC { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+#TOC h2 { color: white; margin-top: 0; }
 #TOC ul { margin: 0; }
 #TOC > ul { padding-left: 0; }
-#TOC a { text-decoration: none; color: #0969da; }
-#TOC a:hover { text-decoration: underline; }
+#TOC a { text-decoration: none; color: #fff; font-weight: 500; }
+#TOC a:hover { text-decoration: underline; background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 3px; }
+.nestjs-badge { display: inline-block; background: #e1306c; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 10px; }
+code { background: #f6f8fa; padding: 2px 4px; border-radius: 3px; }
+pre { background: #f6f8fa; padding: 15px; border-radius: 6px; border-left: 4px solid #e1306c; }
 </style>
 </head>
 <body class="markdown-body">
+<div style="text-align: center; margin-bottom: 30px;">
+<span class="nestjs-badge">NestJS</span>
+<span class="nestjs-badge">TypeScript</span>
+<span class="nestjs-badge">CRUD</span>
+<span class="nestjs-badge">TypeORM</span>
+</div>
 <header id="title-block-header">
-<h1 class="title">Documentação do Projeto</h1>
+<h1 class="title">NestJS CRUD Library - Documentação</h1>
+<p class="author">ihelpee</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -118,6 +132,12 @@ Contributors</a></li>
 id="toc-financial-contributors">Financial Contributors</a></li>
 </ul></li>
 <li><a href="#license" id="toc-license">License</a></li>
+<li><a href="#project-documentation"
+id="toc-project-documentation">Project Documentation</a>
+<ul>
+<li><a href="#acesso" id="toc-acesso">Acesso</a></li>
+<li><a href="#como-funciona" id="toc-como-funciona">Como
+funciona</a></li>
 <li><a href="#description" id="toc-description">Description</a></li>
 <li><a href="#table-of-contents" id="toc-table-of-contents">Table of
 Contents</a></li>
@@ -211,6 +231,7 @@ Condition (on clause)</a></li>
 <li><a href="#install-2" id="toc-install-2">Install</a></li>
 <li><a href="#usage-1" id="toc-usage-1">Usage</a></li>
 <li><a href="#description-2" id="toc-description-2">Description</a></li>
+</ul></li>
 </ul>
 </nav>
 <div data-align="center">
@@ -313,6 +334,15 @@ class="citation"
 data-cites="nestjsx/crud">@nestjsx/crud</span></strong></a> , the aim is
 to maintain compatibility with the original project while supporting new
 features and keeping it up to date .</p>
+<h1 id="project-documentation">Project Documentation</h1>
+<p>Esta é a documentação gerada automaticamente do projeto.</p>
+<h2 id="acesso">Acesso</h2>
+<ul>
+<li><a href="./index.html">Documentação Completa</a></li>
+</ul>
+<h2 id="como-funciona">Como funciona</h2>
+<p>Esta documentação é gerada automaticamente pelo GitHub Actions sempre
+que há um push na branch master.</p>
 <h2 id="description">Description</h2>
 <p><a href="https://www.npmjs.com/package/@ihelpee/crud"><strong><span
 class="citation"
