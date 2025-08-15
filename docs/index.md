@@ -23,9 +23,9 @@ yarn add @ihelpee/crud-typeorm@~5.1 @nestjs/typeorm@~8.0.2 typeorm@~0.2
 
 ## Compatibility
 
-Versions < 5.2.0 aim for full compatibility with the original nestjsx/crud project while adding few new features.
+Versions < 5.2.0 aim for full compatibility with the original nestjsx/crud project while adding a few new features.
 
-Version >= 5.2.0 are based on TypeORM 0.3.x and might not be compatible, but still the goal is to have minimal disruption when upgrading from TypeORM 0.2.x
+Version >= 5.2.0 is based on TypeORM 0.3.x and might not be compatible, but still the goal is to have minimal disruption when upgrading from TypeORM 0.2.x
 
 ## Documentation
 
