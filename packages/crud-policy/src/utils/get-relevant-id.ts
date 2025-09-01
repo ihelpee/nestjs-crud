@@ -7,8 +7,6 @@ export enum Error {
 
 export const isSameIdInBodyAndParams = (bodyId: unknown, paramsId: unknown) => {
   return !(bodyId && paramsId && bodyId !== paramsId);
-
-
 };
 
 export const createRequestEntityIdGetter = (
