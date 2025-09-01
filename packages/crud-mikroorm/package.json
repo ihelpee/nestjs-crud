@@ -1,7 +1,7 @@
 {
   "name": "@ihelpee/crud-mikroorm",
   "description": "NestJs CRUD for RESTful APIs - MikroORM",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "license": "GPL-3.0",
   "main": "src/main.ts",
   "typings": "lib/index.d.ts",
@@ -41,7 +41,7 @@
     "start": "nest start --watch --entryFile local/main.js"
   },
   "devDependencies": {
-    "@ihelpee/crud": "^2.0.6"
+    "@ihelpee/crud": "^2.0.7"
   },
   "dependencies": {
     "@mikro-orm/core": "6.4.3",
