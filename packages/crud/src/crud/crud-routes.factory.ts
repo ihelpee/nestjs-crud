@@ -480,14 +480,19 @@ export class CrudRoutesFactory {
     ];
 
     //  add ValidationPipe to create, update and replace operations
-    if (isIn(name, routes) && this.options.validation !== false) {
+    if (isIn(name, routes)) {
       const action = this.routeNameAction(name);
       const hasDto = !isNil(this.options.dto[action]);
       const { UPDATE, CREATE } = CrudValidationGroups;
       const groupEnum = isIn(name, ['updateOneBase', 'replaceOneBase']) ? UPDATE : CREATE;
       const group = !hasDto ? groupEnum : undefined;
 
-      rest = R.setBodyArg(1, [Validation.getValidationPipe(this.options, group)]);
+      const pipes =
+        this.options.validation !== false
+          ? [Validation.getValidationPipe(this.options, group)]
+          : [];
+
+      rest = R.setBodyArg(1, pipes);
     }
 
     R.setRouteArgs({ ...R.setParsedRequestArg(0), ...rest }, this.target, name);
