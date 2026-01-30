@@ -476,7 +476,7 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
 
     return dto instanceof this.entityType
       ? Object.assign(dto, parsed.authPersist)
-      : plainToClass(
+      : plainToInstance(
           this.entityType,
           { ...dto, ...parsed.authPersist },
           parsed.classTransformOptions,

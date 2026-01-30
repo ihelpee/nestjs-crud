@@ -1,4 +1,4 @@
-import { Feature, Action, getFeature, getAction } from '../src/decorators';
+import { Feature, Action, getFeature, getAction } from '@ihelpee/crud';
 
 describe('#crud', () => {
   const feature = 'feature';

@@ -1,4 +1,4 @@
-import { ValidationPipeOptions } from '@nestjs/common';
+import { ValidationPipe, ValidationPipeOptions } from '@nestjs/common';
 
 import { AuthOptions } from './auth-options.interface';
 import { DtoOptions } from './dto-options.interface';
@@ -25,7 +25,7 @@ export interface CrudOptions {
   routes?: RoutesOptions;
   routesFactory?: typeof CrudRoutesFactory;
   params?: ParamsOptions;
-  validation?: ValidationPipeOptions | false;
+  validation?: ValidationPipe | ValidationPipeOptions | false;
   operators?: OperatorsOptions;
 }
 

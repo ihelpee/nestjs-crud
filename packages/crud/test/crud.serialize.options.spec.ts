@@ -3,8 +3,8 @@ import { Test } from '@nestjs/testing';
 import { Controller, INestApplication, Inject } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 
-import { Crud, Override, ParsedRequest } from '../src/decorators';
-import { CrudController, CrudRequest } from '../src/interfaces';
+import { Crud, Override, ParsedRequest } from '@ihelpee/crud';
+import { CrudController, CrudRequest } from '@ihelpee/crud';
 import { HttpExceptionFilter } from './__fixture__/exception.filter';
 import { TestSerializeModel, TestSerialize2Model } from './__fixture__/models';
 import {
