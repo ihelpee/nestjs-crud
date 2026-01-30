@@ -480,7 +480,7 @@ export class CrudRoutesFactory {
     ];
 
     //  add ValidationPipe to create, update and replace operations
-    if (isIn(name, routes)) {
+    if (isIn(name, routes) && this.options.validation !== false) {
       const action = this.routeNameAction(name);
       const hasDto = !isNil(this.options.dto[action]);
       const { UPDATE, CREATE } = CrudValidationGroups;

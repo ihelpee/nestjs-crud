@@ -26,7 +26,7 @@ import {
   ObjectLiteral,
   objKeys,
 } from '@ihelpee/crud-util';
-import { ClassConstructor, plainToClass } from 'class-transformer';
+import { ClassConstructor, plainToClass, plainToInstance } from 'class-transformer';
 
 export class MikroOrmCrudService<
   T extends object,
@@ -615,7 +615,7 @@ export class MikroOrmCrudService<
     }
 
     // Transform plain DTO into an entity if it's not an instance of the entity type
-    const entityInstance = plainToClass(
+    const entityInstance = plainToInstance(
       this.entity as ClassConstructor<T>,
       { ...dto, ...parsed.authPersist },
       parsed.classTransformOptions,

@@ -26,9 +26,6 @@ export class Validation {
     options: CrudOptions,
     group?: CrudValidationGroups,
   ): ValidationPipe {
-    if (options.validation instanceof ValidationPipe) {
-      return options.validation;
-    }
     return validator && !isFalse(options.validation)
       ? new ValidationPipe({
           ...(options.validation || {}),
