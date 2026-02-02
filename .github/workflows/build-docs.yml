@@ -8,6 +8,8 @@ on:
 # Permissões simplificadas
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -115,11 +117,3 @@ jobs:
           publish_dir: ./docs/build
           publish_branch: gh-pages
           force_orphan: true
-
-      - name: Commit generated documentation (backup)
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/build/
-          git commit -m "📚 Update generated documentation [skip ci]" || echo "No changes to commit"
-          git push || echo "Push failed, but deployment succeeded"
