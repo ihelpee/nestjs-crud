@@ -1,0 +1,39 @@
+site_name: NestJS CRUD Library
+site_description: Biblioteca CRUD para NestJS com TypeORM
+site_author: ihelpee
+site_url: https://ihelpee.github.io/nestjs-crud
+
+repo_name: ihelpee/nestjs-crud
+repo_url: https://github.com/ihelpee/nestjs-crud
+
+theme:
+name: material
+language: pt
+palette:
+- scheme: default
+primary: pink
+accent: deep purple
+features:
+- navigation.instant
+- navigation.tracking
+- navigation.tabs
+- content.code.copy
+- content.tabs.link
+
+markdown_extensions:
+- admonition
+- codehilite
+- footnotes
+- meta
+- toc:
+  permalink: true
+- pymdownx.superfences
+- pymdownx.highlight
+- pymdownx.tabbed
+
+nav:
+- Início: index.md
+- Instalação: install.md
+- Uso Básico: usage.md
+- Segurança: security.md
+- Avançado: advanced.md

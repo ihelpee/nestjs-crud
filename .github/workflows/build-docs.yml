@@ -1,119 +1,31 @@
-name: Build and Deploy Documentation
+name: Deploy Documentation
 
 on:
   push:
     branches:
       - master
 
-# Permissões simplificadas
 permissions:
   contents: write
   pages: write
   id-token: write
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          fetch-depth: 0
+          python-version: '3.11'
 
-      - name: Install Pandoc
-        run: sudo apt-get update && sudo apt-get install -y pandoc
-
-      - name: Create docs/build directory
-        run: mkdir -p docs/build
-
-      - name: Generate HTML documentation with styling
+      - name: Install MkDocs
         run: |
-          # Verificar se existem arquivos markdown
-          if [ ! -f "README.md" ] && [ -z "$(find docs -name "*.md" 2>/dev/null)" ]; then
-            echo "⚠️ Nenhum arquivo markdown encontrado!"
-            exit 1
-          fi
-          
-          # Gerar HTML com metadados específicos do projeto
-          pandoc README.md $(find docs -name "*.md" 2>/dev/null | sort) \
-            --toc --toc-depth=3 \
-            --standalone \
-            --metadata title="NestJS CRUD Library - Documentação" \
-            --metadata author="ihelpee" \
-            --metadata description="Biblioteca CRUD para NestJS com TypeORM" \
-            --css=https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css \
-            -o docs/build/index.html
-          
-          # Adicionar estilos customizados para projeto NestJS
-          sed -i '/<\/head>/i\
-          <style>\
-          body { max-width: 1200px; margin: 0 auto; padding: 20px; }\
-          .markdown-body { box-sizing: border-box; }\
-          h1 { border-bottom: 2px solid #e1306c; padding-bottom: 15px; color: #e1306c; }\
-          h2 { color: #e1306c; }\
-          #TOC { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }\
-          #TOC h2 { color: white; margin-top: 0; }\
-          #TOC ul { margin: 0; }\
-          #TOC > ul { padding-left: 0; }\
-          #TOC a { text-decoration: none; color: #fff; font-weight: 500; }\
-          #TOC a:hover { text-decoration: underline; background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 3px; }\
-          .nestjs-badge { display: inline-block; background: #e1306c; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 10px; }\
-          code { background: #f6f8fa; padding: 2px 4px; border-radius: 3px; }\
-          pre { background: #f6f8fa; padding: 15px; border-radius: 6px; border-left: 4px solid #e1306c; }\
-          </style>' docs/build/index.html
-          
-          # Adicionar classe do GitHub Markdown
-          sed -i 's/<body>/<body class="markdown-body">/' docs/build/index.html
-          
-          # Customizar TOC para projeto NestJS
-          if grep -q '<div id="TOC">' docs/build/index.html; then
-            sed -i 's/<div id="TOC">/<div id="TOC"><h2>🚀 Documentação NestJS CRUD<\/h2>/' docs/build/index.html
-          fi
-          
-          # Adicionar badge do NestJS no início
-          sed -i '/<body class="markdown-body">/a\
-          <div style="text-align: center; margin-bottom: 30px;">\
-          <span class="nestjs-badge">NestJS</span>\
-          <span class="nestjs-badge">TypeScript</span>\
-          <span class="nestjs-badge">CRUD</span>\
-          <span class="nestjs-badge">TypeORM</span>\
-          </div>' docs/build/index.html
+          pip install mkdocs-material
 
-      - name: Create additional GitHub Pages files
+      - name: Build and Deploy
         run: |
-          # Criar arquivo de configuração do Jekyll (desabilita processamento)
-          echo "" > docs/build/.nojekyll
-          
-          # Criar arquivo README para o GitHub Pages
-          cat > docs/build/README.md << 'EOF'
-          # NestJS CRUD Library Documentation
-          
-          📚 **Documentação gerada automaticamente do projeto nestjs-crud**
-          
-          ## 🚀 Acesso Rápido
-          - [**📖 Documentação Completa**](./index.html)
-          
-          ## 🔧 Sobre o Projeto
-          Esta é uma biblioteca CRUD para NestJS que facilita a criação de APIs RESTful com TypeORM.
-          
-          ## ⚡ Como funciona
-          Esta documentação é gerada automaticamente pelo GitHub Actions sempre que há mudanças no código-fonte da biblioteca.
-          
-          ## 🌟 Tecnologias
-          - **NestJS** - Framework Node.js progressivo
-          - **TypeScript** - JavaScript tipado  
-          - **TypeORM** - ORM para TypeScript
-          - **CRUD** - Create, Read, Update, Delete
-          
-          ---
-          *Última atualização: $(date +'%d/%m/%Y às %H:%M')*
-          EOF
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/build
-          publish_branch: gh-pages
-          force_orphan: true
+          mkdocs gh-deploy --force
