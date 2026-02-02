@@ -1,0 +1,1117 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Biblioteca CRUD para NestJS com TypeORM">
+      
+      
+        <meta name="author" content="ihelpee">
+      
+      
+        <link rel="canonical" href="https://ihelpee.github.io/nestjs-crud/requests/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Requests - NestJS CRUD Library</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#description" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="NestJS CRUD Library" class="md-header__button md-logo" aria-label="NestJS CRUD Library" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NestJS CRUD Library
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Requests
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="deep-purple"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ihelpee/nestjs-crud" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ihelpee/nestjs-crud
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Início
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../install.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Instalação
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../usage.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Uso Básico
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../security.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Segurança
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../advanced.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Avançado
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="NestJS CRUD Library" class="md-nav__button md-logo" aria-label="NestJS CRUD Library" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NestJS CRUD Library
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ihelpee/nestjs-crud" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ihelpee/nestjs-crud
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso Básico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Segurança
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Avançado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query params
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Query params">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#select" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        select
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        filter conditions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        filter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#or" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        or
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#join" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        join
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-feature-join-condition-on-clause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New Feature: Join Condition (on clause)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        limit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#offset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        offset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        page
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#customize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Requests</h1>
+
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
+<p><strong>Ihelpee/crud</strong> provides a full range of path and query parameters parsing/validation to help you build rich RESTful APIs. <a href="https://www.npmjs.com/package/@ihelpee/crud-request"><strong>@ihelpee/crud-request</strong></a> is responsible for that.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#query-params">Query params</a></li>
+<li><a href="#select">select</a></li>
+<li><a href="#search">search</a></li>
+<li><a href="#filter-conditions">filter conditions</a></li>
+<li><a href="#filter">filter</a></li>
+<li><a href="#or">or</a></li>
+<li><a href="#sort">sort</a></li>
+<li><a href="#join">join</a></li>
+<li><a href="#limit">limit</a></li>
+<li><a href="#offset">offset</a></li>
+<li><a href="#page">page</a></li>
+<li><a href="#cache">cache</a></li>
+<li><a href="#frontend-usage">Frontend usage</a></li>
+<li><a href="#customize">Customize</a></li>
+<li><a href="#usage">Usage</a></li>
+</ul>
+<h2 id="query-params">Query params<a class="headerlink" href="#query-params" title="Permanent link">&para;</a></h2>
+<p>By default, we support these param names:</p>
+<p><code>fields</code>, <code>select</code> - get selected fields in GET result</p>
+<p><code>s</code> - search conditions (<code>$and</code>, <code>$or</code> with all possible variations)</p>
+<p><code>filter</code> - filter GET result by <code>AND</code> type of condition</p>
+<p><code>or</code> - filter GET result by <code>OR</code> type of condition</p>
+<p><code>join</code> - receive joined relational resources in GET result (with all or selected fields)</p>
+<p><code>sort</code> - sort GET result by some <code>field</code> in <code>ASC | DESC</code> order</p>
+<p><code>per_page</code>, <code>limit</code> - limit the amount of received resources</p>
+<p><code>offset</code> - offset some amount of received resources</p>
+<p><code>page</code> - receive a portion of limited amount of resources</p>
+<p><code>cache</code> - reset cache (if was enabled) and receive resources directly from the DB</p>
+<p><strong><em>Notice:</em></strong> You can easily map your own query params names and chose another string delimiters by applying <a href="https://github.com/ihelpee/crud/wiki/Controllers#global-options">global options</a>.</p>
+<p>Here is the description of each of those using default params names:</p>
+<h3 id="select">select<a class="headerlink" href="#select" title="Permanent link">&para;</a></h3>
+<p>Selects fields that should be returned in the reponse body.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?fields=<strong>field1</strong>,<strong>field2</strong>,...</p>
+</blockquote>
+<p><em>Example:</em></p>
+<blockquote>
+<p>?fields=<strong>email</strong>,<strong>name</strong></p>
+</blockquote>
+<h3 id="search">search<a class="headerlink" href="#search" title="Permanent link">&para;</a></h3>
+<p>Adds a search condition as a JSON string to you request. You can combine <code>$and</code>, <code>$or</code> and <code>$not</code> and use any <a href="#filter-conditions">condition</a> you need. Make sure it's being sent encoded or just use <a href="#frontend-usage"><code>RequestQueryBuilder</code></a></p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?s={"name": "Michael"}</p>
+</blockquote>
+<p><em>Some examples:</em></p>
+<ul>
+<li>Search by field <code>name</code> that can be either <code>null</code> OR equals <code>Superman</code></li>
+</ul>
+<blockquote>
+<p>?s={"name": {"<strong>\$or</strong>": {"<strong>\$isnull</strong>": true, "<strong>\$eq</strong>": "Superman"}}}</p>
+</blockquote>
+<ul>
+<li>Search an entity where <code>isActive</code> is <code>true</code> AND <code>createdAt</code> not equal <code>2008-10-01T17:04:32</code></li>
+</ul>
+<blockquote>
+<p>?s={"<strong>\$and</strong>": [{"isActive": true}, {"createdAt": {"<strong>$ne</strong>": "2008-10-01T17:04:32"}}]}</p>
+</blockquote>
+<p>...which is the same as:</p>
+<blockquote>
+<p>?s={"isActive": true, "createdAt": {"<strong>\$ne</strong>": "2008-10-01T17:04:32"}}</p>
+</blockquote>
+<ul>
+<li>Search an entity where <code>isActive</code> is <code>false</code> OR <code>updatedAt</code> is not <code>null</code></li>
+</ul>
+<blockquote>
+<p>?s={"<strong>\$or</strong>": [{"isActive": false}, {"updatedAt": {"<strong>$notnull</strong>": true}}]}</p>
+</blockquote>
+<ul>
+<li>Search an entity where condition is negated</li>
+</ul>
+<blockquote>
+<p>?s={"<strong>\$not": [{"</strong>\$or<strong>": [{"isActive": false}, {"updatedAt": {"</strong>\$notnull**": true}}]}]}</p>
+</blockquote>
+<p>So the amount of combinations is really huge.</p>
+<p><strong><em>Notice:</em></strong> if search query param is present, then <a href="#filter">filter</a> and <a href="#or">or</a> query params will be ignored.</p>
+<h3 id="filter-conditions">filter conditions<a class="headerlink" href="#filter-conditions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>$eq</code></strong> (<code>=</code>, equal)</li>
+<li><strong><code>$ne</code></strong> (<code>!=</code>, not equal)</li>
+<li><strong><code>$gt</code></strong> (<code>&gt;</code>, greater than)</li>
+<li><strong><code>$lt</code></strong> (<code>&lt;</code>, lower that)</li>
+<li><strong><code>$gte</code></strong> (<code>&gt;=</code>, greater than or equal)</li>
+<li><strong><code>$lte</code></strong> (<code>&lt;=</code>, lower than or equal)</li>
+<li><strong><code>$starts</code></strong> (<code>LIKE val%</code>, starts with)</li>
+<li><strong><code>$ends</code></strong> (<code>LIKE %val</code>, ends with)</li>
+<li><strong><code>$cont</code></strong> (<code>LIKE %val%</code>, contains)</li>
+<li><strong><code>$excl</code></strong> (<code>NOT LIKE %val%</code>, not contains)</li>
+<li><strong><code>$in</code></strong> (<code>IN</code>, in range, <strong><em>accepts multiple values</em></strong>)</li>
+<li><strong><code>$notin</code></strong> (<code>NOT IN</code>, not in range, <strong><em>accepts multiple values</em></strong>)</li>
+<li><strong><code>$isnull</code></strong> (<code>IS NULL</code>, is NULL, <strong><em>doesn't accept value</em></strong>)</li>
+<li><strong><code>$notnull</code></strong> (<code>IS NOT NULL</code>, not NULL, <strong><em>doesn't accept value</em></strong>)</li>
+<li><strong><code>$between</code></strong> (<code>BETWEEN</code>, between, <strong><em>accepts two values</em></strong>)</li>
+<li><strong><code>$eqL</code></strong> (<code>LOWER(field) =</code>, equal)</li>
+<li><strong><code>$neL</code></strong> (<code>LOWER(field) !=</code>, not equal)</li>
+<li><strong><code>$startsL</code></strong> (<code>LIKE|ILIKE val%</code>)</li>
+<li><strong><code>$endsL</code></strong> (<code>LIKE|ILIKE %val</code>, ends with)</li>
+<li><strong><code>$contL</code></strong> (<code>LIKE|ILIKE %val%</code>, contains)</li>
+<li><strong><code>$exclL</code></strong> (<code>NOT LIKE|ILIKE %val%</code>, not contains)</li>
+<li><strong><code>$inL</code></strong> (<code>LOWER(field) IN</code>, in range, <strong><em>accepts multiple values</em></strong>)</li>
+<li><strong><code>$notinL</code></strong> (<code>LOWER(field) NOT IN</code>, not in range, <strong><em>accepts multiple values</em></strong>)</li>
+</ul>
+<h3 id="filter">filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h3>
+<p>Adds fields request condition (multiple conditions) to your request.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?filter=<strong>field</strong>||<strong>\$condition</strong>||<strong>value</strong></p>
+<p>?join[]=<strong>relation</strong>&amp;filter=<strong>relation</strong>.<strong>field</strong>||<strong>\$condition</strong>||<strong>value</strong></p>
+</blockquote>
+<p><strong><em>Notice:</em></strong> Using nested filter shall join relation first.</p>
+<p><em>Examples:</em></p>
+<blockquote>
+<p>?filter=<strong>name</strong>||<strong>\$eq</strong>||<strong>batman</strong></p>
+<p>?filter=<strong>isVillain</strong>||<strong>\$eq</strong>||<strong>false</strong>&amp;filter=<strong>city</strong>||<strong>\$eq</strong>||<strong>Arkham</strong> (multiple filters are treated as a combination of <code>AND</code> type of conditions)</p>
+<p>?filter=<strong>shots</strong>||<strong>\$in</strong>||<strong>12</strong>,<strong>26</strong> (some conditions accept multiple values separated by commas)</p>
+<p>?filter=<strong>power</strong>||<strong>\$isnull</strong> (some conditions don't accept value)</p>
+</blockquote>
+<h3 id="or">or<a class="headerlink" href="#or" title="Permanent link">&para;</a></h3>
+<p>Adds <code>OR</code> conditions to the request.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?or=<strong>field</strong>||<strong>\$condition</strong>||<strong>value</strong></p>
+</blockquote>
+<p>It uses the same <a href="#filter-conditions">filter conditions</a>.</p>
+<p><em>Rules and examples:</em></p>
+<ul>
+<li>If there is only <strong>one</strong> <code>or</code> present (without <code>filter</code>) then it will be interpreted as simple <a href="#filter">filter</a>:</li>
+</ul>
+<blockquote>
+<p>?or=<strong>name</strong>||<strong>\$eq</strong>||<strong>batman</strong></p>
+</blockquote>
+<ul>
+<li>If there are <strong>multiple</strong> <code>or</code> present (without <code>filter</code>) then it will be interpreted as a compination of <code>OR</code> conditions, as follows:
+  <code>WHERE {or} OR {or} OR ...</code></li>
+</ul>
+<blockquote>
+<p>?or=<strong>name</strong>||<strong>\$eq</strong>||<strong>batman</strong>&amp;or=<strong>name</strong>||<strong>\$eq</strong>||<strong>joker</strong></p>
+</blockquote>
+<ul>
+<li>If there are <strong>one</strong> <code>or</code> and <strong>one</strong> <code>filter</code> then it will be interpreted as <code>OR</code> condition, as follows:
+  <code>WHERE {filter} OR {or}</code></li>
+</ul>
+<blockquote>
+<p>?filter=<strong>name</strong>||<strong>\$eq</strong>||<strong>batman</strong>&amp;or=<strong>name</strong>||<strong>\$eq</strong>||<strong>joker</strong></p>
+</blockquote>
+<ul>
+<li>If present <strong>both</strong> <code>or</code> and <code>filter</code> in any amount (<strong>one</strong> or <strong>miltiple</strong> each) then both interpreted as a combitation of <code>AND</code> conditions and compared with each other by <code>OR</code> condition, as follows:
+  <code>WHERE ({filter} AND {filter} AND ...) OR ({or} AND {or} AND ...)</code></li>
+</ul>
+<blockquote>
+<p>?filter=<strong>type</strong>||<strong>\$eq</strong>||<strong>hero</strong>&amp;filter=<strong>status</strong>||<strong>\$eq</strong>||<strong>alive</strong>&amp;or=<strong>type</strong>||<strong>\$eq</strong>||<strong>villain</strong>&amp;or=<strong>status</strong>||<strong>\$eq</strong>||<strong>dead</strong></p>
+</blockquote>
+<h3 id="sort">sort<a class="headerlink" href="#sort" title="Permanent link">&para;</a></h3>
+<p>Adds sort by field (by multiple fields) and order to query result.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?sort=<strong>field</strong>,<strong>ASC|DESC</strong></p>
+</blockquote>
+<p><em>Examples:</em></p>
+<blockquote>
+<p>?sort=<strong>name</strong>,<strong>ASC</strong></p>
+<p>?sort=<strong>name</strong>,<strong>ASC</strong>&amp;sort=<strong>id</strong>,<strong>DESC</strong></p>
+</blockquote>
+<h3 id="join">join<a class="headerlink" href="#join" title="Permanent link">&para;</a></h3>
+<p>Receive joined relational objects in GET result (with all or selected fields). You can join as many relations as allowed in your <a href="https://github.com/ihelpee/crud/wiki/Controllers#join">CrudOptions</a>.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?join[]=<strong>relation</strong></p>
+<p>?join[]=<strong>relation</strong>||<strong>field1</strong>,<strong>field2</strong>,...</p>
+<p>?join[]=<strong>relation1</strong>||<strong>field11</strong>,<strong>field12</strong>,...&amp;join[]=<strong>relation1</strong>.<strong>nested</strong>||<strong>field21</strong>,<strong>field22</strong>,...&amp;join[]=...</p>
+</blockquote>
+<p><em>Examples:</em></p>
+<blockquote>
+<p>?join[]=<strong>profile</strong></p>
+<p>?join[]=<strong>profile</strong>||<strong>firstName</strong>,<strong>email</strong></p>
+<p>?join[]=<strong>profile</strong>||<strong>firstName</strong>,<strong>email</strong>&amp;join[]=<strong>notifications</strong>||<strong>content</strong>&amp;join[]=<strong>tasks</strong></p>
+<p>?join[]=<strong>relation1</strong>&amp;join[]=<strong>relation1</strong>.<strong>nested</strong>&amp;join[]=<strong>relation1</strong>.<strong>nested</strong>.<strong>deepnested</strong></p>
+</blockquote>
+<p><strong><em>Notice:</em></strong> primary field/column always persists in relational objects. To use nested relations, the parent level <strong>MUST</strong> be set before the child level like example above.</p>
+<h3 id="new-feature-join-condition-on-clause">New Feature: Join Condition (on clause)<a class="headerlink" href="#new-feature-join-condition-on-clause" title="Permanent link">&para;</a></h3>
+<p>The join parameter now supports specifying a WHERE condition within the ON clause of the join using the on property. This allows for more granular control over the joined data.</p>
+<blockquote>
+<p>?join[]=<strong>relation</strong>||<strong>field1</strong>,<strong>field2</strong>,...||on[0]=<strong>field</strong>||<strong>\$condition</strong>||<strong>value</strong>,on[1]=<strong>field</strong>||<strong>\$condition</strong>...&amp;join[]=...</p>
+</blockquote>
+<p><em>Examples:</em></p>
+<p>Suppose you want to retrieve <code>Posts</code> along with their associated <code>Author</code> data, but you only want to include <code>Authors</code> where the <code>isActive</code> field is <code>true</code> and the <code>profilePicture</code> field is <code>null</code> (meaning the author doesn't have a profile picture set). You can achieve this with the following query string:</p>
+<blockquote>
+<p>?join[]=<strong>author</strong>||<strong>fullName</strong>,<strong>email</strong>||on[0]=<strong>author.isActive</strong>||<strong>\$eq</strong>||<strong>true</strong>&amp;on[1]=<strong>author.profilePicture</strong>||<strong>\$isnull</strong></p>
+</blockquote>
+<p>This query will join the <code>Post</code> entity with its related <code>Author</code> entity, but it will only include <code>Author</code> objects where:</p>
+<ul>
+<li>The <code>isActive</code> field is set to <code>true</code>.</li>
+<li>The <code>profilePicture</code> field is <code>null</code>.</li>
+</ul>
+<h3 id="limit">limit<a class="headerlink" href="#limit" title="Permanent link">&para;</a></h3>
+<p>Receive <code>N</code> amount of entities.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?limit=<strong>number</strong></p>
+</blockquote>
+<p><em>Example:</em></p>
+<blockquote>
+<p>?limit=<strong>10</strong></p>
+</blockquote>
+<h3 id="offset">offset<a class="headerlink" href="#offset" title="Permanent link">&para;</a></h3>
+<p>Limit the amount of received resources</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?offset=<strong>number</strong></p>
+</blockquote>
+<p><em>Example:</em></p>
+<blockquote>
+<p>?offset=<strong>10</strong></p>
+</blockquote>
+<h3 id="page">page<a class="headerlink" href="#page" title="Permanent link">&para;</a></h3>
+<p>Receive a portion of limited amount of resources.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?page=<strong>number</strong></p>
+</blockquote>
+<p><em>Example:</em></p>
+<blockquote>
+<p>?page=<strong>2</strong></p>
+</blockquote>
+<h3 id="cache">cache<a class="headerlink" href="#cache" title="Permanent link">&para;</a></h3>
+<p>Reset cache (if was enabled) and receive resources directly from the DB.</p>
+<p><em>Usage:</em></p>
+<blockquote>
+<p>?cache=0</p>
+</blockquote>
+<h2 id="frontend-usage">Frontend usage<a class="headerlink" href="#frontend-usage" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.npmjs.com/package/@ihelpee/crud-request"><strong>@ihelpee/crud-request</strong></a> is a framework agnostic package that has been designed for both backend and frontend usage. It's also used by <a href="https://www.npmjs.com/package/@ihelpee/crud"><strong>@ihelpee/crud</strong></a> package in <code>CrudRequestInterceptor</code>.</p>
+<p>It has <code>RequestQueryBuilder</code> class that helps building a query string and customizing your query params names and delimiters.</p>
+<h3 id="customize">Customize<a class="headerlink" href="#customize" title="Permanent link">&para;</a></h3>
+<p>It has a static method <code>setOptions</code> that alows you to set different params names (defaults are shown):</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">RequestQueryBuilder</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@ihelpee/crud-request&#39;</span><span class="p">;</span>
+
+<span class="nx">RequestQueryBuilder</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">delim</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;||&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">delimStr</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">paramNamesMap</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">fields</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;select&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">search</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;s&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;filter[]&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;filter&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">or</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;or[]&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;or&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">join</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;join[]&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;join&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">sort</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sort[]&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;sort&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;per_page&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;limit&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">offset</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;offset&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">page</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">cache</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;cache&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<p>You can compose a query string in a chaining methods manner:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">RequestQueryBuilder</span><span class="p">,</span><span class="w"> </span><span class="nx">CondOperator</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@ihelpee/crud-request&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">qb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">RequestQueryBuilder</span><span class="p">.</span><span class="nx">create</span><span class="p">();</span>
+
+<span class="c1">// set search</span>
+
+<span class="nx">qb</span><span class="p">.</span><span class="nx">search</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">$or</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">$notnull</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">baz</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">bar</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">$ne</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;test&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">});</span>
+
+<span class="c1">// is actually the same as:</span>
+
+<span class="nx">qb</span><span class="p">.</span><span class="nx">setFilter</span><span class="p">({</span><span class="w"> </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">operator</span><span class="o">:</span><span class="w"> </span><span class="kt">CondOperator.NOT_NULL</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">setFilter</span><span class="p">({</span><span class="w"> </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;baz&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">operator</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;$eq&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">setOr</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">operator</span><span class="o">:</span><span class="w"> </span><span class="kt">CondOperator.NOT_EQUALS</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;test&quot;</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="nx">qb</span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">])</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">setJoin</span><span class="p">({</span><span class="w"> </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;company&#39;</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">setJoin</span><span class="p">({</span><span class="w"> </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;profile&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">select</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;email&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">setJoin</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;boo&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">select</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;date&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">on</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">operator</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;eq&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">100</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">operator</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;isnull&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">sortBy</span><span class="p">({</span><span class="w"> </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DESС&#39;</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">setLimit</span><span class="p">(</span><span class="mf">20</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">setPage</span><span class="p">(</span><span class="mf">3</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">resetCache</span><span class="p">()</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">query</span><span class="p">();</span>
+</code></pre></div>
+<p>Or, you can path all params to the <code>create</code> method:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">queryString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">RequestQueryBuilder</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">fields</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;email&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">search</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">isActive</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">join</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;company&#39;</span><span class="w"> </span><span class="p">}],</span>
+<span class="w">  </span><span class="nx">sort</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DESC&#39;</span><span class="w"> </span><span class="p">}],</span>
+<span class="w">  </span><span class="nx">page</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="kt">25</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">resetCache</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="p">}).</span><span class="nx">query</span><span class="p">();</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

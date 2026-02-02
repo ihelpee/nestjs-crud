@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="ihelpee" />
+  <meta name="description" content="Biblioteca CRUD para NestJS com TypeORM" />
+  <title>NestJS CRUD Library - Documentação</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css" />
+<style>
+body { max-width: 1200px; margin: 0 auto; padding: 20px; }
+.markdown-body { box-sizing: border-box; }
+h1 { border-bottom: 2px solid #e1306c; padding-bottom: 15px; color: #e1306c; }
+h2 { color: #e1306c; }
+#TOC { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+#TOC h2 { color: white; margin-top: 0; }
+#TOC ul { margin: 0; }
+#TOC > ul { padding-left: 0; }
+#TOC a { text-decoration: none; color: #fff; font-weight: 500; }
+#TOC a:hover { text-decoration: underline; background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 3px; }
+.nestjs-badge { display: inline-block; background: #e1306c; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 10px; }
+code { background: #f6f8fa; padding: 2px 4px; border-radius: 3px; }
+pre { background: #f6f8fa; padding: 15px; border-radius: 6px; border-left: 4px solid #e1306c; }
+</style>
+</head>
+<body class="markdown-body">
+<div style="text-align: center; margin-bottom: 30px;">
+<span class="nestjs-badge">NestJS</span>
+<span class="nestjs-badge">TypeScript</span>
+<span class="nestjs-badge">CRUD</span>
+<span class="nestjs-badge">TypeORM</span>
+</div>
+<header id="title-block-header">
+<h1 class="title">NestJS CRUD Library - Documentação</h1>
+<p class="author">ihelpee</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#features" id="toc-features">Features</a></li>
+<li><a href="#install" id="toc-install">Install</a></li>
+<li><a href="#packages" id="toc-packages">Packages</a></li>
+<li><a href="#documentation"
+id="toc-documentation">Documentation</a></li>
+<li><a href="#support" id="toc-support">Support</a></li>
+<li><a href="#contributors" id="toc-contributors">Contributors</a>
+<ul>
+<li><a href="#code-contributors" id="toc-code-contributors">Code
+Contributors</a></li>
+<li><a href="#financial-contributors"
+id="toc-financial-contributors">Financial Contributors</a></li>
+</ul></li>
+<li><a href="#license" id="toc-license">License</a></li>
+<li><a href="#project-documentation"
+id="toc-project-documentation">Project Documentation</a>
+<ul>
+<li><a href="#acesso" id="toc-acesso">Acesso</a></li>
+<li><a href="#como-funciona" id="toc-como-funciona">Como
+funciona</a></li>
+<li><a href="#description" id="toc-description">Description</a></li>
+<li><a href="#table-of-contents" id="toc-table-of-contents">Table of
+Contents</a></li>
+<li><a href="#install-1" id="toc-install-1">Install</a>
+<ul>
+<li><a href="#using-typeorm" id="toc-using-typeorm">Using
+TypeORM</a></li>
+</ul></li>
+<li><a href="#getting-started" id="toc-getting-started">Getting
+started</a></li>
+<li><a href="#api-endpoints" id="toc-api-endpoints">API Endpoints</a>
+<ul>
+<li><a href="#get-many-resources" id="toc-get-many-resources">Get many
+resources</a></li>
+<li><a href="#get-one-resource" id="toc-get-one-resource">Get one
+resource</a></li>
+<li><a href="#create-one-resource" id="toc-create-one-resource">Create
+one resource</a></li>
+<li><a href="#create-many-resources"
+id="toc-create-many-resources">Create many resources</a></li>
+<li><a href="#update-one-resource" id="toc-update-one-resource">Update
+one resource</a></li>
+<li><a href="#replace-one-resource"
+id="toc-replace-one-resource">Replace one resource</a></li>
+<li><a href="#delete-one-resource" id="toc-delete-one-resource">Delete
+one resource</a></li>
+</ul></li>
+<li><a href="#swagger" id="toc-swagger">Swagger</a></li>
+<li><a href="#options" id="toc-options">Options</a>
+<ul>
+<li><a href="#model" id="toc-model">model</a></li>
+<li><a href="#validation" id="toc-validation">validation</a></li>
+<li><a href="#params" id="toc-params">params</a></li>
+<li><a href="#routes" id="toc-routes">routes</a></li>
+<li><a href="#query" id="toc-query">query</a></li>
+<li><a href="#dto" id="toc-dto">dto</a></li>
+<li><a href="#serialize" id="toc-serialize">serialize</a></li>
+</ul></li>
+<li><a href="#global-options" id="toc-global-options">Global
+options</a></li>
+<li><a href="#request-authentication"
+id="toc-request-authentication">Request authentication</a></li>
+<li><a href="#request-validation" id="toc-request-validation">Request
+validation</a></li>
+<li><a href="#response-serialization"
+id="toc-response-serialization">Response serialization</a></li>
+<li><a href="#intellisense" id="toc-intellisense">IntelliSense</a></li>
+<li><a href="#routes-override" id="toc-routes-override">Routes
+override</a></li>
+<li><a href="#adding-routes" id="toc-adding-routes">Adding
+routes</a></li>
+<li><a href="#additional-decorators"
+id="toc-additional-decorators">Additional decorators</a></li>
+<li><a href="#why" id="toc-why">Why?</a></li>
+<li><a href="#installation" id="toc-installation">Installation</a></li>
+<li><a href="#compatibility"
+id="toc-compatibility">Compatibility</a></li>
+<li><a href="#documentation-1"
+id="toc-documentation-1">Documentation</a>
+<ul>
+<li><a href="#controllers" id="toc-controllers">Controllers</a></li>
+<li><a href="#services" id="toc-services">Services</a></li>
+<li><a href="#requests" id="toc-requests">Requests</a></li>
+</ul></li>
+<li><a href="#description-1" id="toc-description-1">Description</a></li>
+<li><a href="#table-of-contents-1" id="toc-table-of-contents-1">Table of
+Contents</a></li>
+<li><a href="#query-params" id="toc-query-params">Query params</a>
+<ul>
+<li><a href="#select" id="toc-select">select</a></li>
+<li><a href="#search" id="toc-search">search</a></li>
+<li><a href="#filter-conditions" id="toc-filter-conditions">filter
+conditions</a></li>
+<li><a href="#filter-1" id="toc-filter-1">filter</a></li>
+<li><a href="#or" id="toc-or">or</a></li>
+<li><a href="#sort-1" id="toc-sort-1">sort</a></li>
+<li><a href="#join-1" id="toc-join-1">join</a></li>
+<li><a href="#new-feature-join-condition-on-clause"
+id="toc-new-feature-join-condition-on-clause">New Feature: Join
+Condition (on clause)</a></li>
+<li><a href="#limit-1" id="toc-limit-1">limit</a></li>
+<li><a href="#offset" id="toc-offset">offset</a></li>
+<li><a href="#page" id="toc-page">page</a></li>
+<li><a href="#cache-1" id="toc-cache-1">cache</a></li>
+</ul></li>
+<li><a href="#frontend-usage" id="toc-frontend-usage">Frontend usage</a>
+<ul>
+<li><a href="#customize" id="toc-customize">Customize</a></li>
+<li><a href="#usage" id="toc-usage">Usage</a></li>
+</ul></li>
+<li><a href="#install-2" id="toc-install-2">Install</a></li>
+<li><a href="#usage-1" id="toc-usage-1">Usage</a></li>
+<li><a href="#description-2" id="toc-description-2">Description</a></li>
+</ul></li>
+</ul>
+</nav>
+<div data-align="center">
+<h1>
+CRUD (<span class="citation"
+data-cites="ihelpee/crud">@ihelpee/crud</span>)
+</h1>
+</div>
+<div data-align="center">
+<p><strong>for RESTful APIs built with NestJs</strong></p>
+</div>
+<br/>
+<div data-align="center">
+<p><img src="https://gravatar.com/avatar/c27e8ebbf92f687180aa0f13dab9a0b1?size=256" alt="Logo ihelpee" style="border-radius:100%"/></p>
+</div>
+<p><br /></p>
+<div data-align="center">
+<p><a href="https://github.com/ihelpee/nestjs-crud/blob/master/LICENSE">
+<img src="https://img.shields.io/github/license/ihelpee/nestjs-crud.svg" alt="License" />
+</a> <a href="https://www.npmjs.com/package/@ihelpee/crud">
+<img src="https://img.shields.io/npm/v/@ihelpee/crud.svg" alt="npm version" />
+</a> <a href="https://www.npmjs.com/org/ihelpee">
+<img src="https://img.shields.io/npm/dm/@ihelpee/crud.svg" alt="npm downloads" />
+</a> <a href="https://renovatebot.com/">
+<img src="https://img.shields.io/badge/renovate-enabled-brightgreen.svg" alt="Renovate" />
+</a> <a href="http://makeapullrequest.com">
+<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs welcome" />
+</a></p>
+</div>
+<p><br /></p>
+<p>We believe that everyone who’s working with NestJs and building some
+RESTful services and especially some CRUD functionality will find
+<code>@ihelpee/crud</code> microframework very useful.</p>
+<h2 id="features">Features</h2>
+<p><img align="right" src="https://raw.githubusercontent.com/gid-oss/dataui-nestjs-crud/master/img/crud-usage2.png" alt="CRUD usage" /></p>
+<ul>
+<li><p>Super easy to install and start using the full-featured
+controllers and services :point_right:</p></li>
+<li><p>DB and service agnostic extendable CRUD controllers</p></li>
+<li><p>Reach query parsing with filtering, pagination, sorting,
+relations, nested relations, cache, etc.</p></li>
+<li><p>Framework agnostic package with query builder for a frontend
+usage</p></li>
+<li><p>Query, path params and DTOs validation included</p></li>
+<li><p>Overriding controller methods with ease</p></li>
+<li><p>Tiny config (including globally)</p></li>
+<li><p>Additional helper decorators</p></li>
+<li><p>Swagger documentation</p></li>
+</ul>
+<h2 id="install">Install</h2>
+<pre class="shell"><code>npm i @ihelpee/crud class-transformer class-validator</code></pre>
+<pre class="shell"><code>yarn add @ihelpee/crud class-transformer class-validator</code></pre>
+<h2 id="packages">Packages</h2>
+<ul>
+<li><a href="https://www.npmjs.com/package/@ihelpee/crud"><strong><span
+class="citation"
+data-cites="ihelpee/crud">@ihelpee/crud</span></strong></a> - core
+package which provides <code>@Crud()</code> decorator for endpoints
+generation, global configuration, validation, helper decorators (<a
+href="https://gid-oss.github.io/dataui-nestjs-crud/controllers/#description">docs</a>)</li>
+<li><a
+href="https://www.npmjs.com/package/@ihelpee/crud-request"><strong><span
+class="citation"
+data-cites="ihelpee/crud-request">@ihelpee/crud-request</span></strong></a>
+- request builder/parser package which provides
+<code>RequestQueryBuilder</code> class for a frontend usage and
+<code>RequestQueryParser</code> that is being used internally for
+handling and validating query/path params on a backend side (<a
+href="https://gid-oss.github.io/dataui-nestjs-crud/requests/#frontend-usage">docs</a>)</li>
+<li><a
+href="https://www.npmjs.com/package/@ihelpee/crud-typeorm"><strong><span
+class="citation"
+data-cites="ihelpee/crud-typeorm">@ihelpee/crud-typeorm</span></strong></a>
+- TypeORM package which provides base <code>TypeOrmCrudService</code>
+with methods for CRUD database operations (<a
+href="https://gid-oss.github.io/dataui-nestjs-crud/service-typeorm/">docs</a>)</li>
+</ul>
+<h2 id="documentation">Documentation</h2>
+<ul>
+<li><a href="docs">General Information</a></li>
+<li><a href="docs/controllers">CRUD Controllers</a></li>
+<li><a href="docs/services">CRUD ORM Services</a></li>
+<li><a href="docs/requests">Handling Requests</a></li>
+</ul>
+<h2 id="support">Support</h2>
+<p>Any support is welcome. At least you can give us a star.</p>
+<h2 id="contributors">Contributors</h2>
+<h3 id="code-contributors">Code Contributors</h3>
+<p>This project exists thanks to all the people who contribute. [<a
+href="CONTRIBUTING.md">Contribute</a>].</p>
+<h3 id="financial-contributors">Financial Contributors</h3>
+<h4 id="organizations">Organizations</h4>
+<p>Currently this project is sponsored and maintained by ihelpee. Get in
+touch if you want to become a sponsor.</p>
+<h2 id="license">License</h2>
+<p><a href="LICENSE">GPL-3.0</a></p>
+<p>This is a fork of <a
+href="https://www.npmjs.com/package/@ihelpee/crud"><strong><span
+class="citation"
+data-cites="nestjsx/crud">@nestjsx/crud</span></strong></a> , the aim is
+to maintain compatibility with the original project while supporting new
+features and keeping it up to date .</p>
+<h1 id="project-documentation">Project Documentation</h1>
+<p>Esta é a documentação gerada automaticamente do projeto.</p>
+<h2 id="acesso">Acesso</h2>
+<ul>
+<li><a href="./index.html">Documentação Completa</a></li>
+</ul>
+<h2 id="como-funciona">Como funciona</h2>
+<p>Esta documentação é gerada automaticamente pelo GitHub Actions sempre
+que há um push na branch master.</p>
+<h2 id="description">Description</h2>
+<p><a href="https://www.npmjs.com/package/@ihelpee/crud"><strong><span
+class="citation"
+data-cites="ihelpee/crud">@ihelpee/crud</span></strong></a> - core
+package which provides <code>@Crud()</code> controller decorator for
+endpoints generation, global configuration, validation, helper
+decorators.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#install">Install</a></li>
+<li><a href="#getting-started">Getting started</a></li>
+<li><a href="#api-endpoints">API endpoints</a></li>
+<li><a href="swagger">Swagger</a></li>
+<li><a href="#options">Options</a>
+<ul>
+<li><a href="#model">model</a></li>
+<li><a href="#validation">validation</a></li>
+<li><a href="#params">params</a></li>
+<li><a href="#routes">routes</a></li>
+<li><a href="#query">query</a></li>
+<li><a href="#dto">dto</a></li>
+<li><a href="#serialize">serialize</a></li>
+</ul></li>
+<li><a href="#global-options">Global options</a></li>
+<li><a href="#request-authentication">Request authentication</a></li>
+<li><a href="#request-validation">Request validation</a></li>
+<li><a href="#response-serialization">Response serialization</a></li>
+<li><a href="#intellisense">IntelliSense</a></li>
+<li><a href="#routes-override">Routes override</a></li>
+<li><a href="#adding-routes">Adding routes</a></li>
+<li><a href="#additional-decorators">Additional decorators</a></li>
+</ul>
+<h2 id="install-1">Install</h2>
+<pre class="shell"><code>yarn add @ihelpee/crud class-transformer class-validator</code></pre>
+<h3 id="using-typeorm">Using TypeORM</h3>
+<pre class="shell"><code>yarn add @ihelpee/crud-typeorm @nestjs/typeorm typeorm</code></pre>
+<h2 id="getting-started">Getting started</h2>
+<p>Let’s take a look at the example of using <code>@ihelpee/crud</code>
+with TypeORM.</p>
+<p>Assume we have some TypeORM <strong>entity</strong>:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Entity<span class="op">,</span> PrimaryGeneratedColumn<span class="op">,</span> Column } <span class="im">from</span> <span class="st">&#39;typeorm&#39;</span><span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Entity</span>()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> Company {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">PrimaryGeneratedColumn</span>() id<span class="op">:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Column</span>() name<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Then we need to create a <strong>service</strong>:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Injectable } <span class="im">from</span> <span class="st">&#39;@nestjs/common&#39;</span><span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { InjectRepository } <span class="im">from</span> <span class="st">&#39;@nestjs/typeorm&#39;</span><span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { TypeOrmCrudService } <span class="im">from</span> <span class="st">&#39;@ihelpee/crud-typeorm&#39;</span><span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Company } <span class="im">from</span> <span class="st">&#39;./company.entity&#39;</span><span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Injectable</span>()</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> CompaniesService <span class="kw">extends</span> TypeOrmCrudService<span class="op">&lt;</span>Company<span class="op">&gt;</span> {</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">constructor</span>(@<span class="fu">InjectRepository</span>(Company) repo) {</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span>(repo)<span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>We’ve done with the service so let’s create a
+<strong>controller</strong>:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Controller } <span class="im">from</span> <span class="st">&#39;@nestjs/common&#39;</span><span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Crud<span class="op">,</span> CrudController } <span class="im">from</span> <span class="st">&#39;@ihelpee/crud&#39;</span><span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Company } <span class="im">from</span> <span class="st">&#39;./company.entity&#39;</span><span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { CompaniesService } <span class="im">from</span> <span class="st">&#39;./companies.service&#39;</span><span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  model<span class="op">:</span> {</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> Company<span class="op">,</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Controller</span>(<span class="st">&#39;companies&#39;</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> CompaniesController <span class="kw">implements</span> CrudController<span class="op">&lt;</span>Company<span class="op">&gt;</span> {</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">constructor</span>(<span class="kw">public</span> service<span class="op">:</span> CompaniesService) {}</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>All we have to do next is to connect our service and controller in
+the <code>CompaniesModule</code> as we usually do:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Module } <span class="im">from</span> <span class="st">&#39;@nestjs/common&#39;</span><span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { TypeOrmModule } <span class="im">from</span> <span class="st">&#39;@nestjs/typeorm&#39;</span><span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Company } <span class="im">from</span> <span class="st">&#39;./company.entity&#39;</span><span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { CompaniesService } <span class="im">from</span> <span class="st">&#39;./companies.service&#39;</span><span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { CompaniesController } <span class="im">from</span> <span class="st">&#39;./companies.controller&#39;</span><span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Module</span>({</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  imports<span class="op">:</span> [TypeOrmModule<span class="op">.</span><span class="fu">forFeature</span>([Company])]<span class="op">,</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  providers<span class="op">:</span> [CompaniesService]<span class="op">,</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  exports<span class="op">:</span> [CompaniesService]<span class="op">,</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  controllers<span class="op">:</span> [CompaniesController]<span class="op">,</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> CompaniesModule {}</span></code></pre></div>
+<p>That’s it.</p>
+<h2 id="api-endpoints">API Endpoints</h2>
+<p><code>Crud()</code> decorator generates the following API
+endpoints:</p>
+<h3 id="get-many-resources">Get many resources</h3>
+<blockquote>
+<p><code>GET /heroes</code> &gt;
+<code>GET /heroes/:heroId/perks</code></p>
+</blockquote>
+<p><em>Result:</em> array of resources | pagination object with data
+<em>Status Codes:</em> 200</p>
+<h3 id="get-one-resource">Get one resource</h3>
+<blockquote>
+<p><code>GET /heroes/:id</code> &gt;
+<code>GET /heroes/:heroId/perks:id</code></p>
+</blockquote>
+<p><em>Request Params:</em> <code>:id</code> - some resource field
+(slug) <em>Result:</em> resource object | error object <em>Status
+Codes:</em> 200 | 404</p>
+<h3 id="create-one-resource">Create one resource</h3>
+<blockquote>
+<p><code>POST /heroes</code> &gt;
+<code>POST /heroes/:heroId/perks</code></p>
+</blockquote>
+<p><em>Request Body:</em> resource object | resource object with nested
+(relational) resources <em>Result:</em> created resource object | error
+object <em>Status Codes:</em> 201 | 400</p>
+<h3 id="create-many-resources">Create many resources</h3>
+<blockquote>
+<p><code>POST /heroes/bulk</code> &gt;
+<code>POST /heroes/:heroId/perks/bulk</code></p>
+</blockquote>
+<p><em>Request Body:</em> array of resources objects | array of
+resources objects with nested (relational) resources</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;bulk&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span> <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Batman&quot;</span> <span class="fu">}</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Batgirl&quot;</span> <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p><em>Result:</em> array of created resources | error object <em>Status
+codes:</em> 201 | 400</p>
+<h3 id="update-one-resource">Update one resource</h3>
+<blockquote>
+<p><code>PATCH /heroes/:id</code> &gt;
+<code>PATCH /heroes/:heroId/perks/:id</code></p>
+</blockquote>
+<p><em>Request Params:</em> <code>:id</code> - some resource field
+(slug) <em>Request Body:</em> resource object (or partial) | resource
+object with nested (relational) resources (or partial) <em>Result:</em>:
+updated partial resource object | error object <em>Status codes:</em>
+200 | 400 | 404</p>
+<h3 id="replace-one-resource">Replace one resource</h3>
+<blockquote>
+<p><code>PUT /heroes/:id</code> &gt;
+<code>PUT /heroes/:heroId/perks/:id</code></p>
+</blockquote>
+<p><em>Request Params:</em> <code>:id</code> - some resource field
+(slug) <em>Request Body:</em> resource object | resource object with
+nested (relational) resources (or partial) <em>Result:</em>: replaced
+resource object | error object <em>Status codes:</em> 200 | 400</p>
+<h3 id="delete-one-resource">Delete one resource</h3>
+<blockquote>
+<p><code>DELETE /heroes/:id</code> &gt;
+<code>DELETE /heroes/:heroId/perks/:id</code></p>
+</blockquote>
+<p><em>Request Params:</em> <code>:id</code> - some resource field
+(slug) <em>Result:</em>: empty | resource object | error object
+<em>Status codes:</em> 200 | 404</p>
+<h2 id="swagger">Swagger</h2>
+<p><a href="https://docs.nestjs.com/recipes/swagger">Swagger</a> support
+is present out of the box.</p>
+<h2 id="options">Options</h2>
+<p><code>Crud()</code> decorator accepts the following
+<code>CrudOptions</code>:</p>
+<h3 id="model">model</h3>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  model<span class="op">:</span> {</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> Entity<span class="op">|</span>Model<span class="op">|</span>DTO</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<p><em>Required</em></p>
+<p><code>Entity</code>, <code>Model</code> or <code>DTO</code> class
+must be provided here. Everything else described bellow is optional.
+It’s needed for a built in validation based on NestJS
+<code>ValidationPipe</code>.</p>
+<h3 id="validation">validation</h3>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  validation<span class="op">?:</span> ValidationPipeOptions <span class="op">|</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>Accepts <code>ValidationPipe</code> options or <code>false</code> if
+you want to use your own validation implementation.</p>
+<h3 id="params">params</h3>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  params<span class="op">?:</span> {</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    [key<span class="op">:</span> <span class="dt">string</span>]<span class="op">:</span> {</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>      field<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      type<span class="op">:</span> <span class="st">&#39;number&#39;</span> <span class="op">|</span> <span class="st">&#39;string&#39;</span> <span class="op">|</span> <span class="st">&#39;uuid&#39;</span><span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>      primary<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>      disabled<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>By default <code>@Crud()</code> decorator will use <code>id</code>
+with the type <code>number</code> as a primary slug param.</p>
+<p>If you have, for instance, a resorce field called <code>slug</code>
+or whatever, it’s a UUID and you need it to be a primary slug by which
+your resource should be fetched, you can set up this params options:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  params<span class="op">:</span> {</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    slug<span class="op">:</span> {</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>      field<span class="op">:</span> <span class="st">&#39;slug&#39;</span><span class="op">,</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>      type<span class="op">:</span> <span class="st">&#39;uuid&#39;</span><span class="op">,</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>      primary<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<p>If you have a controller path with that looks kinda similar to this
+<code>/companies/:companyId/users</code> you need to add this param
+option:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  params<span class="op">:</span> {</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    companyId<span class="op">:</span> {</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      field<span class="op">:</span> <span class="st">&#39;companyId&#39;</span><span class="op">,</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>      type<span class="op">:</span> <span class="st">&#39;number&#39;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<p>Also, you can disable <code>id</code> param if you want to have only
+few routs without any path params. It’s very useful, for creating
+something like <code>GET /me</code> endpoints.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  model<span class="op">:</span> {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> User<span class="op">,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  routes<span class="op">:</span> {</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    only<span class="op">:</span> [<span class="st">&#39;getOneBase&#39;</span><span class="op">,</span> <span class="st">&#39;updateOneBase&#39;</span>]<span class="op">,</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  params<span class="op">:</span> {</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> {</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>      primary<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>      disabled<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  query<span class="op">:</span> {</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    join<span class="op">:</span> {</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>      company<span class="op">:</span> {</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>        eager<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>      profile<span class="op">:</span> {</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        eager<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>@<span class="fu">CrudAuth</span>({</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>  property<span class="op">:</span> <span class="st">&#39;user&#39;</span><span class="op">,</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>  filter<span class="op">:</span> (user<span class="op">:</span> User) <span class="kw">=&gt;</span> ({</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> user<span class="op">.</span><span class="at">id</span><span class="op">,</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>  })<span class="op">,</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Controller</span>(<span class="st">&#39;me&#39;</span>)</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> MeController {</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>  <span class="kw">constructor</span>(<span class="kw">public</span> service<span class="op">:</span> UsersService) {}</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="routes">routes</h3>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  routes<span class="op">?:</span> {</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    exclude<span class="op">?:</span> BaseRouteName[]<span class="op">,</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    only<span class="op">?:</span> BaseRouteName[]<span class="op">,</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    getManyBase<span class="op">?:</span> {</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>      interceptors<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      decorators<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    getOneBase<span class="op">?:</span> {</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>      interceptors<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>      decorators<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    createOneBase<span class="op">?:</span> {</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>      interceptors<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>      decorators<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>      returnShallow<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    createManyBase<span class="op">?:</span> {</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>      interceptors<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>      decorators<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    updateOneBase<span class="op">:</span> {</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>      interceptors<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>      decorators<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>      allowParamsOverride<span class="op">?:</span> <span class="dt">boolean</span><span class="op">,</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>      returnShallow<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    replaceOneBase<span class="op">:</span> {</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>      interceptors<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>      decorators<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>      allowParamsOverride<span class="op">?:</span> <span class="dt">boolean</span><span class="op">,</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>      returnShallow<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>    deleteOneBase<span class="op">?:</span> {</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>      interceptors<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>      decorators<span class="op">?:</span> []<span class="op">,</span></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>      returnDeleted<span class="op">?:</span> <span class="dt">boolean</span><span class="op">,</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>It’s a set of options for each of the generated routes.</p>
+<p><code>interceptors</code> - an array of your custom interceptors
+<code>decorators</code> - an array of your custom decorators
+<code>allowParamsOverride</code> - whether or not to allow body data be
+overriten by the URL params on PATH request. Default: <code>false</code>
+<code>returnDeleted</code> - whether or not an entity object should be
+returned in the response body on DELETE request. Default:
+<code>false</code> <code>returnShallow</code> - whether or not to return
+a shallow entity</p>
+<p>Also you can specify what routes should be excluded or what routes
+whould be used only by providing routes names to the
+<code>exclude</code> or <code>only</code> accordingly.</p>
+<h3 id="query">query</h3>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  query<span class="op">?:</span> {</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    allow<span class="op">?:</span> <span class="dt">string</span>[]<span class="op">;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    exclude<span class="op">?:</span> <span class="dt">string</span>[]<span class="op">;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    persist<span class="op">?:</span> <span class="dt">string</span>[]<span class="op">;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    filter<span class="op">?:</span> QueryFilterOption<span class="op">;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    join<span class="op">?:</span> JoinOptions<span class="op">;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    sort<span class="op">?:</span> QuerySort[]<span class="op">;</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">?:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    maxLimit<span class="op">?:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    cache<span class="op">?:</span> <span class="dt">number</span> <span class="op">|</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    alwaysPaginate<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    softDelete<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>It’s a set of query options for GET request.</p>
+<h4 id="allow">allow</h4>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  allow<span class="op">:</span> [<span class="st">&#39;name&#39;</span><span class="op">,</span> <span class="st">&#39;email&#39;</span>]<span class="op">;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>An Array of fields that are allowed to be received in GET requests.
+If empty or <em>undefined</em> - allow all.</p>
+<h4 id="exclude">exclude</h4>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  exclude<span class="op">:</span> [<span class="st">&#39;accessToken&#39;</span>]<span class="op">;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>An Array of fields that will be excluded from the GET response (and
+not queried from the DB).</p>
+<h4 id="persist">persist</h4>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  persist<span class="op">:</span> [<span class="st">&#39;createdAt&#39;</span>]<span class="op">;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>An Array of fields that will be always persisted in GET response.</p>
+<h4 id="filter">filter</h4>
+<p><em>Optional</em></p>
+<p>This option can be used in two scenarios:</p>
+<ol type="1">
+<li>If you want to add some conditions to the request:</li>
+</ol>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  filter<span class="op">:</span> {</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    isActive<span class="op">:</span> {</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>      $ne<span class="op">:</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>…which is the same as:</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  filter<span class="op">:</span> [</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>      field<span class="op">:</span> <span class="st">&#39;isActive&#39;</span><span class="op">,</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>      operator<span class="op">:</span> <span class="st">&#39;$ne&#39;</span><span class="op">,</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      value<span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<ol start="2" type="1">
+<li>If you want to transform your query search conditions or event
+return a completely new one (i.e. persist only one set of conditions and
+ignore search coming from the request):</li>
+</ol>
+<ul>
+<li>Totally ignore any query search conditions:</li>
+</ul>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  filter<span class="op">:</span> () <span class="kw">=&gt;</span> {}<span class="op">;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<ul>
+<li>Totally ignore any query search conditions and persist some
+conditions:</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  filter<span class="op">:</span> () <span class="kw">=&gt;</span> ({</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    isActive<span class="op">:</span> {</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>      $ne<span class="op">:</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<ul>
+<li>Transform query search conditions:</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { SCondition } <span class="im">from</span> <span class="st">&#39;@ihelpee/crud-request&#39;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  filter<span class="op">:</span> (search<span class="op">:</span> SCondition<span class="op">,</span> getMany<span class="op">:</span> <span class="dt">boolean</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> getMany <span class="op">?</span> search <span class="op">:</span> {</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>      $and<span class="op">:</span> [</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span>search<span class="op">.</span><span class="at">$and</span><span class="op">,</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        { isActive<span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><strong><em>Notice:</em></strong> First function parameter here,
+<code>search</code>, will always be either <code>{ $and: [...] }</code>
+or <code>{ $or: [...] }</code>. It depends on if you’re using <a
+href="#request-authentication"><code>@CrudAuth()</code></a>
+decorator:</p>
+<ul>
+<li>if you are not using it, or if you do and it has <code>filter</code>
+function then <code>search</code> will contain <code>$and</code> type of
+conditions.</li>
+<li>if you are using it and it has <code>or</code> function then
+<code>search</code> will contain <code>$or</code> type of
+conditions.</li>
+</ul>
+<h4 id="join">join</h4>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  join<span class="op">:</span> {</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    profile<span class="op">:</span> {</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>      persist<span class="op">:</span> [<span class="st">&#39;name&#39;</span>]<span class="op">,</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>      exclude<span class="op">:</span> [<span class="st">&#39;token&#39;</span>]<span class="op">,</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>      eager<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>      require<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    tasks<span class="op">:</span> {</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>      allow<span class="op">:</span> [<span class="st">&#39;content&#39;</span>]<span class="op">,</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    notifications<span class="op">:</span> {</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>      eager<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>      select<span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    company<span class="op">:</span> {}<span class="op">,</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;company.projects&#39;</span><span class="op">:</span> {</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>      persist<span class="op">:</span> [<span class="st">&#39;status&#39;</span>]</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;users.projects.tasks&#39;</span><span class="op">:</span> {</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>      exclude<span class="op">:</span> [<span class="st">&#39;description&#39;</span>]<span class="op">,</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>      alias<span class="op">:</span> <span class="st">&#39;projectTasks&#39;</span><span class="op">,</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>An Object of relations that allowed to be fetched by passing
+<code>join</code> query parameter in GET requests.</p>
+<p>Each key of <code>join</code> object must <strong>strongly
+match</strong> the name of the corresponding resource relation. If
+particular relation name <strong>is not</strong> present in this option,
+then user <strong>will not be able</strong> to get this relational
+objects in GET request.</p>
+<p>Each relation option can have (all below are optional):</p>
+<p><code>allow</code> - an Array of fields that are allowed to be
+received in GET requests. If empty or <em>undefined</em> - allow all.
+<code>exclude</code> - an Array of fields that will be excluded from the
+GET response (and not queried from the DB). <code>persist</code> - an
+Array of fields that will be always persisted in GET response.
+<code>eager</code> - type <code>boolean</code> - whether or not current
+relation should persist in every GET response. <code>require</code> -
+should a relation be required or not. For RMDBS means use either
+<code>INNER</code> or <code>LEFT</code> join. Default:
+<code>false</code>. <code>alias</code> - set alias for a relation.
+<code>select</code> - type <code>boolean</code> - if <code>false</code>
+then the relation will be joined but not selected and not included in
+the response.</p>
+<h4 id="sort">sort</h4>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  sort<span class="op">:</span> [</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>      field<span class="op">:</span> <span class="st">&#39;id&#39;</span><span class="op">,</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>      order<span class="op">:</span> <span class="st">&#39;DESC&#39;</span><span class="op">,</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>An Array of <code>sort</code> objects that will be merged (combined)
+with query <code>sort</code> if those are passed in GET request. If not
+- <code>sort</code> will be added to the DB query as a stand-alone
+condition.</p>
+<h4 id="limit">limit</h4>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  limit<span class="op">:</span> <span class="dv">25</span><span class="op">,</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>Default <code>limit</code> that will be aplied to the DB query.</p>
+<h4 id="maxlimit">maxLimit</h4>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  maxLimit<span class="op">:</span> <span class="dv">100</span><span class="op">,</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>Max amount of results that can be queried in GET request.</p>
+<p><strong><em>Notice:</em></strong> <strong><em>it’s strongly
+recommended to set up this option. Otherwise DB query will be executed
+without any LIMIT if no <code>limit</code> was passed in the query or if
+the <code>limit</code> option hasn’t been set up in crud
+options</em></strong>.</p>
+<h4 id="cache">cache</h4>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  cache<span class="op">:</span> <span class="dv">2000</span><span class="op">,</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>If <code>Caching Results</code> is implemented on you project, then
+you can set up default <code>cache</code> in milliseconds for GET
+response data.</p>
+<p>Cache can be reseted by using <code>cache=0</code> query parameter in
+your GET requests.</p>
+<h4 id="alwayspaginate">alwaysPaginate</h4>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  alwaysPaginate<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>Either or not always return an object with paginated data. Can be
+defined <a href="#global-options">globally</a> as well.</p>
+<h4 id="softdelete">softDelete</h4>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  softDelete<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>A boolean value indicating whether the item should be soft-deleted.
+If set to true, the item will be soft-deleted instead of being
+permanently removed from the database.</p>
+<h3 id="dto">dto</h3>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  dto<span class="op">?:</span> {</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    create<span class="op">?:</span> Type<span class="op">&lt;</span><span class="dt">any</span><span class="op">&gt;,</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    update<span class="op">?:</span> Type<span class="op">&lt;</span><span class="dt">any</span><span class="op">&gt;,</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    replace<span class="op">?:</span> Type<span class="op">&lt;</span><span class="dt">any</span><span class="op">&gt;</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>Request body validation DTO classes. If no DTO is provided to any of
+the option, then a <a
+href="#model"><code>CrudOptions.model.type</code></a> will be used as
+described in the <a href="#request-validation">Request validation</a>
+section.</p>
+<h3 id="serialize">serialize</h3>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  serialize<span class="op">?:</span> {</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    getMany<span class="op">?:</span> Type<span class="op">&lt;</span><span class="dt">any</span><span class="op">&gt;</span> <span class="op">|</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">get</span><span class="op">?:</span> Type<span class="op">&lt;</span><span class="dt">any</span><span class="op">&gt;</span> <span class="op">|</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    create<span class="op">?:</span> Type<span class="op">&lt;</span><span class="dt">any</span><span class="op">&gt;</span> <span class="op">|</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    createMany<span class="op">?:</span> Type<span class="op">&lt;</span><span class="dt">any</span><span class="op">&gt;</span> <span class="op">|</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    update<span class="op">?:</span> Type<span class="op">&lt;</span><span class="dt">any</span><span class="op">&gt;</span> <span class="op">|</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    replace<span class="op">?:</span> Type<span class="op">&lt;</span><span class="dt">any</span><span class="op">&gt;</span> <span class="op">|</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">delete</span><span class="op">?:</span> Type<span class="op">&lt;</span><span class="dt">any</span><span class="op">&gt;</span> <span class="op">|</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<p><em>Optional</em></p>
+<p>Response serialization DTO classes. Each option also accepts
+<code>false</code> in order to not perform serialization for particular
+route.</p>
+<p>Please see <a href="#response-serialization">Response
+serialization</a> section for more details.</p>
+<h2 id="global-options">Global options</h2>
+<p>In order to reduce some repetition in your <code>CrudOptions</code>
+in every controller you can specify some options globally:</p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  queryParser<span class="op">?:</span> RequestQueryBuilderOptions<span class="op">;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  routes<span class="op">?:</span> RoutesOptions<span class="op">;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  params<span class="op">?:</span> ParamsOptions<span class="op">;</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  auth<span class="op">?:</span> {</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    property<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  query<span class="op">?:</span> {</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">?:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    maxLimit<span class="op">?:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    cache<span class="op">?:</span> <span class="dt">number</span> <span class="op">|</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    alwaysPaginate<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  serialize<span class="op">?:</span> {</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    getMany<span class="op">?:</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">get</span><span class="op">?:</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    create<span class="op">?:</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    createMany<span class="op">?:</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    update<span class="op">?:</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    replace<span class="op">?:</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">delete</span><span class="op">?:</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><code>queryParser</code> are options for
+<code>RequestQueryParser</code> that is being used in
+<code>CrudRequestInterceptor</code> to parse/validate query and path
+params. Frontend has similar <a
+href="https://github.com/ihelpee/crud/wiki/Requests#customize">customization</a>
+ability.</p>
+<p><code>routes</code> are the same as <a href="#routes">here</a>.</p>
+<p><code>params</code> are the same as <a href="#params">here</a>.</p>
+<p><code>query</code> are similar to options described <a
+href="#query">here</a> except the fact that <code>limit</code>,
+<code>maxLimit</code>, <code>cache</code>, <code>alwaysPaginate</code>
+can be applied only.</p>
+<p><code>serialize</code> allows you to globally disable <a
+href="#serialize">serialization</a> for particular actions.</p>
+<p>So in order to apply global options you need load them in your
+<strong>main.ts (index.ts) file BEFORE you import <code>AppModule</code>
+class</strong>. That’s because TypeScript decorators are executed when
+we declare our class but not when we create new class instance. So in
+your <code>main.ts</code>:</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { CrudConfigService } <span class="im">from</span> <span class="st">&#39;@ihelpee/crud&#39;</span><span class="op">;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>CrudConfigService<span class="op">.</span><span class="fu">load</span>({</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  query<span class="op">:</span> {</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">:</span> <span class="dv">25</span><span class="op">,</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    cache<span class="op">:</span> <span class="dv">2000</span><span class="op">,</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  params<span class="op">:</span> {</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> {</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>      field<span class="op">:</span> <span class="st">&#39;id&#39;</span><span class="op">,</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>      type<span class="op">:</span> <span class="st">&#39;uuid&#39;</span><span class="op">,</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>      primary<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  routes<span class="op">:</span> {</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>    updateOneBase<span class="op">:</span> {</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>      allowParamsOverride<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>    deleteOneBase<span class="op">:</span> {</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>      returnDeleted<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { AppModule } <span class="im">from</span> <span class="st">&#39;./app.module&#39;</span><span class="op">;</span></span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span></code></pre></div>
+<p><strong><em>Notice:</em></strong> all those options can be overridden
+in each <code>CrudController</code>.</p>
+<h2 id="request-authentication">Request authentication</h2>
+<p>In order to perform data filtering for authenticated requests, we
+provide <code>@CrudAuth()</code> decorator. It accepts these
+options:</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  property<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  filter<span class="op">?:</span> (req<span class="op">:</span> <span class="dt">any</span>) <span class="kw">=&gt;</span> SCondition <span class="op">|</span> <span class="dt">void</span><span class="op">;</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  or<span class="op">?:</span> (req<span class="op">:</span> <span class="dt">any</span>) <span class="kw">=&gt;</span> SCondition <span class="op">|</span> <span class="dt">void</span><span class="op">;</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  persist<span class="op">?:</span> (req<span class="op">:</span> <span class="dt">any</span>) <span class="kw">=&gt;</span> ObjectLiteral<span class="op">;</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><code>property</code> - property on the <code>Request</code> object
+where user’s data stored after successful authentication. Can be set <a
+href="#global-options">globally</a> as well.</p>
+<p><code>filter</code> - a function that should return <a
+href="https://github.com/ihelpee/crud/wiki/Requests#search">search</a>
+condition and will be added to the query search params and path params
+as a <code>$and</code> condition:</p>
+<blockquote>
+<p><code>{Auth condition} AND {Path params} AND {Search|Filter}</code></p>
+</blockquote>
+<p><code>or</code> - a function that should return <a
+href="https://github.com/ihelpee/crud/wiki/Requests#search">search</a>
+condition and will be added to the query search params and path params
+as a <code>$or</code> condition. If it’s used then <code>filter</code>
+function will be ignored.</p>
+<blockquote>
+<p><code>{Auth condition} OR ({Path params} AND {Search|Filter})</code></p>
+</blockquote>
+<p><code>persist</code> - a function that can return an object that will
+be added to the DTO on <code>create</code>, <code>update</code>,
+<code>replace</code> actions. Useful in case if you need to prevent
+changing some sensitive entity properties even if it’s allowed in DTO
+validation.</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({<span class="op">...</span>})</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>@<span class="fu">CrudAuth</span>({</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  property<span class="op">:</span> <span class="st">&#39;user&#39;</span><span class="op">,</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  filter<span class="op">:</span> (user<span class="op">:</span> User) <span class="kw">=&gt;</span> ({</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> user<span class="op">.</span><span class="at">id</span><span class="op">,</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    isActive<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<h2 id="request-validation">Request validation</h2>
+<p>Query params and path params validation is performed by an
+interceptor. It parses query and path parameters and then validates
+them.</p>
+<p>Body request validation is done by NestJs
+<code>ValidationPipe</code>.</p>
+<p>You can provide either <code>create</code>, <code>update</code>,
+<code>replace</code> DTO in the <a
+href="#dto"><code>CrudOptions.dto</code></a> options or use the
+following approach.</p>
+<p>You can use <a href="#model"><code>CrudOptions.model.type</code></a>
+as a DTO that describes validation rules. We distinguish body validation
+on <code>create</code> and <code>update</code> methods. This was
+achieved by using <a
+href="https://github.com/typestack/class-validator#validation-groups">validation
+groups</a>.</p>
+<p>Let’s take a look at this example:</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Entity<span class="op">,</span> Column<span class="op">,</span> OneToMany } <span class="im">from</span> <span class="st">&#39;typeorm&#39;</span><span class="op">;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { IsOptional<span class="op">,</span> IsString<span class="op">,</span> MaxLength<span class="op">,</span> IsNotEmpty } <span class="im">from</span> <span class="st">&#39;class-validator&#39;</span><span class="op">;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Type } <span class="im">from</span> <span class="st">&#39;class-transformer&#39;</span><span class="op">;</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { CrudValidationGroups } <span class="im">from</span> <span class="st">&#39;@ihelpee/crud&#39;</span><span class="op">;</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { BaseEntity } <span class="im">from</span> <span class="st">&#39;../base-entity&#39;</span><span class="op">;</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { User } <span class="im">from</span> <span class="st">&#39;../users/user.entity&#39;</span><span class="op">;</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Project } <span class="im">from</span> <span class="st">&#39;../projects/project.entity&#39;</span><span class="op">;</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> { CREATE<span class="op">,</span> UPDATE } <span class="op">=</span> CrudValidationGroups<span class="op">;</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Entity</span>(<span class="st">&#39;companies&#39;</span>)</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> Company <span class="kw">extends</span> BaseEntity {</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">IsOptional</span>({ groups<span class="op">:</span> [UPDATE] })</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">IsNotEmpty</span>({ groups<span class="op">:</span> [CREATE] })</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">IsString</span>({ always<span class="op">:</span> <span class="kw">true</span> })</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">MaxLength</span>(<span class="dv">100</span><span class="op">,</span> { always<span class="op">:</span> <span class="kw">true</span> })</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Column</span>({ type<span class="op">:</span> <span class="st">&#39;varchar&#39;</span><span class="op">,</span> length<span class="op">:</span> <span class="dv">100</span><span class="op">,</span> nullable<span class="op">:</span> <span class="kw">false</span> })</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  name<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">IsOptional</span>({ groups<span class="op">:</span> [UPDATE] })</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">IsNotEmpty</span>({ groups<span class="op">:</span> [CREATE] })</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">IsString</span>({ groups<span class="op">:</span> [CREATE<span class="op">,</span> UPDATE] })</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">MaxLength</span>(<span class="dv">100</span><span class="op">,</span> { groups<span class="op">:</span> [CREATE<span class="op">,</span> UPDATE] })</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Column</span>({ type<span class="op">:</span> <span class="st">&#39;varchar&#39;</span><span class="op">,</span> length<span class="op">:</span> <span class="dv">100</span><span class="op">,</span> nullable<span class="op">:</span> <span class="kw">false</span><span class="op">,</span> unique<span class="op">:</span> <span class="kw">true</span> })</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>  domain<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">IsOptional</span>({ always<span class="op">:</span> <span class="kw">true</span> })</span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">IsString</span>({ always<span class="op">:</span> <span class="kw">true</span> })</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Column</span>({ type<span class="op">:</span> <span class="st">&#39;text&#39;</span><span class="op">,</span> nullable<span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="cf">default</span><span class="op">:</span> <span class="dt">null</span> })</span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>  description<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>  <span class="co">/**</span></span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a><span class="co">   * Relations</span></span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">OneToMany</span>((<span class="kw">type</span>) <span class="kw">=&gt;</span> User<span class="op">,</span> (u) <span class="kw">=&gt;</span> u<span class="op">.</span><span class="at">company</span>)</span>
+<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Type</span>((t) <span class="kw">=&gt;</span> User)</span>
+<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a>  users<span class="op">:</span> User[]<span class="op">;</span></span>
+<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">OneToMany</span>((<span class="kw">type</span>) <span class="kw">=&gt;</span> Project<span class="op">,</span> (p) <span class="kw">=&gt;</span> p<span class="op">.</span><span class="at">company</span>)</span>
+<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a>  projects<span class="op">:</span> Project[]<span class="op">;</span></span>
+<span id="cb39-43"><a href="#cb39-43" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>You can import <code>CrudValidationGroups</code> enum and set up
+validation rules for each field on firing of <code>POST</code>,
+<code>PATCH</code> requests or both of them.</p>
+<h2 id="response-serialization">Response serialization</h2>
+<p>Serialization is performed using <code>class-transformer</code>
+package and is already included and turned ON in each route.</p>
+<p>So in your entity you can use some useful decorators:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Exclude } <span class="im">from</span> <span class="st">&#39;class-transformer&#39;</span><span class="op">;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> User {</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  email<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Exclude</span>()</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  password<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>But there might be situations when you might need to use different
+serialization in different routes. In that case you can use <a
+href="#serialize"><code>CrudOptions.serialize</code></a> options.</p>
+<h2 id="intellisense">IntelliSense</h2>
+<p>Please, keep in mind that we compose crud controllers by the logic
+inside our <code>@Crud()</code> class decorator. And there are some
+unpleasant but not very significant side effects of this approach.</p>
+<p>First, there is no IntelliSense on composed methods. That’s why we
+need to use <code>CrudController</code> interface. This will help to
+make sure that you’re injecting proper <code>CrudService</code>.</p>
+<p>Second, even after adding <code>CrudController</code> interface you
+still wouldn’t see composed methods, accessible from <code>this</code>
+keyword, furthermore, you’ll get a TS error. In order to solve this, you
+can do as follows:</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Crud<span class="op">,</span> CrudController } <span class="im">from</span> <span class="st">&#39;@ihelpee/crud&#39;</span><span class="op">;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>(Hero)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Controller</span>(<span class="st">&#39;heroes&#39;</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> HeroesCrud <span class="kw">implements</span> CrudController<span class="op">&lt;</span>Hero<span class="op">&gt;</span> {</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">constructor</span>(<span class="kw">public</span> service<span class="op">:</span> HeroesService) {}</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">get</span> <span class="fu">base</span>()<span class="op">:</span> CrudController<span class="op">&lt;</span>Hero<span class="op">&gt;</span> {</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="routes-override">Routes override</h2>
+<p>Here is the list of composed base routes methods by
+<code>@Crud()</code> decorator:</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getManyBase</span>(</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  )<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span>GetManyDefaultResponse<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">|</span> T[]<span class="op">&gt;;</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getOneBase</span>(</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  )<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span>T<span class="op">&gt;;</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">createOneBase</span>(</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedBody</span>() dto<span class="op">:</span> T<span class="op">,</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  )<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span>T<span class="op">&gt;;</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">createManyBase</span>(</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedBody</span>() dto<span class="op">:</span> CreateManyDto<span class="op">&lt;</span>T<span class="op">&gt;,</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>  )<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span>T<span class="op">&gt;;</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">updateOneBase</span>(</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedBody</span>() dto<span class="op">:</span> T<span class="op">,</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>  )<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span>T<span class="op">&gt;;</span></span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replaceOneBase</span>(</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedBody</span>() dto<span class="op">:</span> T<span class="op">,</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>  )<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span>T<span class="op">&gt;;</span></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">deleteOneBase</span>(</span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>  )<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span><span class="dt">void</span> <span class="op">|</span> T<span class="op">&gt;;</span></span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Since all composed methods have <code>Base</code> ending in their
+names, overriding those endpoints could be done in two ways:</p>
+<ol type="1">
+<li><p>Attach <code>@Override()</code> decorator without any argument to
+the newly created method wich name doesn’t contain <code>Base</code>
+ending. So if you want to override <code>getManyBase</code>, you need to
+create <code>getMany</code> method.</p></li>
+<li><p>Attach <code>@Override('getManyBase')</code> decorator with
+passed base method name as an argument if you want to override base
+method with a function that has a custom name.</p></li>
+</ol>
+<p>Example:</p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  Crud<span class="op">,</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  CrudController<span class="op">,</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  Override<span class="op">,</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  CrudRequest<span class="op">,</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  ParsedRequest<span class="op">,</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  ParsedBody<span class="op">,</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  CreateManyDto<span class="op">,</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>} <span class="im">from</span> <span class="st">&#39;@ihelpee/crud&#39;</span><span class="op">;</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>  model<span class="op">:</span> {</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> Hero<span class="op">,</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Controller</span>(<span class="st">&#39;heroes&#39;</span>)</span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> HeroesCrud <span class="kw">implements</span> CrudController<span class="op">&lt;</span>Hero<span class="op">&gt;</span> {</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">constructor</span>(<span class="kw">public</span> service<span class="op">:</span> HeroesService) {}</span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">get</span> <span class="fu">base</span>()<span class="op">:</span> CrudController<span class="op">&lt;</span>Hero<span class="op">&gt;</span> {</span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span></span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Override</span>()</span>
+<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getMany</span>(</span>
+<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a>  ) {</span>
+<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">base</span><span class="op">.</span><span class="fu">getManyBase</span>(req)<span class="op">;</span></span>
+<span id="cb43-30"><a href="#cb43-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-31"><a href="#cb43-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-32"><a href="#cb43-32" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Override</span>(<span class="st">&#39;getOneBase&#39;</span>)</span>
+<span id="cb43-33"><a href="#cb43-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getOneAndDoStuff</span>(</span>
+<span id="cb43-34"><a href="#cb43-34" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb43-35"><a href="#cb43-35" aria-hidden="true" tabindex="-1"></a>  ) {</span>
+<span id="cb43-36"><a href="#cb43-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">base</span><span class="op">.</span><span class="fu">getOneBase</span>(req)<span class="op">;</span></span>
+<span id="cb43-37"><a href="#cb43-37" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-38"><a href="#cb43-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-39"><a href="#cb43-39" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Override</span>()</span>
+<span id="cb43-40"><a href="#cb43-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">createOne</span>(</span>
+<span id="cb43-41"><a href="#cb43-41" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb43-42"><a href="#cb43-42" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedBody</span>() dto<span class="op">:</span> Hero<span class="op">,</span></span>
+<span id="cb43-43"><a href="#cb43-43" aria-hidden="true" tabindex="-1"></a>  ) {</span>
+<span id="cb43-44"><a href="#cb43-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">base</span><span class="op">.</span><span class="fu">createOneBase</span>(req<span class="op">,</span> dto)<span class="op">;</span></span>
+<span id="cb43-45"><a href="#cb43-45" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-46"><a href="#cb43-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-47"><a href="#cb43-47" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Override</span>()</span>
+<span id="cb43-48"><a href="#cb43-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">createMany</span>(</span>
+<span id="cb43-49"><a href="#cb43-49" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb43-50"><a href="#cb43-50" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedBody</span>() dto<span class="op">:</span> CreateManyDto<span class="op">&lt;</span>Hero<span class="op">&gt;</span></span>
+<span id="cb43-51"><a href="#cb43-51" aria-hidden="true" tabindex="-1"></a>  ) {</span>
+<span id="cb43-52"><a href="#cb43-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">base</span><span class="op">.</span><span class="fu">createManyBase</span>(req<span class="op">,</span> dto)<span class="op">;</span></span>
+<span id="cb43-53"><a href="#cb43-53" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-54"><a href="#cb43-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-55"><a href="#cb43-55" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Override</span>(<span class="st">&#39;updateOneBase&#39;</span>)</span>
+<span id="cb43-56"><a href="#cb43-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coolFunction</span>(</span>
+<span id="cb43-57"><a href="#cb43-57" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb43-58"><a href="#cb43-58" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedBody</span>() dto<span class="op">:</span> Hero<span class="op">,</span></span>
+<span id="cb43-59"><a href="#cb43-59" aria-hidden="true" tabindex="-1"></a>  ) {</span>
+<span id="cb43-60"><a href="#cb43-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">base</span><span class="op">.</span><span class="fu">updateOneBase</span>(req<span class="op">,</span> dto)<span class="op">;</span></span>
+<span id="cb43-61"><a href="#cb43-61" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-62"><a href="#cb43-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-63"><a href="#cb43-63" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Override</span>(<span class="st">&#39;replaceOneBase&#39;</span>)</span>
+<span id="cb43-64"><a href="#cb43-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">awesomePUT</span>(</span>
+<span id="cb43-65"><a href="#cb43-65" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb43-66"><a href="#cb43-66" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedBody</span>() dto<span class="op">:</span> Hero<span class="op">,</span></span>
+<span id="cb43-67"><a href="#cb43-67" aria-hidden="true" tabindex="-1"></a>  ) {</span>
+<span id="cb43-68"><a href="#cb43-68" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">base</span><span class="op">.</span><span class="fu">replaceOneBase</span>(req<span class="op">,</span> dto)<span class="op">;</span></span>
+<span id="cb43-69"><a href="#cb43-69" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-70"><a href="#cb43-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-71"><a href="#cb43-71" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Override</span>()</span>
+<span id="cb43-72"><a href="#cb43-72" aria-hidden="true" tabindex="-1"></a>  <span class="kw">async</span> <span class="fu">deleteOne</span>(</span>
+<span id="cb43-73"><a href="#cb43-73" aria-hidden="true" tabindex="-1"></a>    @<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest<span class="op">,</span></span>
+<span id="cb43-74"><a href="#cb43-74" aria-hidden="true" tabindex="-1"></a>  ) {</span>
+<span id="cb43-75"><a href="#cb43-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">base</span><span class="op">.</span><span class="fu">deleteOneBase</span>(req)<span class="op">;</span></span>
+<span id="cb43-76"><a href="#cb43-76" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb43-77"><a href="#cb43-77" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><strong><em>Notice:</em></strong> new custom route decorators were
+created to simplify process: <code>@ParsedRequest()</code> and
+<code>@ParsedBody()</code>. But you still can add your param decorators
+to any of the methods, e.g. <code>@Param()</code>,
+<code>@Session()</code>, etc. Or any of your own cutom route
+decorators.</p>
+<h2 id="adding-routes">Adding routes</h2>
+<p>Sometimes you might need to add a new route and to use
+<code>@ParsedRequest()</code> in it. You need attach
+<code>CrudRequestInterceptor</code> in order to do that:</p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { UseInterceptors } <span class="im">from</span> <span class="st">&#39;@nestjs/common&#39;</span><span class="op">;</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  ParsedRequest<span class="op">,</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  CrudRequest<span class="op">,</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  CrudRequestInterceptor<span class="op">,</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>} <span class="im">from</span> <span class="st">&#39;@ihelpee/crud&#39;</span><span class="op">;</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>@<span class="fu">UseInterceptors</span>(CrudRequestInterceptor)</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Get</span>(<span class="st">&#39;/export/list.xlsx&#39;</span>)</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="fu">exportSome</span>(@<span class="fu">ParsedRequest</span>() req<span class="op">:</span> CrudRequest) {</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">// some awesome feature handling</span></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="additional-decorators">Additional decorators</h2>
+<p>There are two additional decorators that come out of the box:
+<code>@Feature()</code> and <code>@Action()</code>. You can use them
+with your <a
+href="https://en.wikipedia.org/wiki/Access_control_list">ACL</a>
+implementation. <code>@Action()</code> will be applyed automaticaly on
+controller compoesd base methods. There is <code>CrudActions</code> enum
+that you can import and use:</p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> CrudActions {</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  ReadAll <span class="op">=</span> <span class="st">&#39;Read-All&#39;</span><span class="op">,</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  ReadOne <span class="op">=</span> <span class="st">&#39;Read-One&#39;</span><span class="op">,</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  CreateOne <span class="op">=</span> <span class="st">&#39;Create-One&#39;</span><span class="op">,</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  CreateMany <span class="op">=</span> <span class="st">&#39;Create-Many&#39;</span><span class="op">,</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  UpdateOne <span class="op">=</span> <span class="st">&#39;Update-One&#39;</span><span class="op">,</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  ReplaceOne <span class="op">=</span> <span class="st">&#39;Replace-One&#39;</span><span class="op">,</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  DeleteOne <span class="op">=</span> <span class="st">&#39;Delete-One&#39;</span><span class="op">,</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><code>ACLGuard</code> dummy example with helper functions
+<code>getFeature</code> and <code>getAction</code>:</p>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Injectable<span class="op">,</span> CanActivate<span class="op">,</span> ExecutionContext } <span class="im">from</span> <span class="st">&#39;@nestjs/common&#39;</span><span class="op">;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { getFeature<span class="op">,</span> getAction } <span class="im">from</span> <span class="st">&#39;@ihelpee/crud&#39;</span><span class="op">;</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Injectable</span>()</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> ACLGuard <span class="kw">implements</span> CanActivate {</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">canActivate</span>(ctx<span class="op">:</span> ExecutionContext)<span class="op">:</span> <span class="dt">boolean</span> {</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> handler <span class="op">=</span> ctx<span class="op">.</span><span class="fu">getHandler</span>()<span class="op">;</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> controller <span class="op">=</span> ctx<span class="op">.</span><span class="fu">getClass</span>()<span class="op">;</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> feature <span class="op">=</span> <span class="fu">getFeature</span>(controller)<span class="op">;</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> action <span class="op">=</span> <span class="fu">getAction</span>(handler)<span class="op">;</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`</span><span class="sc">${</span>feature<span class="sc">}</span><span class="vs">-</span><span class="sc">${</span>action<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span> <span class="co">// e.g. &#39;Heroes-Read-All&#39;</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="why">Why?</h2>
+<p><a href="https://github.com/nestjs/nest">NestJS</a> is probably one
+of the best things that happened to Node.js community a couple of years
+ago. It was a missing part that provides a truly important architectural
+solution for a wide range of backend development aspects. But, despite
+the fact that it allows creating RESTful applications efficiently, an
+important CRUD scaffolding functionality that is present in many other
+HTTP frameworks was missing. That’s why <strong>Ihelpee/crud</strong>
+came out. And we hope you’ll find it very useful.</p>
+<h2 id="installation">Installation</h2>
+<pre><code>yarn add @ihelpee/crud-typeorm @nestjs/typeorm typeorm</code></pre>
+<p>For for TypeORM 0.2.x :</p>
+<pre><code>yarn add @ihelpee/crud-typeorm@~5.1 @nestjs/typeorm@~8.0.2 typeorm@~0.2</code></pre>
+<h2 id="compatibility">Compatibility</h2>
+<p>Versions &lt; 5.2.0 aim for full compatibility with the original
+nestjsx/crud project while adding a few new features.</p>
+<p>Version &gt;= 5.2.0 is based on TypeORM 0.3.x and might not be
+compatible, but still the goal is to have minimal disruption when
+upgrading from TypeORM 0.2.x</p>
+<h2 id="documentation-1">Documentation</h2>
+<h3 id="controllers">Controllers</h3>
+<ul>
+<li><a href="controllers#description">Description</a></li>
+<li><a href="controllers#install">Install</a></li>
+<li><a href="controllers#getting-started">Getting started</a></li>
+<li><a href="controllers#api-endpoints">API endpoints</a></li>
+<li><a href="controllers#swagger">Swagger</a></li>
+<li><a href="controllers#options">Options</a></li>
+<li><a href="controllers#global-options">Global options</a></li>
+<li><a href="controllers#request-authentication">Request
+authentication</a></li>
+<li><a href="controllers#request-validation">Request validation</a></li>
+<li><a href="controllers#response-serialization">Response
+serialization</a></li>
+<li><a href="controllers#intellisense">IntelliSense</a></li>
+<li><a href="controllers#routes-override">Routes override</a></li>
+<li><a href="controllers#adding-routes">Adding routes</a></li>
+<li><a href="controllers#additional-decorators">Additional
+decorators</a></li>
+</ul>
+<h3 id="services">Services</h3>
+<ul>
+<li><a href="services#description">Description</a></li>
+<li><a href="service-typeorm">TypeORM</a></li>
+</ul>
+<h3 id="requests">Requests</h3>
+<ul>
+<li><a href="requests#description">Description</a></li>
+<li><a href="requests#query-params">Query params</a></li>
+<li><a href="requests#frontend-usage">Frontend usage</a></li>
+</ul>
+<h2 id="description-1">Description</h2>
+<p><strong>Ihelpee/crud</strong> provides a full range of path and query
+parameters parsing/validation to help you build rich RESTful APIs. <a
+href="https://www.npmjs.com/package/@ihelpee/crud-request"><strong><span
+class="citation"
+data-cites="ihelpee/crud-request">@ihelpee/crud-request</span></strong></a>
+is responsible for that.</p>
+<h2 id="table-of-contents-1">Table of Contents</h2>
+<ul>
+<li><a href="#query-params">Query params</a>
+<ul>
+<li><a href="#select">select</a></li>
+<li><a href="#search">search</a></li>
+<li><a href="#filter-conditions">filter conditions</a></li>
+<li><a href="#filter">filter</a></li>
+<li><a href="#or">or</a></li>
+<li><a href="#sort">sort</a></li>
+<li><a href="#join">join</a></li>
+<li><a href="#limit">limit</a></li>
+<li><a href="#offset">offset</a></li>
+<li><a href="#page">page</a></li>
+<li><a href="#cache">cache</a></li>
+</ul></li>
+<li><a href="#frontend-usage">Frontend usage</a>
+<ul>
+<li><a href="#customize">Customize</a></li>
+<li><a href="#usage">Usage</a></li>
+</ul></li>
+</ul>
+<h2 id="query-params">Query params</h2>
+<p>By default, we support these param names:</p>
+<p><code>fields</code>, <code>select</code> - get selected fields in GET
+result</p>
+<p><code>s</code> - search conditions (<code>$and</code>,
+<code>$or</code> with all possible variations)</p>
+<p><code>filter</code> - filter GET result by <code>AND</code> type of
+condition</p>
+<p><code>or</code> - filter GET result by <code>OR</code> type of
+condition</p>
+<p><code>join</code> - receive joined relational resources in GET result
+(with all or selected fields)</p>
+<p><code>sort</code> - sort GET result by some <code>field</code> in
+<code>ASC | DESC</code> order</p>
+<p><code>per_page</code>, <code>limit</code> - limit the amount of
+received resources</p>
+<p><code>offset</code> - offset some amount of received resources</p>
+<p><code>page</code> - receive a portion of limited amount of
+resources</p>
+<p><code>cache</code> - reset cache (if was enabled) and receive
+resources directly from the DB</p>
+<p><strong><em>Notice:</em></strong> You can easily map your own query
+params names and chose another string delimiters by applying <a
+href="https://github.com/ihelpee/crud/wiki/Controllers#global-options">global
+options</a>.</p>
+<p>Here is the description of each of those using default params
+names:</p>
+<h3 id="select">select</h3>
+<p>Selects fields that should be returned in the reponse body.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?fields=<strong>field1</strong>,<strong>field2</strong>,…</p>
+</blockquote>
+<p><em>Example:</em></p>
+<blockquote>
+<p>?fields=<strong>email</strong>,<strong>name</strong></p>
+</blockquote>
+<h3 id="search">search</h3>
+<p>Adds a search condition as a JSON string to you request. You can
+combine <code>$and</code>, <code>$or</code> and <code>$not</code> and
+use any <a href="#filter-conditions">condition</a> you need. Make sure
+it’s being sent encoded or just use <a
+href="#frontend-usage"><code>RequestQueryBuilder</code></a></p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?s={“name”: “Michael”}</p>
+</blockquote>
+<p><em>Some examples:</em></p>
+<ul>
+<li>Search by field <code>name</code> that can be either
+<code>null</code> OR equals <code>Superman</code></li>
+</ul>
+<blockquote>
+<p>?s={“name”: {“<strong>$or</strong>”: {“<strong>$isnull</strong>”:
+true, “<strong>$eq</strong>”: “Superman”}}}</p>
+</blockquote>
+<ul>
+<li>Search an entity where <code>isActive</code> is <code>true</code>
+AND <code>createdAt</code> not equal
+<code>2008-10-01T17:04:32</code></li>
+</ul>
+<blockquote>
+<p>?s={“<strong>$and</strong>”: [{“isActive”: true}, {“createdAt”:
+{“<strong>$ne</strong>”: “2008-10-01T17:04:32”}}]}</p>
+</blockquote>
+<p>…which is the same as:</p>
+<blockquote>
+<p>?s={“isActive”: true, “createdAt”: {“<strong>$ne</strong>”:
+“2008-10-01T17:04:32”}}</p>
+</blockquote>
+<ul>
+<li>Search an entity where <code>isActive</code> is <code>false</code>
+OR <code>updatedAt</code> is not <code>null</code></li>
+</ul>
+<blockquote>
+<p>?s={“<strong>$or</strong>”: [{“isActive”: false}, {“updatedAt”:
+{“<strong>$notnull</strong>”: true}}]}</p>
+</blockquote>
+<ul>
+<li>Search an entity where condition is negated</li>
+</ul>
+<blockquote>
+<p>?s={“**$not”: [{“<strong>$or</strong>”: [{“isActive”: false},
+{“updatedAt”: {“**$notnull**“: true}}]}]}</p>
+</blockquote>
+<p>So the amount of combinations is really huge.</p>
+<p><strong><em>Notice:</em></strong> if search query param is present,
+then <a href="#filter">filter</a> and <a href="#or">or</a> query params
+will be ignored.</p>
+<h3 id="filter-conditions">filter conditions</h3>
+<ul>
+<li><strong><code>$eq</code></strong> (<code>=</code>, equal)</li>
+<li><strong><code>$ne</code></strong> (<code>!=</code>, not equal)</li>
+<li><strong><code>$gt</code></strong> (<code>&gt;</code>, greater
+than)</li>
+<li><strong><code>$lt</code></strong> (<code>&lt;</code>, lower
+that)</li>
+<li><strong><code>$gte</code></strong> (<code>&gt;=</code>, greater than
+or equal)</li>
+<li><strong><code>$lte</code></strong> (<code>&lt;=</code>, lower than
+or equal)</li>
+<li><strong><code>$starts</code></strong> (<code>LIKE val%</code>,
+starts with)</li>
+<li><strong><code>$ends</code></strong> (<code>LIKE %val</code>, ends
+with)</li>
+<li><strong><code>$cont</code></strong> (<code>LIKE %val%</code>,
+contains)</li>
+<li><strong><code>$excl</code></strong> (<code>NOT LIKE %val%</code>,
+not contains)</li>
+<li><strong><code>$in</code></strong> (<code>IN</code>, in range,
+<strong><em>accepts multiple values</em></strong>)</li>
+<li><strong><code>$notin</code></strong> (<code>NOT IN</code>, not in
+range, <strong><em>accepts multiple values</em></strong>)</li>
+<li><strong><code>$isnull</code></strong> (<code>IS NULL</code>, is
+NULL, <strong><em>doesn’t accept value</em></strong>)</li>
+<li><strong><code>$notnull</code></strong> (<code>IS NOT NULL</code>,
+not NULL, <strong><em>doesn’t accept value</em></strong>)</li>
+<li><strong><code>$between</code></strong> (<code>BETWEEN</code>,
+between, <strong><em>accepts two values</em></strong>)</li>
+<li><strong><code>$eqL</code></strong> (<code>LOWER(field) =</code>,
+equal)</li>
+<li><strong><code>$neL</code></strong> (<code>LOWER(field) !=</code>,
+not equal)</li>
+<li><strong><code>$startsL</code></strong>
+(<code>LIKE|ILIKE val%</code>)</li>
+<li><strong><code>$endsL</code></strong> (<code>LIKE|ILIKE %val</code>,
+ends with)</li>
+<li><strong><code>$contL</code></strong> (<code>LIKE|ILIKE %val%</code>,
+contains)</li>
+<li><strong><code>$exclL</code></strong>
+(<code>NOT LIKE|ILIKE %val%</code>, not contains)</li>
+<li><strong><code>$inL</code></strong> (<code>LOWER(field) IN</code>, in
+range, <strong><em>accepts multiple values</em></strong>)</li>
+<li><strong><code>$notinL</code></strong>
+(<code>LOWER(field) NOT IN</code>, not in range, <strong><em>accepts
+multiple values</em></strong>)</li>
+</ul>
+<h3 id="filter-1">filter</h3>
+<p>Adds fields request condition (multiple conditions) to your
+request.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?filter=<strong>field</strong>||<strong>$condition</strong>||<strong>value</strong></p>
+</blockquote>
+<blockquote>
+<p>?join[]=<strong>relation</strong>&amp;filter=<strong>relation</strong>.<strong>field</strong>||<strong>$condition</strong>||<strong>value</strong></p>
+</blockquote>
+<p><strong><em>Notice:</em></strong> Using nested filter shall join
+relation first.</p>
+<p><em>Examples:</em></p>
+<blockquote>
+<p>?filter=<strong>name</strong>||<strong>$eq</strong>||<strong>batman</strong></p>
+</blockquote>
+<blockquote>
+<p>?filter=<strong>isVillain</strong>||<strong>$eq</strong>||<strong>false</strong>&amp;filter=<strong>city</strong>||<strong>$eq</strong>||<strong>Arkham</strong>
+(multiple filters are treated as a combination of <code>AND</code> type
+of conditions)</p>
+</blockquote>
+<blockquote>
+<p>?filter=<strong>shots</strong>||<strong>$in</strong>||<strong>12</strong>,<strong>26</strong>
+(some conditions accept multiple values separated by commas)</p>
+</blockquote>
+<blockquote>
+<p>?filter=<strong>power</strong>||<strong>$isnull</strong> (some
+conditions don’t accept value)</p>
+</blockquote>
+<h3 id="or">or</h3>
+<p>Adds <code>OR</code> conditions to the request.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?or=<strong>field</strong>||<strong>$condition</strong>||<strong>value</strong></p>
+</blockquote>
+<p>It uses the same <a href="#filter-conditions">filter
+conditions</a>.</p>
+<p><em>Rules and examples:</em></p>
+<ul>
+<li>If there is only <strong>one</strong> <code>or</code> present
+(without <code>filter</code>) then it will be interpreted as simple <a
+href="#filter">filter</a>:</li>
+</ul>
+<blockquote>
+<p>?or=<strong>name</strong>||<strong>$eq</strong>||<strong>batman</strong></p>
+</blockquote>
+<ul>
+<li>If there are <strong>multiple</strong> <code>or</code> present
+(without <code>filter</code>) then it will be interpreted as a
+compination of <code>OR</code> conditions, as follows:
+<code>WHERE {or} OR {or} OR ...</code></li>
+</ul>
+<blockquote>
+<p>?or=<strong>name</strong>||<strong>$eq</strong>||<strong>batman</strong>&amp;or=<strong>name</strong>||<strong>$eq</strong>||<strong>joker</strong></p>
+</blockquote>
+<ul>
+<li>If there are <strong>one</strong> <code>or</code> and
+<strong>one</strong> <code>filter</code> then it will be interpreted as
+<code>OR</code> condition, as follows:
+<code>WHERE {filter} OR {or}</code></li>
+</ul>
+<blockquote>
+<p>?filter=<strong>name</strong>||<strong>$eq</strong>||<strong>batman</strong>&amp;or=<strong>name</strong>||<strong>$eq</strong>||<strong>joker</strong></p>
+</blockquote>
+<ul>
+<li>If present <strong>both</strong> <code>or</code> and
+<code>filter</code> in any amount (<strong>one</strong> or
+<strong>miltiple</strong> each) then both interpreted as a combitation
+of <code>AND</code> conditions and compared with each other by
+<code>OR</code> condition, as follows:
+<code>WHERE ({filter} AND {filter} AND ...) OR ({or} AND {or} AND ...)</code></li>
+</ul>
+<blockquote>
+<p>?filter=<strong>type</strong>||<strong>$eq</strong>||<strong>hero</strong>&amp;filter=<strong>status</strong>||<strong>$eq</strong>||<strong>alive</strong>&amp;or=<strong>type</strong>||<strong>$eq</strong>||<strong>villain</strong>&amp;or=<strong>status</strong>||<strong>$eq</strong>||<strong>dead</strong></p>
+</blockquote>
+<h3 id="sort-1">sort</h3>
+<p>Adds sort by field (by multiple fields) and order to query
+result.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?sort=<strong>field</strong>,<strong>ASC|DESC</strong></p>
+</blockquote>
+<p><em>Examples:</em></p>
+<blockquote>
+<p>?sort=<strong>name</strong>,<strong>ASC</strong></p>
+</blockquote>
+<blockquote>
+<p>?sort=<strong>name</strong>,<strong>ASC</strong>&amp;sort=<strong>id</strong>,<strong>DESC</strong></p>
+</blockquote>
+<h3 id="join-1">join</h3>
+<p>Receive joined relational objects in GET result (with all or selected
+fields). You can join as many relations as allowed in your <a
+href="https://github.com/ihelpee/crud/wiki/Controllers#join">CrudOptions</a>.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?join[]=<strong>relation</strong></p>
+</blockquote>
+<blockquote>
+<p>?join[]=<strong>relation</strong>||<strong>field1</strong>,<strong>field2</strong>,…</p>
+</blockquote>
+<blockquote>
+<p>?join[]=<strong>relation1</strong>||<strong>field11</strong>,<strong>field12</strong>,…&amp;join[]=<strong>relation1</strong>.<strong>nested</strong>||<strong>field21</strong>,<strong>field22</strong>,…&amp;join[]=…</p>
+</blockquote>
+<p><em>Examples:</em></p>
+<blockquote>
+<p>?join[]=<strong>profile</strong></p>
+</blockquote>
+<blockquote>
+<p>?join[]=<strong>profile</strong>||<strong>firstName</strong>,<strong>email</strong></p>
+</blockquote>
+<blockquote>
+<p>?join[]=<strong>profile</strong>||<strong>firstName</strong>,<strong>email</strong>&amp;join[]=<strong>notifications</strong>||<strong>content</strong>&amp;join[]=<strong>tasks</strong></p>
+</blockquote>
+<blockquote>
+<p>?join[]=<strong>relation1</strong>&amp;join[]=<strong>relation1</strong>.<strong>nested</strong>&amp;join[]=<strong>relation1</strong>.<strong>nested</strong>.<strong>deepnested</strong></p>
+</blockquote>
+<p><strong><em>Notice:</em></strong> primary field/column always
+persists in relational objects. To use nested relations, the parent
+level <strong>MUST</strong> be set before the child level like example
+above.</p>
+<h3 id="new-feature-join-condition-on-clause">New Feature: Join
+Condition (on clause)</h3>
+<p>The join parameter now supports specifying a WHERE condition within
+the ON clause of the join using the on property. This allows for more
+granular control over the joined data.</p>
+<blockquote>
+<p>?join[]=<strong>relation</strong>||<strong>field1</strong>,<strong>field2</strong>,…||on[0]=<strong>field</strong>||<strong>$condition</strong>||<strong>value</strong>,on[1]=<strong>field</strong>||<strong>$condition</strong>…&amp;join[]=…</p>
+</blockquote>
+<p><em>Examples:</em></p>
+<p>Suppose you want to retrieve <code>Posts</code> along with their
+associated <code>Author</code> data, but you only want to include
+<code>Authors</code> where the <code>isActive</code> field is
+<code>true</code> and the <code>profilePicture</code> field is
+<code>null</code> (meaning the author doesn’t have a profile picture
+set). You can achieve this with the following query string:</p>
+<blockquote>
+<p>?join[]=<strong>author</strong>||<strong>fullName</strong>,<strong>email</strong>||on[0]=<strong>author.isActive</strong>||<strong>$eq</strong>||<strong>true</strong>&amp;on[1]=<strong>author.profilePicture</strong>||<strong>$isnull</strong></p>
+</blockquote>
+<p>This query will join the <code>Post</code> entity with its related
+<code>Author</code> entity, but it will only include <code>Author</code>
+objects where:</p>
+<ul>
+<li>The <code>isActive</code> field is set to <code>true</code>.</li>
+<li>The <code>profilePicture</code> field is <code>null</code>.</li>
+</ul>
+<h3 id="limit-1">limit</h3>
+<p>Receive <code>N</code> amount of entities.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?limit=<strong>number</strong></p>
+</blockquote>
+<p><em>Example:</em></p>
+<blockquote>
+<p>?limit=<strong>10</strong></p>
+</blockquote>
+<h3 id="offset">offset</h3>
+<p>Limit the amount of received resources</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?offset=<strong>number</strong></p>
+</blockquote>
+<p><em>Example:</em></p>
+<blockquote>
+<p>?offset=<strong>10</strong></p>
+</blockquote>
+<h3 id="page">page</h3>
+<p>Receive a portion of limited amount of resources.</p>
+<p><em>Syntax:</em></p>
+<blockquote>
+<p>?page=<strong>number</strong></p>
+</blockquote>
+<p><em>Example:</em></p>
+<blockquote>
+<p>?page=<strong>2</strong></p>
+</blockquote>
+<h3 id="cache-1">cache</h3>
+<p>Reset cache (if was enabled) and receive resources directly from the
+DB.</p>
+<p><em>Usage:</em></p>
+<blockquote>
+<p>?cache=0</p>
+</blockquote>
+<h2 id="frontend-usage">Frontend usage</h2>
+<p><a
+href="https://www.npmjs.com/package/@ihelpee/crud-request"><strong><span
+class="citation"
+data-cites="ihelpee/crud-request">@ihelpee/crud-request</span></strong></a>
+is a framework agnostic package that has been designed for both backend
+and frontend usage. It’s also used by <a
+href="https://www.npmjs.com/package/@ihelpee/crud"><strong><span
+class="citation"
+data-cites="ihelpee/crud">@ihelpee/crud</span></strong></a> package in
+<code>CrudRequestInterceptor</code>.</p>
+<p>It has <code>RequestQueryBuilder</code> class that helps building a
+query string and customizing your query params names and delimiters.</p>
+<h3 id="customize">Customize</h3>
+<p>It has a static method <code>setOptions</code> that alows you to set
+different params names (defaults are shown):</p>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { RequestQueryBuilder } <span class="im">from</span> <span class="st">&#39;@ihelpee/crud-request&#39;</span><span class="op">;</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>RequestQueryBuilder<span class="op">.</span><span class="fu">setOptions</span>({</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  delim<span class="op">:</span> <span class="st">&#39;||&#39;</span><span class="op">,</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  delimStr<span class="op">:</span> <span class="st">&#39;,&#39;</span><span class="op">,</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  paramNamesMap<span class="op">:</span> {</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    fields<span class="op">:</span> [<span class="st">&#39;fields&#39;</span><span class="op">,</span> <span class="st">&#39;select&#39;</span>]<span class="op">,</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    search<span class="op">:</span> <span class="st">&#39;s&#39;</span><span class="op">,</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    filter<span class="op">:</span> [<span class="st">&#39;filter[]&#39;</span><span class="op">,</span> <span class="st">&#39;filter&#39;</span>]<span class="op">,</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    or<span class="op">:</span> [<span class="st">&#39;or[]&#39;</span><span class="op">,</span> <span class="st">&#39;or&#39;</span>]<span class="op">,</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    join<span class="op">:</span> [<span class="st">&#39;join[]&#39;</span><span class="op">,</span> <span class="st">&#39;join&#39;</span>]<span class="op">,</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    sort<span class="op">:</span> [<span class="st">&#39;sort[]&#39;</span><span class="op">,</span> <span class="st">&#39;sort&#39;</span>]<span class="op">,</span></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">:</span> [<span class="st">&#39;per_page&#39;</span><span class="op">,</span> <span class="st">&#39;limit&#39;</span>]<span class="op">,</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>    offset<span class="op">:</span> [<span class="st">&#39;offset&#39;</span>]<span class="op">,</span></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>    page<span class="op">:</span> [<span class="st">&#39;page&#39;</span>]<span class="op">,</span></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>    cache<span class="op">:</span> [<span class="st">&#39;cache&#39;</span>]<span class="op">,</span></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h3 id="usage">Usage</h3>
+<p>You can compose a query string in a chaining methods manner:</p>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { RequestQueryBuilder<span class="op">,</span> CondOperator } <span class="im">from</span> <span class="st">&quot;@ihelpee/crud-request&quot;</span><span class="op">;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> qb <span class="op">=</span> RequestQueryBuilder<span class="op">.</span><span class="fu">create</span>()<span class="op">;</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="co">// set search</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>qb<span class="op">.</span><span class="fu">search</span>({</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  $or<span class="op">:</span> [</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>      foo<span class="op">:</span> {</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>        $notnull<span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>      baz<span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>      bar<span class="op">:</span> {</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>        $ne<span class="op">:</span> <span class="st">&quot;test&quot;</span></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a><span class="co">// is actually the same as:</span></span>
+<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>qb<span class="op">.</span><span class="fu">setFilter</span>({ field<span class="op">:</span> <span class="st">&quot;foo&quot;</span><span class="op">,</span> operator<span class="op">:</span> CondOperator<span class="op">.</span><span class="at">NOT_NULL</span> })</span>
+<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">setFilter</span>({ field<span class="op">:</span> <span class="st">&quot;baz&quot;</span><span class="op">:</span> operator<span class="op">:</span> <span class="st">&quot;$eq&quot;</span><span class="op">,</span> value<span class="op">:</span> <span class="dv">1</span> })</span>
+<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">setOr</span>({</span>
+<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a>    field<span class="op">:</span> <span class="st">&quot;bar&quot;</span><span class="op">,</span></span>
+<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a>    operator<span class="op">:</span> CondOperator<span class="op">.</span><span class="at">NOT_EQUALS</span><span class="op">,</span></span>
+<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a>    value<span class="op">:</span> <span class="st">&quot;test&quot;</span></span>
+<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-33"><a href="#cb50-33" aria-hidden="true" tabindex="-1"></a>qb<span class="op">.</span><span class="fu">select</span>([<span class="st">&#39;foo&#39;</span><span class="op">,</span> <span class="st">&#39;bar&#39;</span>])</span>
+<span id="cb50-34"><a href="#cb50-34" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">setJoin</span>({ field<span class="op">:</span> <span class="st">&#39;company&#39;</span> })</span>
+<span id="cb50-35"><a href="#cb50-35" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">setJoin</span>({ field<span class="op">:</span> <span class="st">&#39;profile&#39;</span><span class="op">,</span> select<span class="op">:</span> [<span class="st">&#39;name&#39;</span><span class="op">,</span> <span class="st">&#39;email&#39;</span>] })</span>
+<span id="cb50-36"><a href="#cb50-36" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">setJoin</span>({</span>
+<span id="cb50-37"><a href="#cb50-37" aria-hidden="true" tabindex="-1"></a>    field<span class="op">:</span> <span class="st">&#39;boo&#39;</span><span class="op">,</span></span>
+<span id="cb50-38"><a href="#cb50-38" aria-hidden="true" tabindex="-1"></a>    select<span class="op">:</span> [<span class="st">&#39;status&#39;</span><span class="op">,</span> <span class="st">&#39;date&#39;</span>]<span class="op">,</span></span>
+<span id="cb50-39"><a href="#cb50-39" aria-hidden="true" tabindex="-1"></a>    on<span class="op">:</span> [</span>
+<span id="cb50-40"><a href="#cb50-40" aria-hidden="true" tabindex="-1"></a>      { field<span class="op">:</span> <span class="st">&#39;bar&#39;</span><span class="op">,</span> operator<span class="op">:</span> <span class="st">&#39;eq&#39;</span><span class="op">,</span> value<span class="op">:</span> <span class="dv">100</span> }<span class="op">,</span></span>
+<span id="cb50-41"><a href="#cb50-41" aria-hidden="true" tabindex="-1"></a>      { field<span class="op">:</span> <span class="st">&#39;baz&#39;</span><span class="op">,</span> operator<span class="op">:</span> <span class="st">&#39;isnull&#39;</span> }<span class="op">,</span></span>
+<span id="cb50-42"><a href="#cb50-42" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">,</span></span>
+<span id="cb50-43"><a href="#cb50-43" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb50-44"><a href="#cb50-44" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">sortBy</span>({ field<span class="op">:</span> <span class="st">&#39;bar&#39;</span><span class="op">,</span> order<span class="op">:</span> <span class="st">&#39;DESС&#39;</span> })</span>
+<span id="cb50-45"><a href="#cb50-45" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">setLimit</span>(<span class="dv">20</span>)</span>
+<span id="cb50-46"><a href="#cb50-46" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">setPage</span>(<span class="dv">3</span>)</span>
+<span id="cb50-47"><a href="#cb50-47" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">resetCache</span>()</span>
+<span id="cb50-48"><a href="#cb50-48" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">query</span>()<span class="op">;</span></span></code></pre></div>
+<p>Or, you can path all params to the <code>create</code> method:</p>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> queryString <span class="op">=</span> RequestQueryBuilder<span class="op">.</span><span class="fu">create</span>({</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  fields<span class="op">:</span> [<span class="st">&#39;name&#39;</span><span class="op">,</span> <span class="st">&#39;email&#39;</span>]<span class="op">,</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  search<span class="op">:</span> { isActive<span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  join<span class="op">:</span> [{ field<span class="op">:</span> <span class="st">&#39;company&#39;</span> }]<span class="op">,</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  sort<span class="op">:</span> [{ field<span class="op">:</span> <span class="st">&#39;id&#39;</span><span class="op">,</span> order<span class="op">:</span> <span class="st">&#39;DESC&#39;</span> }]<span class="op">,</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  page<span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  limit<span class="op">:</span> <span class="dv">25</span><span class="op">,</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  resetCache<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>})<span class="op">.</span><span class="fu">query</span>()<span class="op">;</span></span></code></pre></div>
+<p>This package provides a CRUD service for relational databases build
+with TypeORM</p>
+<h2 id="install-2">Install</h2>
+<pre class="shell"><code>yarn add @ihelpee/crud-typeorm @nestjs/typeorm typeorm</code></pre>
+<h2 id="usage-1">Usage</h2>
+<p>Assume you have some TypeORM <strong>entity</strong>:</p>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Entity<span class="op">,</span> PrimaryGeneratedColumn<span class="op">,</span> Column } <span class="im">from</span> <span class="st">&#39;typeorm&#39;</span><span class="op">;</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Entity</span>()</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> Company {</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">PrimaryGeneratedColumn</span>() id<span class="op">:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Column</span>() name<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Then you need to create a <strong>service</strong>:</p>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Injectable } <span class="im">from</span> <span class="st">&#39;@nestjs/common&#39;</span><span class="op">;</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { InjectRepository } <span class="im">from</span> <span class="st">&#39;@nestjs/typeorm&#39;</span><span class="op">;</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { TypeOrmCrudService } <span class="im">from</span> <span class="st">&#39;@ihelpee/crud-typeorm&#39;</span><span class="op">;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Company } <span class="im">from</span> <span class="st">&#39;./company.entity&#39;</span><span class="op">;</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Injectable</span>()</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> CompaniesService <span class="kw">extends</span> TypeOrmCrudService<span class="op">&lt;</span>Company<span class="op">&gt;</span> {</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">constructor</span>(@<span class="fu">InjectRepository</span>(Company) repo) {</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span>(repo)<span class="op">;</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>After that you need to provide your service in a
+<strong>controller</strong>:</p>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Controller } <span class="im">from</span> <span class="st">&#39;@nestjs/common&#39;</span><span class="op">;</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Crud<span class="op">,</span> CrudController } <span class="im">from</span> <span class="st">&#39;@ihelpee/crud&#39;</span><span class="op">;</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Company } <span class="im">from</span> <span class="st">&#39;./company.entity&#39;</span><span class="op">;</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { CompaniesService } <span class="im">from</span> <span class="st">&#39;./companies.service&#39;</span><span class="op">;</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Crud</span>({</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>  model<span class="op">:</span> {</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> Company<span class="op">,</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Controller</span>(<span class="st">&#39;companies&#39;</span>)</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> CompaniesController <span class="kw">implements</span> CrudController<span class="op">&lt;</span>Company<span class="op">&gt;</span> {</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">constructor</span>(<span class="kw">public</span> service<span class="op">:</span> CompaniesService) {}</span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="description-2">Description</h2>
+<p><strong>Ihelpee/crud</strong> was designed to support any ORM and any
+DB.</p>
+<p>Here is the list of supported ORMs and those that are going to be
+implemented in the nearest future:</p>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" /><a
+href="https://typeorm.io">TypeORM</a> - <a
+href="https://www.npmjs.com/package/@ihelpee/crud-typeorm"><span
+class="citation"
+data-cites="ihelpee/crud-typeorm">@ihelpee/crud-typeorm</span></a> - <a
+href="service-typeorm/">docs</a></label></li>
+<li><label><input type="checkbox" /><a
+href="https://mongoosejs.com/">Mongoose</a> - PR welcome</label></li>
+<li><label><input type="checkbox" /><a
+href="http://docs.sequelizejs.com/">Sequelize</a> - PR
+welcome</label></li>
+</ul>
+</body>
+</html>

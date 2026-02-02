@@ -1,0 +1,1936 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Biblioteca CRUD para NestJS com TypeORM">
+      
+      
+        <meta name="author" content="ihelpee">
+      
+      
+        <link rel="canonical" href="https://ihelpee.github.io/nestjs-crud/controllers/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Controllers - NestJS CRUD Library</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#description" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="NestJS CRUD Library" class="md-header__button md-logo" aria-label="NestJS CRUD Library" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NestJS CRUD Library
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Controllers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="deep-purple"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ihelpee/nestjs-crud" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ihelpee/nestjs-crud
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Início
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../install.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Instalação
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../usage.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Uso Básico
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../security.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Segurança
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../advanced.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Avançado
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="NestJS CRUD Library" class="md-nav__button md-logo" aria-label="NestJS CRUD Library" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NestJS CRUD Library
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ihelpee/nestjs-crud" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ihelpee/nestjs-crud
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso Básico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Segurança
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Avançado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Install">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-typeorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using TypeORM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting started
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-many-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Get many resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-one-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Get one resource
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-one-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create one resource
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-many-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create many resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-one-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update one resource
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replace-one-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace one resource
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-one-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delete one resource
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swagger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Swagger
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        params
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        routes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        query
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="query">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#allow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        allow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exclude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        exclude
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        persist
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        filter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#join" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        join
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        limit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maxlimit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        maxLimit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alwayspaginate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        alwaysPaginate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#softdelete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        softDelete
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        serialize
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-serialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response serialization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intellisense" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IntelliSense
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routes-override" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routes override
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding routes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-decorators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional decorators
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Controllers</h1>
+
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.npmjs.com/package/@ihelpee/crud"><strong>@ihelpee/crud</strong></a> - core package which provides <code>@Crud()</code> controller decorator for endpoints generation, global configuration, validation, helper decorators.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#install">Install</a></li>
+<li><a href="#getting-started">Getting started</a></li>
+<li><a href="#api-endpoints">API endpoints</a></li>
+<li><a href="swagger">Swagger</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#model">model</a></li>
+<li><a href="#validation">validation</a></li>
+<li><a href="#params">params</a></li>
+<li><a href="#routes">routes</a></li>
+<li><a href="#query">query</a></li>
+<li><a href="#dto">dto</a></li>
+<li><a href="#serialize">serialize</a></li>
+<li><a href="#global-options">Global options</a></li>
+<li><a href="#request-authentication">Request authentication</a></li>
+<li><a href="#request-validation">Request validation</a></li>
+<li><a href="#response-serialization">Response serialization</a></li>
+<li><a href="#intellisense">IntelliSense</a></li>
+<li><a href="#routes-override">Routes override</a></li>
+<li><a href="#adding-routes">Adding routes</a></li>
+<li><a href="#additional-decorators">Additional decorators</a></li>
+</ul>
+<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>yarn<span class="w"> </span>add<span class="w"> </span>@ihelpee/crud<span class="w"> </span>class-transformer<span class="w"> </span>class-validator
+</code></pre></div>
+<h3 id="using-typeorm">Using TypeORM<a class="headerlink" href="#using-typeorm" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>yarn<span class="w"> </span>add<span class="w"> </span>@ihelpee/crud-typeorm<span class="w"> </span>@nestjs/typeorm<span class="w"> </span>typeorm
+</code></pre></div>
+<h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>Let's take a look at the example of using <code>@ihelpee/crud</code> with TypeORM.</p>
+<p>Assume we have some TypeORM <strong>entity</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Entity</span><span class="p">,</span><span class="w"> </span><span class="nx">PrimaryGeneratedColumn</span><span class="p">,</span><span class="w"> </span><span class="nx">Column</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;typeorm&#39;</span><span class="p">;</span>
+
+<span class="kd">@Entity</span><span class="p">()</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Company</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">@PrimaryGeneratedColumn</span><span class="p">()</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kd">@Column</span><span class="p">()</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Then we need to create a <strong>service</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Injectable</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@nestjs/common&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">InjectRepository</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@nestjs/typeorm&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">TypeOrmCrudService</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@ihelpee/crud-typeorm&#39;</span><span class="p">;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Company</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./company.entity&#39;</span><span class="p">;</span>
+
+<span class="kd">@Injectable</span><span class="p">()</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">CompaniesService</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">TypeOrmCrudService</span><span class="o">&lt;</span><span class="nx">Company</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="kd">@InjectRepository</span><span class="p">(</span><span class="nx">Company</span><span class="p">)</span><span class="w"> </span><span class="nx">repo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="nx">repo</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>We've done with the service so let's create a <strong>controller</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Controller</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@nestjs/common&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Crud</span><span class="p">,</span><span class="w"> </span><span class="nx">CrudController</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@ihelpee/crud&#39;</span><span class="p">;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Company</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./company.entity&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CompaniesService</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./companies.service&#39;</span><span class="p">;</span>
+
+<span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="nx">Company</span><span class="p">,</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">})</span>
+<span class="kd">@Controller</span><span class="p">(</span><span class="s1">&#39;companies&#39;</span><span class="p">)</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">CompaniesController</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">CrudController</span><span class="o">&lt;</span><span class="nx">Company</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="nx">service</span><span class="o">:</span><span class="w"> </span><span class="kt">CompaniesService</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>All we have to do next is to connect our service and controller in the <code>CompaniesModule</code> as we usually do:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Module</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@nestjs/common&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">TypeOrmModule</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@nestjs/typeorm&#39;</span><span class="p">;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Company</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./company.entity&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CompaniesService</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./companies.service&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CompaniesController</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./companies.controller&#39;</span><span class="p">;</span>
+
+<span class="kd">@Module</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">TypeOrmModule</span><span class="p">.</span><span class="nx">forFeature</span><span class="p">([</span><span class="nx">Company</span><span class="p">])],</span>
+<span class="w">  </span><span class="nx">providers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">CompaniesService</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">exports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">CompaniesService</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">controllers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">CompaniesController</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">CompaniesModule</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+<p>That's it.</p>
+<h2 id="api-endpoints">API Endpoints<a class="headerlink" href="#api-endpoints" title="Permanent link">&para;</a></h2>
+<p><code>Crud()</code> decorator generates the following API endpoints:</p>
+<h3 id="get-many-resources">Get many resources<a class="headerlink" href="#get-many-resources" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>GET /heroes</code> &gt; <code>GET /heroes/:heroId/perks</code></p>
+</blockquote>
+<p><em>Result:</em> array of resources | pagination object with data
+<em>Status Codes:</em> 200</p>
+<h3 id="get-one-resource">Get one resource<a class="headerlink" href="#get-one-resource" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>GET /heroes/:id</code> &gt; <code>GET /heroes/:heroId/perks:id</code></p>
+</blockquote>
+<p><em>Request Params:</em> <code>:id</code> - some resource field (slug)
+<em>Result:</em> resource object | error object
+<em>Status Codes:</em> 200 | 404</p>
+<h3 id="create-one-resource">Create one resource<a class="headerlink" href="#create-one-resource" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>POST /heroes</code> &gt; <code>POST /heroes/:heroId/perks</code></p>
+</blockquote>
+<p><em>Request Body:</em> resource object | resource object with nested (relational) resources
+<em>Result:</em> created resource object | error object
+<em>Status Codes:</em> 201 | 400</p>
+<h3 id="create-many-resources">Create many resources<a class="headerlink" href="#create-many-resources" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>POST /heroes/bulk</code> &gt; <code>POST /heroes/:heroId/perks/bulk</code></p>
+</blockquote>
+<p><em>Request Body:</em> array of resources objects | array of resources objects with nested (relational) resources</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;bulk&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Batman&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Batgirl&quot;</span><span class="w"> </span><span class="p">}]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Result:</em> array of created resources | error object
+<em>Status codes:</em> 201 | 400</p>
+<h3 id="update-one-resource">Update one resource<a class="headerlink" href="#update-one-resource" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>PATCH /heroes/:id</code> &gt; <code>PATCH /heroes/:heroId/perks/:id</code></p>
+</blockquote>
+<p><em>Request Params:</em> <code>:id</code> - some resource field (slug)
+<em>Request Body:</em> resource object (or partial) | resource object with nested (relational) resources (or partial)
+<em>Result:</em>: updated partial resource object | error object
+<em>Status codes:</em> 200 | 400 | 404</p>
+<h3 id="replace-one-resource">Replace one resource<a class="headerlink" href="#replace-one-resource" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>PUT /heroes/:id</code> &gt; <code>PUT /heroes/:heroId/perks/:id</code></p>
+</blockquote>
+<p><em>Request Params:</em> <code>:id</code> - some resource field (slug)
+<em>Request Body:</em> resource object | resource object with nested (relational) resources (or partial)
+<em>Result:</em>: replaced resource object | error object
+<em>Status codes:</em> 200 | 400</p>
+<h3 id="delete-one-resource">Delete one resource<a class="headerlink" href="#delete-one-resource" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>DELETE /heroes/:id</code> &gt; <code>DELETE /heroes/:heroId/perks/:id</code></p>
+</blockquote>
+<p><em>Request Params:</em> <code>:id</code> - some resource field (slug)
+<em>Result:</em>: empty | resource object | error object
+<em>Status codes:</em> 200 | 404</p>
+<h2 id="swagger">Swagger<a class="headerlink" href="#swagger" title="Permanent link">&para;</a></h2>
+<p><a href="https://docs.nestjs.com/recipes/swagger">Swagger</a> support is present out of the box.</p>
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
+<p><code>Crud()</code> decorator accepts the following <code>CrudOptions</code>:</p>
+<h3 id="model">model<a class="headerlink" href="#model" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="nx">Entity</span><span class="o">|</span><span class="nx">Model</span><span class="o">|</span><span class="nx">DTO</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="p">})</span>
+</code></pre></div>
+<p><em>Required</em></p>
+<p><code>Entity</code>, <code>Model</code> or <code>DTO</code> class must be provided here. Everything else described bellow is optional. It's needed for a built in validation based on NestJS <code>ValidationPipe</code>.</p>
+<h3 id="validation">validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="nx">validation?</span><span class="o">:</span><span class="w"> </span><span class="kt">ValidationPipeOptions</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="p">})</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>Accepts <code>ValidationPipe</code> options or <code>false</code> if you want to use your own validation implementation.</p>
+<h3 id="params">params<a class="headerlink" href="#params" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="nx">params</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">      </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;uuid&#39;</span><span class="p">;</span>
+<span class="w">      </span><span class="nx">primary?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">      </span><span class="nx">disabled?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="p">})</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>By default <code>@Crud()</code> decorator will use <code>id</code> with the type <code>number</code> as a primary slug param.</p>
+<p>If you have, for instance, a resorce field called <code>slug</code>
+or whatever, it's a UUID and you need it to be a primary slug by which your resource should be fetched, you can set up this params options:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">slug</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;slug&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;uuid&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">primary</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>If you have a controller path with that looks kinda similar to this <code>/companies/:companyId/users</code> you need to add this param option:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="nx">companyId</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;companyId&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>Also, you can disable <code>id</code> param if you want to have only few routs without any path params. It's very useful, for creating something like <code>GET /me</code> endpoints.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="nx">User</span><span class="p">,</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">routes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">only</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;getOneBase&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;updateOneBase&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">primary</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">disabled</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">query</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">join</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">company</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">eager</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">profile</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">eager</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">})</span>
+<span class="kd">@CrudAuth</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;user&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">user</span><span class="o">:</span><span class="w"> </span><span class="kt">User</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">user.id</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}),</span>
+<span class="p">})</span>
+<span class="kd">@Controller</span><span class="p">(</span><span class="s1">&#39;me&#39;</span><span class="p">)</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">MeController</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="nx">service</span><span class="o">:</span><span class="w"> </span><span class="kt">UsersService</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="routes">routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="nx">routes</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">exclude?</span><span class="o">:</span><span class="w"> </span><span class="kt">BaseRouteName</span><span class="p">[],</span>
+<span class="w">    </span><span class="nx">only?</span><span class="o">:</span><span class="w"> </span><span class="kt">BaseRouteName</span><span class="p">[],</span>
+<span class="w">    </span><span class="nx">getManyBase</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">interceptors</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">decorators</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">getOneBase</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">interceptors</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">decorators</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">createOneBase</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">interceptors</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">decorators</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">returnShallow?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">createManyBase</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">interceptors</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">decorators</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">updateOneBase</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">interceptors</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">decorators</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">allowParamsOverride?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">returnShallow?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">replaceOneBase</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">interceptors</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">decorators</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">allowParamsOverride?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">returnShallow?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">deleteOneBase</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">interceptors</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">decorators</span><span class="o">?:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">returnDeleted?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="p">})</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>It's a set of options for each of the generated routes.</p>
+<p><code>interceptors</code> - an array of your custom interceptors
+<code>decorators</code> - an array of your custom decorators
+<code>allowParamsOverride</code> - whether or not to allow body data be overriten by the URL params on PATH request. Default: <code>false</code>
+<code>returnDeleted</code> - whether or not an entity object should be returned in the response body on DELETE request. Default: <code>false</code>
+<code>returnShallow</code> - whether or not to return a shallow entity</p>
+<p>Also you can specify what routes should be excluded or what routes whould be used only by providing routes names to the <code>exclude</code> or <code>only</code> accordingly.</p>
+<h3 id="query">query<a class="headerlink" href="#query" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="nx">query</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">allow?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="w">    </span><span class="nx">exclude?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="w">    </span><span class="nx">persist?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="w">    </span><span class="nx">filter?</span><span class="o">:</span><span class="w"> </span><span class="kt">QueryFilterOption</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">join?</span><span class="o">:</span><span class="w"> </span><span class="kt">JoinOptions</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">sort?</span><span class="o">:</span><span class="w"> </span><span class="kt">QuerySort</span><span class="p">[];</span>
+<span class="w">    </span><span class="nx">limit?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">maxLimit?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">cache?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">alwaysPaginate?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">softDelete?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="p">})</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>It's a set of query options for GET request.</p>
+<h4 id="allow">allow<a class="headerlink" href="#allow" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">allow</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;email&#39;</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>An Array of fields that are allowed to be received in GET requests. If empty or <em>undefined</em> - allow all.</p>
+<h4 id="exclude">exclude<a class="headerlink" href="#exclude" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">exclude</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;accessToken&#39;</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>An Array of fields that will be excluded from the GET response (and not queried from the DB).</p>
+<h4 id="persist">persist<a class="headerlink" href="#persist" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">persist</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;createdAt&#39;</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>An Array of fields that will be always persisted in GET response.</p>
+<h4 id="filter">filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h4>
+<p><em>Optional</em></p>
+<p>This option can be used in two scenarios:</p>
+<ol>
+<li>If you want to add some conditions to the request:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">isActive</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">$ne</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>...which is the same as:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;isActive&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">operator</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;$ne&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div>
+<ol>
+<li>
+<p>If you want to transform your query search conditions or event return a completely new one (i.e. persist only one set of conditions and ignore search coming from the request):</p>
+</li>
+<li>
+<p>Totally ignore any query search conditions:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{};</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Totally ignore any query search conditions and persist some conditions:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">    </span><span class="nx">isActive</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">$ne</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Transform query search conditions:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SCondition</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@ihelpee/crud-request&#39;</span>
+
+<span class="p">...</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">search</span><span class="o">:</span><span class="w"> </span><span class="kt">SCondition</span><span class="p">,</span><span class="w"> </span><span class="nx">getMany</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">getMany</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">search</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">$and</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">...</span><span class="nx">search</span><span class="p">.</span><span class="nx">$and</span><span class="p">,</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">isActive</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong><em>Notice:</em></strong> First function parameter here, <code>search</code>, will always be either <code>{ $and: [...] }</code> or <code>{ $or: [...] }</code>. It depends on if you're using <a href="#request-authentication"><code>@CrudAuth()</code></a> decorator:</p>
+<ul>
+<li>if you are not using it, or if you do and it has <code>filter</code> function then <code>search</code> will contain <code>$and</code> type of conditions.</li>
+<li>if you are using it and it has <code>or</code> function then <code>search</code> will contain <code>$or</code> type of conditions.</li>
+</ul>
+<h4 id="join">join<a class="headerlink" href="#join" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">join</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">profile</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">persist</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+<span class="w">      </span><span class="nx">exclude</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">],</span>
+<span class="w">      </span><span class="nx">eager</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">require</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">tasks</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">allow</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">notifications</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">eager</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">select</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">company</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">    </span><span class="s1">&#39;company.projects&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">persist</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s1">&#39;users.projects.tasks&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">exclude</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+<span class="w">      </span><span class="nx">alias</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;projectTasks&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>An Object of relations that allowed to be fetched by passing <code>join</code> query parameter in GET requests.</p>
+<p>Each key of <code>join</code> object must <strong>strongly match</strong> the name of the corresponding resource relation. If particular relation name <strong>is not</strong> present in this option, then user <strong>will not be able</strong> to get this relational objects in GET request.</p>
+<p>Each relation option can have (all below are optional):</p>
+<p><code>allow</code> - an Array of fields that are allowed to be received in GET requests. If empty or <em>undefined</em> - allow all.
+<code>exclude</code> - an Array of fields that will be excluded from the GET response (and not queried from the DB).
+<code>persist</code> - an Array of fields that will be always persisted in GET response.
+<code>eager</code> - type <code>boolean</code> - whether or not current relation should persist in every GET response.
+<code>require</code> - should a relation be required or not. For RMDBS means use either <code>INNER</code> or <code>LEFT</code> join. Default: <code>false</code>.
+<code>alias</code> - set alias for a relation.
+<code>select</code> - type <code>boolean</code> - if <code>false</code> then the relation will be joined but not selected and not included in the response.</p>
+<h4 id="sort">sort<a class="headerlink" href="#sort" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">sort</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DESC&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>An Array of <code>sort</code> objects that will be merged (combined) with query <code>sort</code> if those are passed in GET request. If not - <code>sort</code> will be added to the DB query as a stand-alone condition.</p>
+<h4 id="limit">limit<a class="headerlink" href="#limit" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="kt">25</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>Default <code>limit</code> that will be aplied to the DB query.</p>
+<h4 id="maxlimit">maxLimit<a class="headerlink" href="#maxlimit" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">maxLimit</span><span class="o">:</span><span class="w"> </span><span class="kt">100</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>Max amount of results that can be queried in GET request.</p>
+<p><strong><em>Notice:</em></strong> <strong><em>it's strongly recommended to set up this option. Otherwise DB query will be executed without any LIMIT if no <code>limit</code> was passed in the query or if the <code>limit</code> option hasn't been set up in crud options</em></strong>.</p>
+<h4 id="cache">cache<a class="headerlink" href="#cache" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">cache</span><span class="o">:</span><span class="w"> </span><span class="kt">2000</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>If <code>Caching Results</code> is implemented on you project, then you can set up default <code>cache</code> in milliseconds for GET response data.</p>
+<p>Cache can be reseted by using <code>cache=0</code> query parameter in your GET requests.</p>
+<h4 id="alwayspaginate">alwaysPaginate<a class="headerlink" href="#alwayspaginate" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">alwaysPaginate</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>Either or not always return an object with paginated data. Can be defined <a href="#global-options">globally</a> as well.</p>
+<h4 id="softdelete">softDelete<a class="headerlink" href="#softdelete" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">softDelete</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>A boolean value indicating whether the item should be soft-deleted. If set to true, the item will be soft-deleted instead of being permanently removed from the database.</p>
+<h3 id="dto">dto<a class="headerlink" href="#dto" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="nx">dto</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">create?</span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">update?</span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">replace?</span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="p">})</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>Request body validation DTO classes. If no DTO is provided to any of the option, then a <a href="#model"><code>CrudOptions.model.type</code></a> will be used as described in the <a href="#request-validation">Request validation</a> section.</p>
+<h3 id="serialize">serialize<a class="headerlink" href="#serialize" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="nx">serialize</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">getMany?</span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">get?</span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">create?</span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">createMany?</span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">update?</span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">replace?</span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">delete?</span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="p">})</span>
+</code></pre></div>
+<p><em>Optional</em></p>
+<p>Response serialization DTO classes. Each option also accepts <code>false</code> in order to not perform serialization for particular route.</p>
+<p>Please see <a href="#response-serialization">Response serialization</a> section for more details.</p>
+<h2 id="global-options">Global options<a class="headerlink" href="#global-options" title="Permanent link">&para;</a></h2>
+<p>In order to reduce some repetition in your <code>CrudOptions</code> in every controller you can specify some options globally:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">queryParser?</span><span class="o">:</span><span class="w"> </span><span class="kt">RequestQueryBuilderOptions</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">routes?</span><span class="o">:</span><span class="w"> </span><span class="kt">RoutesOptions</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">params?</span><span class="o">:</span><span class="w"> </span><span class="kt">ParamsOptions</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">auth</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">property?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="nx">query</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">limit?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">maxLimit?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">cache?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">alwaysPaginate?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="nx">serialize</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">getMany?</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">get?</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">create?</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">createMany?</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">update?</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">replace?</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">delete?</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>queryParser</code> are options for <code>RequestQueryParser</code> that is being used in <code>CrudRequestInterceptor</code> to parse/validate query and path params. Frontend has similar <a href="https://github.com/ihelpee/crud/wiki/Requests#customize">customization</a> ability.</p>
+<p><code>routes</code> are the same as <a href="#routes">here</a>.</p>
+<p><code>params</code> are the same as <a href="#params">here</a>.</p>
+<p><code>query</code> are similar to options described <a href="#query">here</a> except the fact that <code>limit</code>, <code>maxLimit</code>, <code>cache</code>, <code>alwaysPaginate</code> can be applied only.</p>
+<p><code>serialize</code> allows you to globally disable <a href="#serialize">serialization</a> for particular actions.</p>
+<p>So in order to apply global options you need load them in your <strong>main.ts (index.ts) file BEFORE you import <code>AppModule</code> class</strong>. That's because TypeScript decorators are executed when we declare our class but not when we create new class instance. So in your <code>main.ts</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CrudConfigService</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@ihelpee/crud&#39;</span><span class="p">;</span>
+
+<span class="nx">CrudConfigService</span><span class="p">.</span><span class="nx">load</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">query</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="kt">25</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">cache</span><span class="o">:</span><span class="w"> </span><span class="kt">2000</span><span class="p">,</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">field</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;uuid&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">primary</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">routes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">updateOneBase</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">allowParamsOverride</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">deleteOneBase</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">returnDeleted</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">});</span>
+
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppModule</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./app.module&#39;</span><span class="p">;</span>
+
+<span class="p">...</span>
+</code></pre></div>
+<p><strong><em>Notice:</em></strong> all those options can be overridden in each <code>CrudController</code>.</p>
+<h2 id="request-authentication">Request authentication<a class="headerlink" href="#request-authentication" title="Permanent link">&para;</a></h2>
+<p>In order to perform data filtering for authenticated requests, we provide <code>@CrudAuth()</code> decorator. It accepts these options:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">property?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">filter</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">SCondition</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">or</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">SCondition</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">persist</span><span class="o">?:</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">ObjectLiteral</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>property</code> - property on the <code>Request</code> object where user's data stored after successful authentication. Can be set <a href="#global-options">globally</a> as well.</p>
+<p><code>filter</code> - a function that should return <a href="https://github.com/ihelpee/crud/wiki/Requests#search">search</a> condition and will be added to the query search params and path params as a <code>$and</code> condition:</p>
+<blockquote>
+<p><code>{Auth condition} AND {Path params} AND {Search|Filter}</code></p>
+</blockquote>
+<p><code>or</code> - a function that should return <a href="https://github.com/ihelpee/crud/wiki/Requests#search">search</a> condition and will be added to the query search params and path params as a <code>$or</code> condition. If it's used then <code>filter</code> function will be ignored.</p>
+<blockquote>
+<p><code>{Auth condition} OR ({Path params} AND {Search|Filter})</code></p>
+</blockquote>
+<p><code>persist</code> - a function that can return an object that will be added to the DTO on <code>create</code>, <code>update</code>, <code>replace</code> actions. Useful in case if you need to prevent changing some sensitive entity properties even if it's allowed in DTO validation.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">@Crud</span><span class="p">({...})</span>
+<span class="kd">@CrudAuth</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;user&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">user</span><span class="o">:</span><span class="w"> </span><span class="kt">User</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">user.id</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">isActive</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="p">})</span>
+</code></pre></div>
+<h2 id="request-validation">Request validation<a class="headerlink" href="#request-validation" title="Permanent link">&para;</a></h2>
+<p>Query params and path params validation is performed by an interceptor. It parses query and path parameters and then validates them.</p>
+<p>Body request validation is done by NestJs <code>ValidationPipe</code>.</p>
+<p>You can provide either <code>create</code>, <code>update</code>, <code>replace</code> DTO in the <a href="#dto"><code>CrudOptions.dto</code></a> options or use the following approach.</p>
+<p>You can use <a href="#model"><code>CrudOptions.model.type</code></a> as a DTO that describes validation rules. We distinguish body validation on <code>create</code> and <code>update</code> methods. This was achieved by using <a href="https://github.com/typestack/class-validator#validation-groups">validation groups</a>.</p>
+<p>Let's take a look at this example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Entity</span><span class="p">,</span><span class="w"> </span><span class="nx">Column</span><span class="p">,</span><span class="w"> </span><span class="nx">OneToMany</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;typeorm&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">IsOptional</span><span class="p">,</span><span class="w"> </span><span class="nx">IsString</span><span class="p">,</span><span class="w"> </span><span class="nx">MaxLength</span><span class="p">,</span><span class="w"> </span><span class="nx">IsNotEmpty</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;class-validator&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Type</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;class-transformer&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CrudValidationGroups</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@ihelpee/crud&#39;</span><span class="p">;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BaseEntity</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;../base-entity&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;../users/user.entity&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Project</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;../projects/project.entity&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CREATE</span><span class="p">,</span><span class="w"> </span><span class="nx">UPDATE</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">CrudValidationGroups</span><span class="p">;</span>
+
+<span class="kd">@Entity</span><span class="p">(</span><span class="s1">&#39;companies&#39;</span><span class="p">)</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Company</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">BaseEntity</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">@IsOptional</span><span class="p">({</span><span class="w"> </span><span class="nx">groups</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">UPDATE</span><span class="p">]</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="kd">@IsNotEmpty</span><span class="p">({</span><span class="w"> </span><span class="nx">groups</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">CREATE</span><span class="p">]</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="kd">@IsString</span><span class="p">({</span><span class="w"> </span><span class="nx">always</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="kd">@MaxLength</span><span class="p">(</span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">always</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="kd">@Column</span><span class="p">({</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;varchar&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">length</span><span class="o">:</span><span class="w"> </span><span class="kt">100</span><span class="p">,</span><span class="w"> </span><span class="nx">nullable</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kd">@IsOptional</span><span class="p">({</span><span class="w"> </span><span class="nx">groups</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">UPDATE</span><span class="p">]</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="kd">@IsNotEmpty</span><span class="p">({</span><span class="w"> </span><span class="nx">groups</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">CREATE</span><span class="p">]</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="kd">@IsString</span><span class="p">({</span><span class="w"> </span><span class="nx">groups</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">CREATE</span><span class="p">,</span><span class="w"> </span><span class="nx">UPDATE</span><span class="p">]</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="kd">@MaxLength</span><span class="p">(</span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">groups</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">CREATE</span><span class="p">,</span><span class="w"> </span><span class="nx">UPDATE</span><span class="p">]</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="kd">@Column</span><span class="p">({</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;varchar&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">length</span><span class="o">:</span><span class="w"> </span><span class="kt">100</span><span class="p">,</span><span class="w"> </span><span class="nx">nullable</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span><span class="w"> </span><span class="nx">unique</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="nx">domain</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kd">@IsOptional</span><span class="p">({</span><span class="w"> </span><span class="nx">always</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="kd">@IsString</span><span class="p">({</span><span class="w"> </span><span class="nx">always</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="kd">@Column</span><span class="p">({</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;text&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">nullable</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span><span class="w"> </span><span class="nx">default</span><span class="o">:</span><span class="w"> </span><span class="kt">null</span><span class="w"> </span><span class="p">})</span>
+<span class="w">  </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * Relations</span>
+<span class="cm">   */</span>
+
+<span class="w">  </span><span class="kd">@OneToMany</span><span class="p">((</span><span class="kr">type</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">User</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">u</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">u</span><span class="p">.</span><span class="nx">company</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">@Type</span><span class="p">((</span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">User</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">users</span><span class="o">:</span><span class="w"> </span><span class="kt">User</span><span class="p">[];</span>
+
+<span class="w">  </span><span class="kd">@OneToMany</span><span class="p">((</span><span class="kr">type</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">Project</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">company</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">projects</span><span class="o">:</span><span class="w"> </span><span class="kt">Project</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>You can import <code>CrudValidationGroups</code> enum and set up validation rules for each field on firing of <code>POST</code>, <code>PATCH</code> requests or both of them.</p>
+<h2 id="response-serialization">Response serialization<a class="headerlink" href="#response-serialization" title="Permanent link">&para;</a></h2>
+<p>Serialization is performed using <code>class-transformer</code> package and is already included and turned ON in each route.</p>
+<p>So in your entity you can use some useful decorators:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Exclude</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;class-transformer&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kd">@Exclude</span><span class="p">()</span>
+<span class="w">  </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>But there might be situations when you might need to use different serialization in different routes. In that case you can use <a href="#serialize"><code>CrudOptions.serialize</code></a> options.</p>
+<h2 id="intellisense">IntelliSense<a class="headerlink" href="#intellisense" title="Permanent link">&para;</a></h2>
+<p>Please, keep in mind that we compose crud controllers by the logic inside our <code>@Crud()</code> class decorator. And there are some unpleasant but not very significant side effects of this approach.</p>
+<p>First, there is no IntelliSense on composed methods. That's why we need to use <code>CrudController</code> interface. This will help to make sure that you're injecting proper <code>CrudService</code>.</p>
+<p>Second, even after adding <code>CrudController</code> interface you still wouldn't see composed methods, accessible from <code>this</code> keyword, furthermore, you'll get a TS error. In order to solve this, you can do as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="p">...</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Crud</span><span class="p">,</span><span class="w"> </span><span class="nx">CrudController</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@ihelpee/crud&#39;</span><span class="p">;</span>
+
+<span class="kd">@Crud</span><span class="p">(</span><span class="nx">Hero</span><span class="p">)</span>
+<span class="kd">@Controller</span><span class="p">(</span><span class="s1">&#39;heroes&#39;</span><span class="p">)</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">HeroesCrud</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">CrudController</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="nx">service</span><span class="o">:</span><span class="w"> </span><span class="kt">HeroesService</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="nx">get</span><span class="w"> </span><span class="nx">base</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">CrudController</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="routes-override">Routes override<a class="headerlink" href="#routes-override" title="Permanent link">&para;</a></h2>
+<p>Here is the list of composed base routes methods by <code>@Crud()</code> decorator:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">getManyBase</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">GetManyDefaultResponse</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">T</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nx">getOneBase</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nx">createOneBase</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">@ParsedBody</span><span class="p">()</span><span class="w"> </span><span class="nx">dto</span><span class="o">:</span><span class="w"> </span><span class="kt">T</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nx">createManyBase</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">@ParsedBody</span><span class="p">()</span><span class="w"> </span><span class="nx">dto</span><span class="o">:</span><span class="w"> </span><span class="kt">CreateManyDto</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nx">updateOneBase</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">@ParsedBody</span><span class="p">()</span><span class="w"> </span><span class="nx">dto</span><span class="o">:</span><span class="w"> </span><span class="kt">T</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nx">replaceOneBase</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">@ParsedBody</span><span class="p">()</span><span class="w"> </span><span class="nx">dto</span><span class="o">:</span><span class="w"> </span><span class="kt">T</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nx">deleteOneBase</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">T</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Since all composed methods have <code>Base</code> ending in their names, overriding those endpoints could be done in two ways:</p>
+<ol>
+<li>
+<p>Attach <code>@Override()</code> decorator without any argument to the newly created method wich name doesn't contain <code>Base</code> ending. So if you want to override <code>getManyBase</code>, you need to create <code>getMany</code> method.</p>
+</li>
+<li>
+<p>Attach <code>@Override('getManyBase')</code> decorator with passed base method name as an argument if you want to override base method with a function that has a custom name.</p>
+</li>
+</ol>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="p">...</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">Crud</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">CrudController</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">Override</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">CrudRequest</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">ParsedRequest</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">ParsedBody</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">CreateManyDto</span><span class="p">,</span>
+<span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@ihelpee/crud&#39;</span><span class="p">;</span>
+
+<span class="kd">@Crud</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="nx">Hero</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">})</span>
+<span class="kd">@Controller</span><span class="p">(</span><span class="s1">&#39;heroes&#39;</span><span class="p">)</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">HeroesCrud</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">CrudController</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="nx">service</span><span class="o">:</span><span class="w"> </span><span class="kt">HeroesService</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="nx">get</span><span class="w"> </span><span class="nx">base</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">CrudController</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">@Override</span><span class="p">()</span>
+<span class="w">  </span><span class="nx">getMany</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">getManyBase</span><span class="p">(</span><span class="nx">req</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">@Override</span><span class="p">(</span><span class="s1">&#39;getOneBase&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">getOneAndDoStuff</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">getOneBase</span><span class="p">(</span><span class="nx">req</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">@Override</span><span class="p">()</span>
+<span class="w">  </span><span class="nx">createOne</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">@ParsedBody</span><span class="p">()</span><span class="w"> </span><span class="nx">dto</span><span class="o">:</span><span class="w"> </span><span class="kt">Hero</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">createOneBase</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">dto</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">@Override</span><span class="p">()</span>
+<span class="w">  </span><span class="nx">createMany</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">@ParsedBody</span><span class="p">()</span><span class="w"> </span><span class="nx">dto</span><span class="o">:</span><span class="w"> </span><span class="kt">CreateManyDto</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">createManyBase</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">dto</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">@Override</span><span class="p">(</span><span class="s1">&#39;updateOneBase&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">coolFunction</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">@ParsedBody</span><span class="p">()</span><span class="w"> </span><span class="nx">dto</span><span class="o">:</span><span class="w"> </span><span class="kt">Hero</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">updateOneBase</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">dto</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">@Override</span><span class="p">(</span><span class="s1">&#39;replaceOneBase&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">awesomePUT</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">@ParsedBody</span><span class="p">()</span><span class="w"> </span><span class="nx">dto</span><span class="o">:</span><span class="w"> </span><span class="kt">Hero</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">replaceOneBase</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">dto</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">@Override</span><span class="p">()</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">deleteOne</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">deleteOneBase</span><span class="p">(</span><span class="nx">req</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong><em>Notice:</em></strong> new custom route decorators were created to simplify process: <code>@ParsedRequest()</code> and <code>@ParsedBody()</code>. But you still can add your param decorators to any of the methods, e.g. <code>@Param()</code>, <code>@Session()</code>, etc. Or any of your own cutom route decorators.</p>
+<h2 id="adding-routes">Adding routes<a class="headerlink" href="#adding-routes" title="Permanent link">&para;</a></h2>
+<p>Sometimes you might need to add a new route and to use <code>@ParsedRequest()</code> in it. You need attach <code>CrudRequestInterceptor</code> in order to do that:</p>
+<div class="highlight"><pre><span></span><code><span class="p">...</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">UseInterceptors</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@nestjs/common&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">ParsedRequest</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">CrudRequest</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">CrudRequestInterceptor</span><span class="p">,</span>
+<span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@ihelpee/crud&#39;</span><span class="p">;</span>
+<span class="p">...</span>
+
+<span class="kd">@UseInterceptors</span><span class="p">(</span><span class="nx">CrudRequestInterceptor</span><span class="p">)</span>
+<span class="kd">@Get</span><span class="p">(</span><span class="s1">&#39;/export/list.xlsx&#39;</span><span class="p">)</span>
+<span class="k">async</span><span class="w"> </span><span class="nx">exportSome</span><span class="p">(</span><span class="kd">@ParsedRequest</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">CrudRequest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// some awesome feature handling</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="additional-decorators">Additional decorators<a class="headerlink" href="#additional-decorators" title="Permanent link">&para;</a></h2>
+<p>There are two additional decorators that come out of the box: <code>@Feature()</code> and <code>@Action()</code>. You can use them with your <a href="https://en.wikipedia.org/wiki/Access_control_list">ACL</a> implementation. <code>@Action()</code> will be applyed automaticaly on controller compoesd base methods. There is <code>CrudActions</code> enum that you can import and use:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">enum</span><span class="w"> </span><span class="nx">CrudActions</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">ReadAll</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Read-All&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">ReadOne</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Read-One&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">CreateOne</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Create-One&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">CreateMany</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Create-Many&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">UpdateOne</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Update-One&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">ReplaceOne</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Replace-One&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">DeleteOne</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Delete-One&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>ACLGuard</code> dummy example with helper functions <code>getFeature</code> and <code>getAction</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Injectable</span><span class="p">,</span><span class="w"> </span><span class="nx">CanActivate</span><span class="p">,</span><span class="w"> </span><span class="nx">ExecutionContext</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@nestjs/common&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">getFeature</span><span class="p">,</span><span class="w"> </span><span class="nx">getAction</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@ihelpee/crud&#39;</span><span class="p">;</span>
+
+<span class="kd">@Injectable</span><span class="p">()</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ACLGuard</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">CanActivate</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">canActivate</span><span class="p">(</span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">ExecutionContext</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">getHandler</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">getClass</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">feature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getFeature</span><span class="p">(</span><span class="nx">controller</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getAction</span><span class="p">(</span><span class="nx">handler</span><span class="p">);</span>
+
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">feature</span><span class="si">}</span><span class="sb">-</span><span class="si">${</span><span class="nx">action</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"> </span><span class="c1">// e.g. &#39;Heroes-Read-All&#39;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

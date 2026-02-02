@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://ihelpee.github.io/nestjs-crud/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://ihelpee.github.io/nestjs-crud/about/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://ihelpee.github.io/nestjs-crud/controllers/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://ihelpee.github.io/nestjs-crud/requests/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://ihelpee.github.io/nestjs-crud/service-typeorm/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://ihelpee.github.io/nestjs-crud/services/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+</urlset>
