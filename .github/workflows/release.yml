@@ -15,17 +15,12 @@ on:
       - "!docs/**"
       - "!README.md"
 
-env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      issues: write
-      pull-requests: write
+      contents: read
     services:
       postgres:
         image: postgres:15
@@ -98,3 +93,4 @@ jobs:
           npx lerna publish --conventional-commits --yes --no-verify-access
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
