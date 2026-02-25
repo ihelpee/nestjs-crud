@@ -1,0 +1,50 @@
+import { CrudOptions, MergedCrudOptions } from '../interfaces';
+import { BaseRouteName } from '../constants';
+import type { BaseRoute } from '../types';
+export interface SwaggerModels {
+    get?: any;
+    getMany?: any;
+    create?: any;
+    update?: any;
+    replace?: any;
+    delete?: any;
+    recover?: any;
+}
+export declare class CrudRoutesFactory {
+    protected target: any;
+    protected options: MergedCrudOptions;
+    protected swaggerModels: SwaggerModels;
+    constructor(target: any, options: CrudOptions);
+    static create(target: any, options: CrudOptions): CrudRoutesFactory;
+    protected get targetProto(): any;
+    protected get modelName(): string;
+    protected get modelType(): any;
+    protected create(): void;
+    protected mergeOptions(): void;
+    protected getManyBase(name: BaseRouteName): void;
+    protected getOneBase(name: BaseRouteName): void;
+    protected createOneBase(name: BaseRouteName): void;
+    protected createManyBase(name: BaseRouteName): void;
+    protected updateOneBase(name: BaseRouteName): void;
+    protected replaceOneBase(name: BaseRouteName): void;
+    protected deleteOneBase(name: BaseRouteName): void;
+    protected recoverOneBase(name: BaseRouteName): void;
+    protected canCreateRoute(name: BaseRouteName): boolean;
+    protected setResponseModels(): void;
+    protected createRoutes(routesSchema: BaseRoute[]): void;
+    protected overrideRoutes(routesSchema: BaseRoute[]): void;
+    protected enableRoutes(routesSchema: BaseRoute[]): void;
+    protected overrideParsedBodyDecorator(override: BaseRouteName, name: string): void;
+    protected getPrimaryParams(): string[];
+    protected setBaseRouteMeta(name: BaseRouteName): void;
+    protected setRouteArgs(name: BaseRouteName): void;
+    protected setRouteArgsTypes(name: BaseRouteName): void;
+    protected setInterceptors(name: BaseRouteName): void;
+    protected setDecorators(name: BaseRouteName): void;
+    protected setAction(name: BaseRouteName): void;
+    protected setSwaggerOperation(name: BaseRouteName): void;
+    protected setSwaggerPathParams(name: BaseRouteName): void;
+    protected setSwaggerQueryParams(name: BaseRouteName): void;
+    protected setSwaggerResponseOk(name: BaseRouteName): void;
+    protected routeNameAction(name: BaseRouteName): string;
+}
