@@ -108,8 +108,8 @@ export abstract class CrudService<T, DTO = T> {
     return query.page && take
       ? take * (query.page - 1)
       : query.offset
-        ? query.offset
-        : null;
+      ? query.offset
+      : null;
   }
 
   /**

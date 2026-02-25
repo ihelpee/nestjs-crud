@@ -214,12 +214,12 @@ export class RequestQueryParser implements ParsedRequestParams {
 
     return filter
       ? {
-        [filter.field]: {
-          [filter.operator]: isEmptyValue[filter.operator]
-            ? isEmptyValue[filter.operator]
-            : filter.value,
-        },
-      }
+          [filter.field]: {
+            [filter.operator]: isEmptyValue[filter.operator]
+              ? isEmptyValue[filter.operator]
+              : filter.value,
+          },
+        }
       : /* istanbul ignore next */ {};
   }
 

@@ -1,7 +1,7 @@
 const utils = require('nps-utils');
 
 const getSeries = (args) => utils.series.nps(...args);
-const names = ['crud-util', 'crud-request', 'crud', 'crud-typeorm', 'crud-policy'];
+const names = ['crud-util', 'crud-request', 'crud', 'crud-typeorm', 'crud-policy', 'crud-mongoose', 'crud-mikroorm'];
 
 const getBuildCmd = (pkg) => {
   const str = 'npx lerna run build';
@@ -15,8 +15,7 @@ const getCleanCmd = (pkg) => {
 };
 
 const getTestCmd = (pkg, coverage) =>
-  `npx jest --runInBand -c=jest.config.js packages/${pkg ? pkg + '/' : ''} ${
-    coverage ? '--coverage' : ''
+  `npx jest --runInBand -c=jest.config.js packages/${pkg ? pkg + '/' : ''} ${coverage ? '--coverage' : ''
   } --verbose`;
 
 const setBuild = () =>

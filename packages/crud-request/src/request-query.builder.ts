@@ -295,8 +295,8 @@ export class RequestQueryBuilder {
         ...this.queryObject[param],
         ...(Array.isArray(f) && !isString(f[0])
           ? (f as Array<QueryFilter | QueryFilterArr>).map((o) =>
-            this.cond(o, cond, customOperators),
-          )
+              this.cond(o, cond, customOperators),
+            )
           : [this.cond(f as QueryFilter | QueryFilterArr, cond, customOperators)]),
       ];
     }

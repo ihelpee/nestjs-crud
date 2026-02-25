@@ -39,6 +39,10 @@ jobs:
           MYSQL_ROOT_PASSWORD: ihelpee_crud
         ports:
           - 3306:3306
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

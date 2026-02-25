@@ -44,6 +44,12 @@
       ],
       "@ihelpee/crud-policy/*": [
         "crud-policy/src/*"
+      ],
+      "@ihelpee/crud-mongoose": [
+        "crud-mongoose/src"
+      ],
+      "@ihelpee/crud-mongoose/*": [
+        "crud-mongoose/src/*"
       ]
     }
   }

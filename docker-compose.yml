@@ -22,3 +22,8 @@ services:
       nofile:
         soft: 20000
         hard: 40000
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017

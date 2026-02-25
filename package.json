@@ -22,11 +22,12 @@
     "db:seeds:typeorm": "yarn db:cli:typeorm migration:run",
     "db:prepare:typeorm": "yarn db:drop:typeorm -d ./database/postgres.datasource && yarn db:sync:typeorm -d ./database/postgres.datasource && yarn db:seeds:typeorm -d ./database/postgres.datasource",
     "db:prepare:typeorm:mysql": "yarn db:drop:typeorm -d ./database/mysql.datasource && yarn db:sync:typeorm -d ./database/mysql.datasource && yarn db:seeds:typeorm -d ./database/mysql.datasource",
-    "test:all": "yarn test:mysql && yarn test:postgres",
+    "test:all": "yarn test:mysql && yarn test:postgres && yarn test:mongoose",
     "test:coverage": "yarn test:all --coverage",
     "test:postgres": "yarn db:prepare:typeorm && yarn test",
     "test:mysql": "yarn db:prepare:typeorm:mysql && TYPEORM_CONNECTION=mysql yarn test",
-    "test:mikro": "npx jest --runInBand -c=jest.config.js packages/crud-mikroorm --verbose"
+    "test:mikro": "npx jest --runInBand -c=jest.config.js packages/crud-mikroorm --verbose",
+    "test:mongoose": "npx jest --runInBand -c=packages/crud-mongoose/jest.config.js packages/crud-mongoose --verbose"
   },
   "keywords": [
     "nestjs",
