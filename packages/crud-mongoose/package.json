@@ -1,61 +1,61 @@
 {
-    "name": "@ihelpee/crud-mongoose",
-    "description": "NestJs CRUD for RESTful APIs - Mongoose",
-    "version": "2.2.0",
-    "license": "GPL-3.0",
-    "main": "lib/index.js",
-    "typings": "lib/index.d.ts",
-    "publishConfig": {
-        "access": "public",
-        "registry": "https://registry.npmjs.org/"
-    },
-    "files": [
-        "lib"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ihelpee/nestjs-crud"
-    },
-    "bugs": {
-        "url": "https://github.com/ihelpee/nestjs-crud/issues"
-    },
-    "keywords": [
-        "typescript",
-        "mongoose",
-        "nest",
-        "nestjs",
-        "rest",
-        "restful",
-        "api",
-        "crud",
-        "crud-generator",
-        "backend",
-        "frameworks"
-    ],
-    "author": {
-        "name": "ihelpee",
-        "email": "a@ihelpee.com"
-    },
-    "scripts": {
-        "build": "npx tsc -b",
-        "test": "jest",
-        "test:watch": "jest --watch"
-    },
-    "peerDependencies": {
-        "@nestjs/mongoose": "^9.0.0 || ^10.0.0",
-        "mongoose": "^7.0.0 || ^8.0.0"
-    },
-    "devDependencies": {
-        "@ihelpee/crud": "^2.2.0",
-        "@nestjs/mongoose": "^10.0.0",
-        "@nestjs/testing": "^11.1.14",
-        "@types/jest": "^30.0.0",
-        "jest": "^30.2.0",
-        "mongoose": "^8.0.0",
-        "ts-jest": "^29.4.6"
-    },
-    "dependencies": {
-        "@nestjs/mongoose": "^10.0.0",
-        "mongoose": "^8.0.0"
-    }
+  "name": "@ihelpee/crud-mongoose",
+  "description": "NestJs CRUD for RESTful APIs - Mongoose",
+  "version": "2.2.1",
+  "license": "GPL-3.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ihelpee/nestjs-crud"
+  },
+  "bugs": {
+    "url": "https://github.com/ihelpee/nestjs-crud/issues"
+  },
+  "keywords": [
+    "typescript",
+    "mongoose",
+    "nest",
+    "nestjs",
+    "rest",
+    "restful",
+    "api",
+    "crud",
+    "crud-generator",
+    "backend",
+    "frameworks"
+  ],
+  "author": {
+    "name": "ihelpee",
+    "email": "a@ihelpee.com"
+  },
+  "scripts": {
+    "build": "npx tsc -b",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "peerDependencies": {
+    "@nestjs/mongoose": "^9.0.0 || ^10.0.0",
+    "mongoose": "^7.0.0 || ^8.0.0"
+  },
+  "devDependencies": {
+    "@ihelpee/crud": "^2.2.1",
+    "@nestjs/mongoose": "^10.0.0",
+    "@nestjs/testing": "^11.1.14",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
+    "mongoose": "^8.0.0",
+    "ts-jest": "^29.4.6"
+  },
+  "dependencies": {
+    "@nestjs/mongoose": "^10.0.0",
+    "mongoose": "^8.0.0"
+  }
 }

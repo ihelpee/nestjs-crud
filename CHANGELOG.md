@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/ihelpee/nestjs-crud/compare/v2.2.0...v2.2.1) (2026-02-25)
+
+### Bug Fixes
+
+- adjust path filters to trigger release on workflow changes ([bf38077](https://github.com/ihelpee/nestjs-crud/commit/bf38077063c420dcb207fca1427c180eac14f351))
+- force anonymous registry access and clear npmrc in test job ([1607e57](https://github.com/ihelpee/nestjs-crud/commit/1607e5741ef2471765f8c2a3669cc924731192a9))
+- migrate CI workflows from npm to yarn and update MikroORM dependencies. ([37b2fb0](https://github.com/ihelpee/nestjs-crud/commit/37b2fb0a49ac48d34ed5f7e25dad02fd7e93d3b1))
+- minimal test job to avoid 403 Forbidden on install ([09f5b65](https://github.com/ihelpee/nestjs-crud/commit/09f5b65cb6c1cd7a2ca7b0db0d60ac7bbb039598))
+- separate npm authentication from install to avoid 403 ([fb6ba89](https://github.com/ihelpee/nestjs-crud/commit/fb6ba8958799a889eaccdb64aea74793fe241c58))
+- switch to npm install for better registry handling on CI ([21ce6d0](https://github.com/ihelpee/nestjs-crud/commit/21ce6d0c904549b9599cf6c78417c13fb326b893))
+- update release workflow to handle race conditions and git displacement ([3d92f8a](https://github.com/ihelpee/nestjs-crud/commit/3d92f8acc60bd1f530a1ed7522bbd86c13402f8e))
+- update yarn.lock ([b4d31d6](https://github.com/ihelpee/nestjs-crud/commit/b4d31d633ba7ab373b1683f2b3dedc169d2f07bc))
+
 # [2.2.0](https://github.com/ihelpee/nestjs-crud/compare/v2.1.4...v2.2.0) (2026-02-25)
 
 ### Bug Fixes
