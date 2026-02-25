@@ -233,11 +233,11 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
     const toSave = !allowParamsOverride
       ? { ...(found || {}), ...dto, ...paramsFilters, ...req.parsed.authPersist }
       : {
-          ...(found || /* istanbul ignore next */ {}),
-          ...paramsFilters,
-          ...dto,
-          ...req.parsed.authPersist,
-        };
+        ...(found || /* istanbul ignore next */ {}),
+        ...paramsFilters,
+        ...dto,
+        ...req.parsed.authPersist,
+      };
     const replaced = await this.repo.save(
       plainToInstance(
         this.entityType,
@@ -371,9 +371,26 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
 
       // set skip
       const skip = this.getSkip(parsed, take);
-      /* istanbul ignore else */
-      if (isFinite(skip)) {
-        builder.skip(skip);
+
+      if (options.query.useCursor && parsed.cursor) {
+        const sort = parsed.sort && parsed.sort.length ? parsed.sort[0] : null;
+        const field = sort ? sort.field : this.entityPrimaryColumns[0];
+        const order = sort ? sort.order : 'DESC';
+        const operator = order === 'DESC' ? '<' : '>';
+
+        builder.andWhere(`${builder.alias}.${field} ${operator} :cursor`, {
+          cursor: parsed.cursor,
+        });
+
+        // For cursor pagination, we usually fetch limit + 1 to check for next page
+        if (isFinite(take)) {
+          builder.take(take + 1);
+        }
+      } else {
+        /* istanbul ignore else */
+        if (isFinite(skip)) {
+          builder.skip(skip);
+        }
       }
     }
 
@@ -402,6 +419,24 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
     options: CrudRequestOptions,
   ): Promise<GetManyDefaultResponse<T> | T[]> {
     if (this.decidePagination(query, options)) {
+      if (options.query.useCursor) {
+        const data = await builder.getMany();
+        const limit = query.limit || options.query.limit || /* istanbul ignore next */ 10;
+        const hasMore = data.length > limit;
+
+        if (hasMore) {
+          data.pop();
+        }
+
+        const nextCursor = hasMore ? (data[data.length - 1] as any).id : null;
+
+        return {
+          data,
+          count: data.length,
+          nextCursor,
+        } as any;
+      }
+
       const [data, total] = await builder.getManyAndCount();
       const limit = builder.expressionMap.take;
       const offset = builder.expressionMap.skip;
@@ -477,10 +512,10 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
     return dto instanceof this.entityType
       ? Object.assign(dto, parsed.authPersist)
       : plainToInstance(
-          this.entityType,
-          { ...dto, ...parsed.authPersist },
-          parsed.classTransformOptions,
-        );
+        this.entityType,
+        { ...dto, ...parsed.authPersist },
+        parsed.classTransformOptions,
+      );
   }
 
   protected getAllowedColumns(columns: string[], options: QueryOptions): string[] {
@@ -488,14 +523,14 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
       (!options.allow || /* istanbul ignore next */ !options.allow.length)
       ? columns
       : columns.filter(
-          (column) =>
-            (options.exclude && options.exclude.length
-              ? !options.exclude.some((col) => col === column)
-              : /* istanbul ignore next */ true) &&
-            (options.allow && options.allow.length
-              ? options.allow.some((col) => col === column)
-              : /* istanbul ignore next */ true),
-        );
+        (column) =>
+          (options.exclude && options.exclude.length
+            ? !options.exclude.some((col) => col === column)
+            : /* istanbul ignore next */ true) &&
+          (options.allow && options.allow.length
+            ? options.allow.some((col) => col === column)
+            : /* istanbul ignore next */ true),
+      );
   }
 
   protected getEntityColumns(entityMetadata: EntityMetadata): {
@@ -504,10 +539,10 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
   } {
     const columns =
       entityMetadata.columns.map((prop) => prop.propertyPath) ||
-      /* istanbul ignore next */ [];
+      /* istanbul ignore next */[];
     const primaryColumns =
       entityMetadata.primaryColumns.map((prop) => prop.propertyPath) ||
-      /* istanbul ignore next */ [];
+      /* istanbul ignore next */[];
 
     return { columns, primaryColumns };
   }
@@ -640,10 +675,10 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
     if (!options) {
       console.warn(
         'relation "' +
-          cond.field +
-          '" not found in allowed relations in the controller. Did you mean to use one of these? [' +
-          Object.keys(joinOptions).join(', ') +
-          ']',
+        cond.field +
+        '" not found in allowed relations in the controller. Did you mean to use one of these? [' +
+        Object.keys(joinOptions).join(', ') +
+        ']',
       );
       return true;
     }
@@ -670,8 +705,8 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
     if (options.select !== false) {
       const columns = isArrayFull(cond.select)
         ? cond.select.filter((column) =>
-            allowedRelation.allowedColumns.some((allowed) => allowed === column),
-          )
+          allowedRelation.allowedColumns.some((allowed) => allowed === column),
+        )
         : allowedRelation.allowedColumns;
 
       const select = [
@@ -1029,8 +1064,8 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
     return query.sort && query.sort.length
       ? this.mapSort(query.sort)
       : options.sort && options.sort.length
-      ? this.mapSort(options.sort)
-      : {};
+        ? this.mapSort(options.sort)
+        : {};
   }
 
   protected getFieldWithAlias(field: string, sort: boolean = false) {

@@ -13,6 +13,7 @@ export interface RequestQueryBuilderOptions {
     page?: string | string[];
     cache?: string | string[];
     includeDeleted?: string | string[];
+    cursor?: string | string[];
     extra?: string | string[];
   };
 }

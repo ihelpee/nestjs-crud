@@ -52,6 +52,7 @@ export class RequestQueryBuilder {
       page: 'page',
       cache: 'cache',
       includeDeleted: 'include_deleted',
+      cursor: 'cursor',
       extra: 'extra.',
     },
   };
@@ -195,6 +196,13 @@ export class RequestQueryBuilder {
     return this;
   }
 
+  setCursor(c: string): this {
+    if (!isNil(c)) {
+      this.queryObject[this.paramNames.cursor] = c;
+    }
+    return this;
+  }
+
   cond(
     f: QueryFilter | QueryFilterArr,
     cond: 'filter' | 'or' | 'search' = 'search',
@@ -261,6 +269,7 @@ export class RequestQueryBuilder {
       this.resetCache();
     }
     this.setIncludeDeleted(params.includeDeleted);
+    this.setCursor(params.cursor);
     return this;
   }
 
@@ -286,8 +295,8 @@ export class RequestQueryBuilder {
         ...this.queryObject[param],
         ...(Array.isArray(f) && !isString(f[0])
           ? (f as Array<QueryFilter | QueryFilterArr>).map((o) =>
-              this.cond(o, cond, customOperators),
-            )
+            this.cond(o, cond, customOperators),
+          )
           : [this.cond(f as QueryFilter | QueryFilterArr, cond, customOperators)]),
       ];
     }

@@ -8,23 +8,43 @@
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "ES2022",
+    "target": "ES2017",
     "sourceMap": true,
     "allowJs": false,
     "skipLibCheck": false,
     "composite": true,
     "baseUrl": "./packages",
     "paths": {
-      "@ihelpee/crud": ["crud/src"],
-      "@ihelpee/crud-typeorm": ["crud-typeorm/src"],
-      "@ihelpee/crud-request": ["crud-request/src"],
-      "@ihelpee/crud-util": ["crud-util/src"],
-      "@ihelpee/crud-policy": ["crud-policy/src"],
-      "@ihelpee/crud/*": ["crud/src/*"],
-      "@ihelpee/crud-typeorm/*": ["crud-typeorm/src/*"],
-      "@ihelpee/crud-request/*": ["crud-request/src/*"],
-      "@ihelpee/crud-util/*": ["crud-util/src/*"],
-      "@ihelpee/crud-policy/*": ["crud-policy/src/*"]
+      "@ihelpee/crud": [
+        "crud/src"
+      ],
+      "@ihelpee/crud-typeorm": [
+        "crud-typeorm/src"
+      ],
+      "@ihelpee/crud-request": [
+        "crud-request/src"
+      ],
+      "@ihelpee/crud-util": [
+        "crud-util/src"
+      ],
+      "@ihelpee/crud-policy": [
+        "crud-policy/src"
+      ],
+      "@ihelpee/crud/*": [
+        "crud/src/*"
+      ],
+      "@ihelpee/crud-typeorm/*": [
+        "crud-typeorm/src/*"
+      ],
+      "@ihelpee/crud-request/*": [
+        "crud-request/src/*"
+      ],
+      "@ihelpee/crud-util/*": [
+        "crud-util/src/*"
+      ],
+      "@ihelpee/crud-policy/*": [
+        "crud-policy/src/*"
+      ]
     }
   }
 }

@@ -67,7 +67,9 @@ export abstract class CrudService<T, DTO = T> {
   decidePagination(parsed: ParsedRequestParams, options: CrudRequestOptions): boolean {
     return (
       options.query.alwaysPaginate ||
-      ((Number.isFinite(parsed.page) || Number.isFinite(parsed.offset)) &&
+      ((Number.isFinite(parsed.page) ||
+        Number.isFinite(parsed.offset) ||
+        !!parsed.cursor) &&
         /* istanbul ignore next */ !!this.getTake(parsed, options.query))
     );
   }
@@ -106,8 +108,8 @@ export abstract class CrudService<T, DTO = T> {
     return query.page && take
       ? take * (query.page - 1)
       : query.offset
-      ? query.offset
-      : null;
+        ? query.offset
+        : null;
   }
 
   /**

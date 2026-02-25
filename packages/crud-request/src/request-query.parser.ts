@@ -61,6 +61,7 @@ export class RequestQueryParser implements ParsedRequestParams {
   public page: number;
   public cache: number;
   public includeDeleted: number;
+  public cursor: string;
   public extra?: QueryExtra;
 
   private _params: any;
@@ -96,6 +97,7 @@ export class RequestQueryParser implements ParsedRequestParams {
       page: this.page,
       cache: this.cache,
       includeDeleted: this.includeDeleted,
+      cursor: this.cursor,
       extra: this.extra,
     };
   }
@@ -171,6 +173,7 @@ export class RequestQueryParser implements ParsedRequestParams {
           'includeDeleted',
           this.numericParser.bind(this, 'includeDeleted'),
         )[0];
+        this.cursor = this.parseQueryParam('cursor', (val: string) => val)[0];
 
         this.extra = this.parseExtraFromQueryParam();
       }
@@ -211,12 +214,12 @@ export class RequestQueryParser implements ParsedRequestParams {
 
     return filter
       ? {
-          [filter.field]: {
-            [filter.operator]: isEmptyValue[filter.operator]
-              ? isEmptyValue[filter.operator]
-              : filter.value,
-          },
-        }
+        [filter.field]: {
+          [filter.operator]: isEmptyValue[filter.operator]
+            ? isEmptyValue[filter.operator]
+            : filter.value,
+        },
+      }
       : /* istanbul ignore next */ {};
   }
 
