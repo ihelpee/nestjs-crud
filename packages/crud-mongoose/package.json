@@ -1,7 +1,7 @@
 {
   "name": "@ihelpee/crud-mongoose",
   "description": "NestJs CRUD for RESTful APIs - Mongoose",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "license": "GPL-3.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -46,7 +46,7 @@
     "mongoose": "^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
-    "@ihelpee/crud": "^2.2.3",
+    "@ihelpee/crud": "^2.3.0",
     "@nestjs/mongoose": "^10.0.0",
     "@nestjs/testing": "^11.1.14",
     "@types/jest": "^30.0.0",
