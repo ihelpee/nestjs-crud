@@ -97,6 +97,9 @@ jobs:
           git checkout master
           git pull origin master --rebase
 
+      - name: Build the project
+        run: yarn build
+
       - name: Publish to NPM
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
