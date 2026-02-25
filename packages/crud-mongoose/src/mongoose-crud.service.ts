@@ -1,12 +1,10 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
-import { Model, FilterQuery, Document, UpdateQuery } from 'mongoose';
+import { Injectable } from '@nestjs/common';
+import { Model, FilterQuery, UpdateQuery } from 'mongoose';
 import {
   CreateManyDto,
   CrudRequest,
-  CrudRequestOptions,
   CrudService,
   GetManyDefaultResponse,
-  QueryOptions,
 } from '@ihelpee/crud';
 import { ParsedRequestParams, QueryFilter } from '@ihelpee/crud-request';
 
@@ -32,14 +30,48 @@ export class MongooseCrudService<T> extends CrudService<T> {
     if (sort) {
       query.sort(sort);
     }
-    if (skip) {
-      query.skip(skip);
-    }
-    if (take) {
-      query.limit(take);
+
+    if (options.query && options.query.useCursor) {
+      if (parsed.cursor) {
+        const sortItem = parsed.sort && parsed.sort.length ? parsed.sort[0] : null;
+        const field = sortItem ? (sortItem.field === 'id' ? '_id' : sortItem.field) : '_id';
+        const order = sortItem ? sortItem.order : 'DESC';
+        const operator = order === 'DESC' ? '$lt' : '$gt';
+
+        query.where({ [field]: { [operator]: parsed.cursor } });
+      }
+
+      if (isFinite(take)) {
+        query.limit(take + 1);
+      }
+    } else {
+      if (skip) {
+        query.skip(skip);
+      }
+      if (take) {
+        query.limit(take);
+      }
     }
 
     if (this.decidePagination(parsed, options)) {
+      if (options.query && options.query.useCursor) {
+        const data = await query.exec();
+        const limit = take || 10;
+        const hasMore = data.length > limit;
+
+        if (hasMore) {
+          data.pop();
+        }
+
+        const nextCursor = hasMore ? (data[data.length - 1] as any).id || (data[data.length - 1] as any)._id : null;
+
+        return {
+          data: data as any,
+          count: data.length,
+          nextCursor,
+        } as any;
+      }
+
       const [data, total] = await Promise.all([
         query.exec(),
         this.model.countDocuments(filterQuery).exec(),

@@ -11,7 +11,7 @@ import {
 } from '@ihelpee/crud-util';
 
 import { RequestQueryException } from './exceptions';
-import { CustomOperators, ParamOption, ParamsOptions } from './interfaces';
+import { CustomOperators, ParamsOptions } from './interfaces';
 import {
   ComparisonOperator,
   CondOperator,

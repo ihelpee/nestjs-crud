@@ -159,14 +159,48 @@ export class MikroOrmCrudService<
       } as any;
     }
 
+    let limit = take || undefined;
+    if (options.query && options.query.useCursor) {
+      if (parsed.cursor) {
+        const sortItem = parsed.sort && parsed.sort.length ? parsed.sort[0] : null;
+        const field = sortItem ? sortItem.field : this.entityPrimaryColumns[0];
+        const order = sortItem ? sortItem.order : 'DESC';
+        const operator = order === 'DESC' ? '$lt' : '$gt';
+        filter = {
+          ...filter,
+          [field]: { [operator]: parsed.cursor },
+        } as any;
+      }
+      if (isFinite(take)) {
+        limit = take + 1;
+      }
+    }
+
     const [data, total] = await this.repository.findAndCount(filter, {
       ...queryOptions,
-      offset: skip || 0,
-      limit: take || undefined,
+      offset: (options.query && options.query.useCursor) ? undefined : (skip || 0),
+      limit: limit,
       orderBy: this.transformSort(parsed.sort) || undefined,
     });
 
     if (this.decidePagination(parsed, options)) {
+      if (options.query && options.query.useCursor) {
+        const itemLimit = take || 10;
+        const hasMore = data.length > itemLimit;
+
+        if (hasMore) {
+          data.pop();
+        }
+
+        const nextCursor = hasMore ? (data[data.length - 1] as any).id || (data[data.length - 1] as any)[this.entityPrimaryColumns[0]] : null;
+
+        return {
+          data,
+          count: data.length,
+          nextCursor,
+        } as any;
+      }
+
       return this.createPageInfo(data, total, take || total, skip || 0);
     }
 
@@ -514,10 +548,10 @@ export class MikroOrmCrudService<
     const found = await this.getOneOrFail(req, returnDeleted);
     const toReturn = returnDeleted
       ? plainToClass(
-          this.entity as ClassConstructor<T>,
-          { ...found },
-          req.parsed.classTransformOptions,
-        )
+        this.entity as ClassConstructor<T>,
+        { ...found },
+        req.parsed.classTransformOptions,
+      )
       : undefined;
 
     if (req.options.query.softDelete === true && this.entityHasDeletedColumn) {
@@ -574,14 +608,14 @@ export class MikroOrmCrudService<
       (!options.allow || !options.allow.length)
       ? columns
       : columns.filter(
-          (column) =>
-            (options.exclude && options.exclude.length
-              ? !options.exclude.some((col) => col === column)
-              : true) &&
-            (options.allow && options.allow.length
-              ? options.allow.some((col) => col === column)
-              : true),
-        );
+        (column) =>
+          (options.exclude && options.exclude.length
+            ? !options.exclude.some((col) => col === column)
+            : true) &&
+          (options.allow && options.allow.length
+            ? options.allow.some((col) => col === column)
+            : true),
+      );
   }
 
   protected prepareEntityBeforeSave(
