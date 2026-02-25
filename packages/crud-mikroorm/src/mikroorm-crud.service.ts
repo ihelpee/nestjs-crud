@@ -163,7 +163,7 @@ export class MikroOrmCrudService<
     if (options.query && options.query.useCursor) {
       if (parsed.cursor) {
         const sortItem = parsed.sort && parsed.sort.length ? parsed.sort[0] : null;
-        const field = sortItem ? sortItem.field : this.entityPrimaryColumns[0];
+        const field = typeof options.query.useCursor === 'string' ? options.query.useCursor : this.entityPrimaryColumns[0];
         const order = sortItem ? sortItem.order : 'DESC';
         const operator = order === 'DESC' ? '$lt' : '$gt';
         filter = {
@@ -192,7 +192,8 @@ export class MikroOrmCrudService<
           data.pop();
         }
 
-        const nextCursor = hasMore ? (data[data.length - 1] as any).id || (data[data.length - 1] as any)[this.entityPrimaryColumns[0]] : null;
+        const cursorField = typeof options.query.useCursor === 'string' ? options.query.useCursor : this.entityPrimaryColumns[0];
+        const nextCursor = hasMore ? (data[data.length - 1] as any)[cursorField] : null;
 
         return {
           data,

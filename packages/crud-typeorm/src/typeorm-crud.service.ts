@@ -375,7 +375,7 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
       if (options.query.useCursor) {
         if (parsed.cursor) {
           const sort = parsed.sort && parsed.sort.length ? parsed.sort[0] : null;
-          const field = sort ? sort.field : this.entityPrimaryColumns[0];
+          const field = typeof options.query.useCursor === 'string' ? options.query.useCursor : this.entityPrimaryColumns[0];
           const order = sort ? sort.order : 'DESC';
           const operator = order === 'DESC' ? '<' : '>';
 
@@ -430,7 +430,8 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
           data.pop();
         }
 
-        const nextCursor = hasMore ? (data[data.length - 1] as any).id : null;
+        const cursorField = typeof options.query.useCursor === 'string' ? options.query.useCursor : this.entityPrimaryColumns[0];
+        const nextCursor = hasMore ? (data[data.length - 1] as any)[cursorField] : null;
 
         return {
           data,

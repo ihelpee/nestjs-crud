@@ -17,7 +17,7 @@ export interface QueryOptions {
   cache?: number | false;
   alwaysPaginate?: boolean;
   softDelete?: boolean;
-  useCursor?: boolean;
+  useCursor?: boolean | string;
 }
 
 export interface JoinOptions {

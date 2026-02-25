@@ -34,7 +34,7 @@ export class MongooseCrudService<T> extends CrudService<T> {
     if (options.query && options.query.useCursor) {
       if (parsed.cursor) {
         const sortItem = parsed.sort && parsed.sort.length ? parsed.sort[0] : null;
-        const field = sortItem ? (sortItem.field === 'id' ? '_id' : sortItem.field) : '_id';
+        const field = typeof options.query.useCursor === 'string' ? options.query.useCursor : '_id';
         const order = sortItem ? sortItem.order : 'DESC';
         const operator = order === 'DESC' ? '$lt' : '$gt';
 
@@ -63,7 +63,8 @@ export class MongooseCrudService<T> extends CrudService<T> {
           data.pop();
         }
 
-        const nextCursor = hasMore ? (data[data.length - 1] as any).id || (data[data.length - 1] as any)._id : null;
+        const cursorField = typeof options.query.useCursor === 'string' ? options.query.useCursor : '_id';
+        const nextCursor = hasMore ? (data[data.length - 1] as any)[cursorField] || (data[data.length - 1] as any).id : null;
 
         return {
           data: data as any,
