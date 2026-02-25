@@ -48,22 +48,17 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Clear npmrc
-        run: |
-          rm -f .npmrc ~/.npmrc
-          npm config delete //registry.npmjs.org/:_authToken
-          yarn config delete registry
-
       - name: Install dependencies
-        run: yarn install --registry https://registry.npmjs.org
-        env:
-          NODE_AUTH_TOKEN: ""
+        run: |
+          echo "registry=https://registry.npmjs.org/" > .npmrc
+          echo "always-auth=false" >> .npmrc
+          npm install
 
       - name: Build the project
-        run: yarn build
+        run: npm run build
 
       - name: Test all
-        run: yarn test:coverage
+        run: npm run test:coverage
 
   release:
     name: Release
@@ -86,7 +81,10 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        run: yarn
+        run: |
+          echo "registry=https://registry.npmjs.org/" > .npmrc
+          echo "always-auth=false" >> .npmrc
+          npm install
 
       - name: Git identity
         run: |
