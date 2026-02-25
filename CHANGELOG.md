@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.3](https://github.com/ihelpee/nestjs-crud/compare/v2.2.2...v2.2.3) (2026-02-25)
+
+### Bug Fixes
+
+- add build step before publishing to NPM. ([dd66b1b](https://github.com/ihelpee/nestjs-crud/commit/dd66b1b146fc9e42dbe1c24518494455670763c0))
+
 ## [2.2.2](https://github.com/ihelpee/nestjs-crud/compare/v2.2.1...v2.2.2) (2026-02-25)
 
 ### Bug Fixes
