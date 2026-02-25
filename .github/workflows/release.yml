@@ -48,8 +48,16 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Clear npmrc
+        run: |
+          rm -f .npmrc ~/.npmrc
+          npm config delete //registry.npmjs.org/:_authToken
+          yarn config delete registry
+
       - name: Install dependencies
-        run: yarn
+        run: yarn install --registry https://registry.npmjs.org
+        env:
+          NODE_AUTH_TOKEN: ""
 
       - name: Build the project
         run: yarn build
