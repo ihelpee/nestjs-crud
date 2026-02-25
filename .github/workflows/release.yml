@@ -52,13 +52,13 @@ jobs:
         run: |
           echo "registry=https://registry.npmjs.org/" > .npmrc
           echo "always-auth=false" >> .npmrc
-          npm install
+          yarn install --frozen-lockfile
 
       - name: Build the project
-        run: npm run build
+        run: yarn build
 
       - name: Test all
-        run: npm run test:coverage
+        run: yarn test:coverage
 
   release:
     name: Release
@@ -84,7 +84,7 @@ jobs:
         run: |
           echo "registry=https://registry.npmjs.org/" > .npmrc
           echo "always-auth=false" >> .npmrc
-          npm install
+          yarn install --frozen-lockfile
 
       - name: Git identity
         run: |
