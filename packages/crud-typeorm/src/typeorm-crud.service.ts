@@ -233,11 +233,11 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
     const toSave = !allowParamsOverride
       ? { ...(found || {}), ...dto, ...paramsFilters, ...req.parsed.authPersist }
       : {
-        ...(found || /* istanbul ignore next */ {}),
-        ...paramsFilters,
-        ...dto,
-        ...req.parsed.authPersist,
-      };
+          ...(found || /* istanbul ignore next */ {}),
+          ...paramsFilters,
+          ...dto,
+          ...req.parsed.authPersist,
+        };
     const replaced = await this.repo.save(
       plainToInstance(
         this.entityType,
@@ -358,26 +358,33 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
 
     /* istanbul ignore else */
     if (many) {
-      // set sort (order by)
-      const sort = this.getSort(parsed, options.query);
-      builder.orderBy(sort);
-
       // set take
       const take = this.getTake(parsed, options.query);
-      /* istanbul ignore else */
-      if (isFinite(take)) {
-        builder.take(take);
-      }
-
-      // set skip
-      const skip = this.getSkip(parsed, take);
 
       if (options.query.useCursor) {
+        let sort = this.getSort(parsed, options.query);
+        const field =
+          typeof options.query.useCursor === 'string'
+            ? options.query.useCursor
+            : this.entityPrimaryColumns[0];
+
+        let order = sort[`${builder.alias}.${field}`];
+        if (!order) {
+          const fallbackSort =
+            parsed.sort && parsed.sort.length
+              ? parsed.sort[0].order
+              : options.query.sort && options.query.sort.length
+              ? options.query.sort[0].order
+              : 'DESC';
+          order = fallbackSort;
+        }
+
+        // Force ordering strictly by the cursor field to prevent broken offsets
+        sort = { [`${builder.alias}.${field}`]: order };
+        builder.orderBy(sort);
+
         if (parsed.cursor) {
-          const sort = parsed.sort && parsed.sort.length ? parsed.sort[0] : null;
-          const field = typeof options.query.useCursor === 'string' ? options.query.useCursor : this.entityPrimaryColumns[0];
-          const order = sort ? sort.order : 'DESC';
-          const operator = order === 'DESC' ? '<' : '>';
+          const operator = order === 'ASC' ? '>' : '<';
 
           builder.andWhere(`${builder.alias}.${field} ${operator} :cursor`, {
             cursor: parsed.cursor,
@@ -389,6 +396,17 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
           builder.take(take + 1);
         }
       } else {
+        const sort = this.getSort(parsed, options.query);
+        builder.orderBy(sort);
+
+        // set skip
+        const skip = this.getSkip(parsed, take);
+
+        /* istanbul ignore else */
+        if (isFinite(take)) {
+          builder.take(take);
+        }
+
         /* istanbul ignore else */
         if (isFinite(skip)) {
           builder.skip(skip);
@@ -430,7 +448,10 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
           data.pop();
         }
 
-        const cursorField = typeof options.query.useCursor === 'string' ? options.query.useCursor : this.entityPrimaryColumns[0];
+        const cursorField =
+          typeof options.query.useCursor === 'string'
+            ? options.query.useCursor
+            : this.entityPrimaryColumns[0];
         const nextCursor = hasMore ? (data[data.length - 1] as any)[cursorField] : null;
 
         return {
@@ -515,10 +536,10 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
     return dto instanceof this.entityType
       ? Object.assign(dto, parsed.authPersist)
       : plainToInstance(
-        this.entityType,
-        { ...dto, ...parsed.authPersist },
-        parsed.classTransformOptions,
-      );
+          this.entityType,
+          { ...dto, ...parsed.authPersist },
+          parsed.classTransformOptions,
+        );
   }
 
   protected getAllowedColumns(columns: string[], options: QueryOptions): string[] {
@@ -526,14 +547,14 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
       (!options.allow || /* istanbul ignore next */ !options.allow.length)
       ? columns
       : columns.filter(
-        (column) =>
-          (options.exclude && options.exclude.length
-            ? !options.exclude.some((col) => col === column)
-            : /* istanbul ignore next */ true) &&
-          (options.allow && options.allow.length
-            ? options.allow.some((col) => col === column)
-            : /* istanbul ignore next */ true),
-      );
+          (column) =>
+            (options.exclude && options.exclude.length
+              ? !options.exclude.some((col) => col === column)
+              : /* istanbul ignore next */ true) &&
+            (options.allow && options.allow.length
+              ? options.allow.some((col) => col === column)
+              : /* istanbul ignore next */ true),
+        );
   }
 
   protected getEntityColumns(entityMetadata: EntityMetadata): {
@@ -542,10 +563,10 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
   } {
     const columns =
       entityMetadata.columns.map((prop) => prop.propertyPath) ||
-      /* istanbul ignore next */[];
+      /* istanbul ignore next */ [];
     const primaryColumns =
       entityMetadata.primaryColumns.map((prop) => prop.propertyPath) ||
-      /* istanbul ignore next */[];
+      /* istanbul ignore next */ [];
 
     return { columns, primaryColumns };
   }
@@ -678,10 +699,10 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
     if (!options) {
       console.warn(
         'relation "' +
-        cond.field +
-        '" not found in allowed relations in the controller. Did you mean to use one of these? [' +
-        Object.keys(joinOptions).join(', ') +
-        ']',
+          cond.field +
+          '" not found in allowed relations in the controller. Did you mean to use one of these? [' +
+          Object.keys(joinOptions).join(', ') +
+          ']',
       );
       return true;
     }
@@ -708,8 +729,8 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
     if (options.select !== false) {
       const columns = isArrayFull(cond.select)
         ? cond.select.filter((column) =>
-          allowedRelation.allowedColumns.some((allowed) => allowed === column),
-        )
+            allowedRelation.allowedColumns.some((allowed) => allowed === column),
+          )
         : allowedRelation.allowedColumns;
 
       const select = [
@@ -1067,8 +1088,8 @@ export class TypeOrmCrudService<T> extends CrudService<T, DeepPartial<T>> {
     return query.sort && query.sort.length
       ? this.mapSort(query.sort)
       : options.sort && options.sort.length
-        ? this.mapSort(options.sort)
-        : {};
+      ? this.mapSort(options.sort)
+      : {};
   }
 
   protected getFieldWithAlias(field: string, sort: boolean = false) {

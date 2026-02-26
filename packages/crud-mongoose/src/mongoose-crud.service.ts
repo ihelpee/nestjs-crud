@@ -18,25 +18,41 @@ export class MongooseCrudService<T> extends CrudService<T> {
     const { parsed, options } = req;
     const filterQuery = this.buildFilterQuery(parsed);
     const take = this.getTake(parsed, options.query);
-    const skip = this.getSkip(parsed, take);
-    const sort = this.buildSort(parsed);
+    let sort = this.buildSort(parsed);
     const select = this.buildSelect(parsed);
+    const useCursor = options.query && options.query.useCursor;
+    const skip = useCursor ? undefined : this.getSkip(parsed, take);
 
     const query = this.model.find(filterQuery);
 
     if (select) {
       query.select(select);
     }
-    if (sort) {
-      query.sort(sort);
-    }
-
     if (options.query && options.query.useCursor) {
       if (parsed.cursor) {
-        const sortItem = parsed.sort && parsed.sort.length ? parsed.sort[0] : null;
-        const field = typeof options.query.useCursor === 'string' ? options.query.useCursor : '_id';
-        const order = sortItem ? sortItem.order : 'DESC';
-        const operator = order === 'DESC' ? '$lt' : '$gt';
+        const field =
+          typeof options.query.useCursor === 'string' ? options.query.useCursor : '_id';
+
+        let sortOrder = sort && sort[field];
+        if (!sortOrder) {
+          const fallbackSort =
+            parsed.sort && parsed.sort.length
+              ? parsed.sort[0].order === 'ASC'
+                ? 1
+                : -1
+              : options.query.sort && options.query.sort.length
+              ? options.query.sort[0].order === 'ASC'
+                ? 1
+                : -1
+              : -1;
+          sortOrder = fallbackSort;
+        }
+
+        // Force ordering strictly by the cursor field
+        sort = { [field]: sortOrder };
+        query.sort(sort);
+
+        const operator = sortOrder === 1 ? '$gt' : '$lt';
 
         query.where({ [field]: { [operator]: parsed.cursor } });
       }
@@ -45,6 +61,9 @@ export class MongooseCrudService<T> extends CrudService<T> {
         query.limit(take + 1);
       }
     } else {
+      if (sort) {
+        query.sort(sort);
+      }
       if (skip) {
         query.skip(skip);
       }
@@ -63,8 +82,12 @@ export class MongooseCrudService<T> extends CrudService<T> {
           data.pop();
         }
 
-        const cursorField = typeof options.query.useCursor === 'string' ? options.query.useCursor : '_id';
-        const nextCursor = hasMore ? (data[data.length - 1] as any)[cursorField] || (data[data.length - 1] as any).id : null;
+        const cursorField =
+          typeof options.query.useCursor === 'string' ? options.query.useCursor : '_id';
+        const nextCursor = hasMore
+          ? (data[data.length - 1] as any)[cursorField] ||
+            (data[data.length - 1] as any).id
+          : null;
 
         return {
           data: data as any,

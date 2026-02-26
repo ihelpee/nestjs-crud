@@ -128,7 +128,8 @@ export class MikroOrmCrudService<
 
     const { parsed, options } = req;
     const take = this.getTake(parsed, options.query);
-    const skip = this.getSkip(parsed, take || 0);
+    const useCursor = options.query && options.query.useCursor;
+    const skip = useCursor ? undefined : this.getSkip(parsed, take || 0);
     let filter = this.transformParsedToMikro(parsed);
     this.validateFilterFields(filter);
     let queryOptions = this.transformOptionsToMikro(options);
@@ -159,13 +160,33 @@ export class MikroOrmCrudService<
       } as any;
     }
 
+    let orderBy = parsed.sort ? this.transformSort(parsed.sort) : undefined;
     let limit = take || undefined;
+
     if (options.query && options.query.useCursor) {
       if (parsed.cursor) {
-        const sortItem = parsed.sort && parsed.sort.length ? parsed.sort[0] : null;
-        const field = typeof options.query.useCursor === 'string' ? options.query.useCursor : this.entityPrimaryColumns[0];
-        const order = sortItem ? sortItem.order : 'DESC';
-        const operator = order === 'DESC' ? '$lt' : '$gt';
+        const field =
+          typeof options.query.useCursor === 'string'
+            ? options.query.useCursor
+            : this.entityPrimaryColumns[0];
+
+        // Find the requested sorting direction for the cursor field
+        let order = orderBy && orderBy[field];
+        if (!order) {
+          const fallbackSort =
+            parsed.sort && parsed.sort.length
+              ? parsed.sort[0].order
+              : options.query.sort && options.query.sort.length
+              ? options.query.sort[0].order
+              : 'DESC';
+          order = fallbackSort;
+        }
+
+        // Force ordering strictly by the cursor field
+        orderBy = { [field]: order } as any;
+
+        const operator = order === 'ASC' ? '$gt' : '$lt';
+
         filter = {
           ...filter,
           [field]: { [operator]: parsed.cursor },
@@ -178,9 +199,9 @@ export class MikroOrmCrudService<
 
     const [data, total] = await this.repository.findAndCount(filter, {
       ...queryOptions,
-      offset: (options.query && options.query.useCursor) ? undefined : (skip || 0),
+      offset: options.query && options.query.useCursor ? undefined : skip || 0,
       limit: limit,
-      orderBy: this.transformSort(parsed.sort) || undefined,
+      orderBy: orderBy,
     });
 
     if (this.decidePagination(parsed, options)) {
@@ -192,7 +213,10 @@ export class MikroOrmCrudService<
           data.pop();
         }
 
-        const cursorField = typeof options.query.useCursor === 'string' ? options.query.useCursor : this.entityPrimaryColumns[0];
+        const cursorField =
+          typeof options.query.useCursor === 'string'
+            ? options.query.useCursor
+            : this.entityPrimaryColumns[0];
         const nextCursor = hasMore ? (data[data.length - 1] as any)[cursorField] : null;
 
         return {
@@ -549,10 +573,10 @@ export class MikroOrmCrudService<
     const found = await this.getOneOrFail(req, returnDeleted);
     const toReturn = returnDeleted
       ? plainToClass(
-        this.entity as ClassConstructor<T>,
-        { ...found },
-        req.parsed.classTransformOptions,
-      )
+          this.entity as ClassConstructor<T>,
+          { ...found },
+          req.parsed.classTransformOptions,
+        )
       : undefined;
 
     if (req.options.query.softDelete === true && this.entityHasDeletedColumn) {
@@ -609,14 +633,14 @@ export class MikroOrmCrudService<
       (!options.allow || !options.allow.length)
       ? columns
       : columns.filter(
-        (column) =>
-          (options.exclude && options.exclude.length
-            ? !options.exclude.some((col) => col === column)
-            : true) &&
-          (options.allow && options.allow.length
-            ? options.allow.some((col) => col === column)
-            : true),
-      );
+          (column) =>
+            (options.exclude && options.exclude.length
+              ? !options.exclude.some((col) => col === column)
+              : true) &&
+            (options.allow && options.allow.length
+              ? options.allow.some((col) => col === column)
+              : true),
+        );
   }
 
   protected prepareEntityBeforeSave(
