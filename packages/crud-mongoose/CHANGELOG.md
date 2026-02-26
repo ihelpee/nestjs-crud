@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/ihelpee/nestjs-crud/compare/v2.4.0...v2.5.0) (2026-02-26)
+
+### Features
+
+- improve cursor pagination logic in MikroORM and Mongoose services and add new tests. ([931d3b8](https://github.com/ihelpee/nestjs-crud/commit/931d3b84157817e7cfbcbdfa68c7b2b35ebc239b))
+
 # [2.4.0](https://github.com/ihelpee/nestjs-crud/compare/v2.3.0...v2.4.0) (2026-02-25)
 
 ### Features
