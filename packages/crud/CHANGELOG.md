@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.1](https://github.com/ihelpee/nestjs-crud/compare/v2.5.0...v2.5.1) (2026-04-14)
+
+### Bug Fixes
+
+- fixed serialize dto to plain response ([b8dcefa](https://github.com/ihelpee/nestjs-crud/commit/b8dcefa92dc94c97e0f1d5ae1aa4c461d57da451))
+
 # [2.5.0](https://github.com/ihelpee/nestjs-crud/compare/v2.4.0...v2.5.0) (2026-02-26)
 
 **Note:** Version bump only for package @ihelpee/crud
