@@ -9,6 +9,8 @@ import {
   classToPlain,
   classToPlainFromExist,
   ClassTransformOptions,
+  instanceToPlain,
+  plainToInstance,
 } from 'class-transformer';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -44,12 +46,12 @@ export class CrudResponseInterceptor
     }
 
     if (!isFunction(dto)) {
-      return data.constructor !== Object ? classToPlain(data, options) : data;
+      return data.constructor !== Object ? instanceToPlain(data, options) : data;
     }
 
     return data instanceof dto
-      ? classToPlain(data, options)
-      : classToPlain(classToPlainFromExist(data, new dto()), options);
+      ? instanceToPlain(data, options)
+      : instanceToPlain(plainToInstance(dto, data, options), options);
   }
 
   protected serialize(context: ExecutionContext, data: any): any {
